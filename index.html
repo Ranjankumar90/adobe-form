@@ -1,1112 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>SETIP 2026 — Apply Now</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0
-    }
-
-    html {
-      scroll-behavior: smooth
-    }
-
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: #f1f5f9;
-      color: #1e293b
-    }
-
-    /* HERO */
-    .hero {
-      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 45%, #0f172a 100%);
-      position: relative;
-      overflow: hidden;
-      padding: 0 16px
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -100px;
-      right: -100px;
-      width: 480px;
-      height: 480px;
-      background: radial-gradient(circle, rgba(99, 102, 241, 0.2)0%, transparent 70%);
-      pointer-events: none
-    }
-
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: -80px;
-      left: -60px;
-      width: 360px;
-      height: 360px;
-      background: radial-gradient(circle, rgba(16, 185, 129, 0.1)0%, transparent 70%);
-      pointer-events: none
-    }
-
-    .hero-inner {
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 40px 0 32px;
-      position: relative;
-      z-index: 1
-    }
-
-    .badges {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 16px
-    }
-
-    .badge {
-      font-size: 11px;
-      font-weight: 600;
-      padding: 5px 12px;
-      border-radius: 20px
-    }
-
-    .b1 {
-      background: rgba(99, 102, 241, 0.25);
-      color: #a5b4fc;
-      border: 1px solid rgba(99, 102, 241, 0.4)
-    }
-
-    .b2 {
-      background: rgba(16, 185, 129, 0.2);
-      color: #6ee7b7;
-      border: 1px solid rgba(16, 185, 129, 0.35)
-    }
-
-    .b3 {
-      background: rgba(245, 158, 11, 0.2);
-      color: #fcd34d;
-      border: 1px solid rgba(245, 158, 11, 0.35)
-    }
-
-    .hero-by {
-      font-size: 11px;
-      font-weight: 700;
-      color: #6366f1;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 12px
-    }
-
-    .hero-title {
-      font-size: 27px;
-      font-weight: 800;
-      color: #f1f5f9;
-      line-height: 1.25;
-      margin-bottom: 10px
-    }
-
-    .hl {
-      color: #818cf8
-    }
-
-    .hero-sub {
-      font-size: 13px;
-      color: #94a3b8;
-      line-height: 1.8;
-      margin-bottom: 24px;
-      max-width: 600px
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin-bottom: 28px
-    }
-
-    .stat {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.09);
-      border-radius: 12px;
-      padding: 14px 8px;
-      text-align: center;
-      transition: all .2s
-    }
-
-    .stat:hover {
-      background: rgba(99, 102, 241, 0.15);
-      transform: translateY(-2px)
-    }
-
-    .stat-n {
-      font-size: 22px;
-      font-weight: 800;
-      color: #f1f5f9
-    }
-
-    .stat-l {
-      font-size: 10px;
-      color: #94a3b8;
-      margin-top: 3px;
-      line-height: 1.3
-    }
-
-    .cta-row {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap
-    }
-
-    .cta-btn {
-      background: #6366f1;
-      color: #fff;
-      font-size: 14px;
-      font-weight: 700;
-      padding: 14px 30px;
-      border-radius: 10px;
-      border: none;
-      cursor: pointer;
-      font-family: inherit;
-      transition: all .2s
-    }
-
-    .cta-btn:hover {
-      background: #4f46e5;
-      transform: translateY(-2px)
-    }
-
-    .cta-note {
-      font-size: 11px;
-      color: #64748b
-    }
-
-    /* TIMELINE */
-    .tl {
-      background: #1e293b;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06)
-    }
-
-    .tl-inner {
-      max-width: 700px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr)
-    }
-
-    .tl-item {
-      padding: 14px 12px;
-      text-align: center;
-      position: relative
-    }
-
-    .tl-item:not(:last-child)::after {
-      content: '';
-      position: absolute;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      height: 28px;
-      width: 1px;
-      background: rgba(255, 255, 255, 0.07)
-    }
-
-    .tl-n {
-      font-size: 10px;
-      font-weight: 700;
-      color: #6366f1;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 2px
-    }
-
-    .tl-t {
-      font-size: 12px;
-      font-weight: 600;
-      color: #f1f5f9
-    }
-
-    .tl-d {
-      font-size: 10px;
-      color: #64748b;
-      margin-top: 2px
-    }
-
-    /* CONTENT */
-    .page {
-      background: #f1f5f9;
-      padding: 22px 16px 48px
-    }
-
-    .inner {
-      max-width: 700px;
-      margin: 0 auto
-    }
-
-    .urgency {
-      background: #fffbeb;
-      border: 1.5px solid #fbbf24;
-      border-radius: 10px;
-      padding: 11px 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 18px
-    }
-
-    .udot {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: #f59e0b;
-      flex-shrink: 0;
-      animation: pulse 1.4s ease-in-out infinite
-    }
-
-    @keyframes pulse {
-
-      0%,
-      100% {
-        opacity: 1;
-        transform: scale(1)
-      }
-
-      50% {
-        opacity: .4;
-        transform: scale(.85)
-      }
-    }
-
-    .utxt {
-      font-size: 12px;
-      color: #92400e;
-      font-weight: 600;
-      line-height: 1.4
-    }
-
-    /* WHAT YOU GET */
-    .val-box {
-      background: linear-gradient(135deg, #eef2ff, #f5f3ff);
-      border: 1.5px solid #c7d2fe;
-      border-radius: 14px;
-      padding: 20px;
-      margin-bottom: 18px
-    }
-
-    .val-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: #3730a3;
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px
-    }
-
-    .val-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px
-    }
-
-    .vitem {
-      background: #fff;
-      border-radius: 10px;
-      padding: 12px;
-      border: 1px solid #e0e7ff;
-      transition: transform .2s
-    }
-
-    .vitem:hover {
-      transform: translateY(-2px)
-    }
-
-    .v-ic {
-      font-size: 20px;
-      margin-bottom: 5px
-    }
-
-    .v-t {
-      font-size: 11px;
-      font-weight: 700;
-      color: #3730a3;
-      line-height: 1.3
-    }
-
-    .v-s {
-      font-size: 10px;
-      color: #6366f1;
-      margin-top: 2px;
-      line-height: 1.4
-    }
-
-    .val-note {
-      font-size: 12px;
-      color: #4338ca;
-      margin-top: 14px;
-      text-align: center;
-      line-height: 1.6;
-      font-style: italic
-    }
-
-    /* INFO ROW */
-    .info-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 18px
-    }
-
-    .icard {
-      background: #fff;
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 14px 16px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04)
-    }
-
-    .ic-t {
-      font-size: 10px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-      margin-bottom: 6px
-    }
-
-    .ic-green .ic-t {
-      color: #15803d
-    }
-
-    .ic-blue .ic-t {
-      color: #1d4ed8
-    }
-
-    .ic-body {
-      font-size: 12px;
-      line-height: 1.7
-    }
-
-    .ic-green .ic-body {
-      color: #166534
-    }
-
-    .ic-blue .ic-body {
-      color: #1e40af
-    }
-
-    /* CARD */
-    .card {
-      background: #fff;
-      border: 1px solid #e2e8f0;
-      border-radius: 14px;
-      padding: 22px;
-      margin-bottom: 14px;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04)
-    }
-
-    .clabel {
-      font-size: 10px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: #6366f1;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px
-    }
-
-    .clabel::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: #eef2ff
-    }
-
-    /* FORM */
-    .fg {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px
-    }
-
-    .fl {
-      display: flex;
-      flex-direction: column;
-      gap: 5px
-    }
-
-    .fl label {
-      font-size: 11px;
-      font-weight: 700;
-      color: #374151
-    }
-
-    .req {
-      color: #ef4444;
-      margin-left: 2px
-    }
-
-    .fl input,
-    .fl select {
-      background: #f8fafc;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 9px;
-      padding: 10px 12px;
-      font-size: 13px;
-      color: #1e293b;
-      font-family: inherit;
-      outline: none;
-      transition: border-color .15s, box-shadow .15s;
-      width: 100%
-    }
-
-    .fl input:focus,
-    .fl select:focus {
-      border-color: #6366f1;
-      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-      background: #fff
-    }
-
-    .fl input::placeholder {
-      color: #94a3b8
-    }
-
-    .other-box {
-      display: none;
-      margin-top: 8px
-    }
-
-    .other-box.show {
-      display: block
-    }
-
-    /* TILES */
-    .dtiles {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 7px;
-      margin-top: 8px
-    }
-
-    .tile {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      padding: 9px 11px;
-      background: #f8fafc;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 9px;
-      cursor: pointer;
-      font-size: 12px;
-      color: #374151;
-      font-weight: 500;
-      transition: all .15s;
-      user-select: none
-    }
-
-    .tile:hover {
-      border-color: #6366f1;
-      background: #eef2ff;
-      color: #4338ca
-    }
-
-    .tile:has(input:checked) {
-      border-color: #6366f1;
-      background: #eef2ff;
-      color: #4338ca
-    }
-
-    .tile input {
-      accent-color: #6366f1;
-      width: 15px;
-      height: 15px;
-      flex-shrink: 0
-    }
-
-    /* SUBMIT */
-    .ack {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 13px 15px;
-      background: #f8fafc;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 10px;
-      cursor: pointer;
-      margin-bottom: 14px;
-      transition: border-color .15s
-    }
-
-    .ack:hover {
-      border-color: #6366f1
-    }
-
-    .ack input {
-      accent-color: #6366f1;
-      width: 16px;
-      height: 16px;
-      flex-shrink: 0;
-      margin-top: 2px
-    }
-
-    .ack span {
-      font-size: 12px;
-      color: #374151;
-      line-height: 1.6
-    }
-
-    .sub-btn {
-      width: 100%;
-      padding: 15px;
-      background: linear-gradient(135deg, #6366f1, #4f46e5);
-      color: #fff;
-      border: none;
-      border-radius: 11px;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      font-family: inherit;
-      transition: all .2s;
-      letter-spacing: 0.3px
-    }
-
-    .sub-btn:hover:not(:disabled) {
-      opacity: .92;
-      transform: translateY(-1px)
-    }
-
-    .sub-btn:disabled {
-      opacity: .6;
-      cursor: not-allowed;
-      transform: none
-    }
-
-    .disc {
-      font-size: 10px;
-      color: #94a3b8;
-      text-align: center;
-      margin-top: 10px;
-      line-height: 1.7
-    }
-
-    .err {
-      display: none;
-      background: #fef2f2;
-      border: 1.5px solid #fca5a5;
-      border-radius: 9px;
-      padding: 10px 14px;
-      font-size: 12px;
-      color: #b91c1c;
-      margin-top: 10px;
-      line-height: 1.5
-    }
-
-    .err.show {
-      display: block
-    }
-
-    /* SUCCESS */
-    .success {
-      display: none;
-      background: #fff;
-      border-radius: 14px;
-      border: 1px solid #e2e8f0;
-      padding: 44px 24px;
-      text-align: center;
-      margin-bottom: 14px;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04)
-    }
-
-    .success.show {
-      display: block
-    }
-
-    .s-ic {
-      font-size: 56px;
-      margin-bottom: 14px
-    }
-
-    .s-t {
-      font-size: 21px;
-      font-weight: 800;
-      color: #15803d;
-      margin-bottom: 8px
-    }
-
-    .s-s {
-      font-size: 13px;
-      color: #475569;
-      line-height: 1.9;
-      margin-bottom: 18px
-    }
-
-    .s-box {
-      background: #f0fdf4;
-      border: 1px solid #86efac;
-      border-radius: 10px;
-      padding: 14px 18px;
-      font-size: 12px;
-      color: #166534;
-      line-height: 1.9;
-      text-align: left
-    }
-
-    /* WhatsApp button styling */
-    .whatsapp-link {
-      display: inline-block;
-      margin-top: 12px;
-      padding: 10px 20px;
-      background: #25D366;
-      color: #fff;
-      border-radius: 8px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: transform .2s;
-    }
-
-    .whatsapp-link:hover {
-      transform: scale(1.05);
-    }
-
-    /* FOOTER */
-    .footer {
-      background: #0f172a;
-      padding: 22px 16px;
-      text-align: center
-    }
-
-    .footer p {
-      font-size: 11px;
-      color: #475569;
-      line-height: 1.9
-    }
-
-    .footer a {
-      color: #6366f1;
-      text-decoration: none
-    }
-
-    @media(max-width:520px) {
-      .hero-title {
-        font-size: 21px
-      }
-
-      .stats {
-        grid-template-columns: repeat(2, 1fr)
-      }
-
-      .val-grid {
-        grid-template-columns: repeat(2, 1fr)
-      }
-
-      .fg {
-        grid-template-columns: 1fr
-      }
-
-      .dtiles {
-        grid-template-columns: 1fr
-      }
-
-      .info-row {
-        grid-template-columns: 1fr
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Site Maintenance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --text: #14151a;
+    --text-muted: #6b6e76;
+    --border: #e6e7ea;
+    --status-bg: #fef6e7;
+    --status-dot: #c2790a;
+    --status-text: #8a5a07;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body { height: 100%; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+    padding: 28px 40px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .mark {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: var(--text);
+  }
+
+  main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px;
+  }
+
+  .content {
+    max-width: 480px;
+    width: 100%;
+  }
+
+  h1 {
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    margin-bottom: 12px;
+  }
+
+  p.sub {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text-muted);
+    margin-bottom: 28px;
+  }
+
+  .status-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 18px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 24px;
+  }
+
+  .status-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--status-dot);
+    flex-shrink: 0;
+  }
+
+  .status-label {
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .status-pill {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--status-text);
+    background: var(--status-bg);
+    padding: 4px 10px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+
+  .eta {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .eta strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  @media (max-width: 520px) {
+    header { padding: 20px; }
+    main { padding: 32px 20px; }
+    h1 { font-size: 24px; }
+  }
+</style>
 </head>
-
 <body>
 
-  <!-- HERO -->
-  <div class="hero">
-    <div class="hero-inner">
-      <div class="badges">
-        <span class="badge b1">Co-Certified</span>
-        <span class="badge b2">Placement Assured</span>
-        <span class="badge b3">2026 Cohort — Limited Seats</span>
-      </div>
-      <div class="hero-by">Skill Enhancement Training presents</div>
-      <h1 class="hero-title">
-        Skill Enhancement Training &amp; <span class="hl">Internship Program (SETIP)</span>
-      </h1>
-      <p class="hero-sub">A 3-month structured program to bridge academics and the workplace — live projects, industry
-        mentors, certified credentials, and placement support at top MNCs.</p>
-      <div class="stats">
-        <div class="stat">
-          <div class="stat-n">3</div>
-          <div class="stat-l">Month Program</div>
-        </div>
-        <div class="stat">
-          <div class="stat-n">50+</div>
-          <div class="stat-l">MNC Partners</div>
-        </div>
-        <div class="stat">
-          <div class="stat-n">3</div>
-          <div class="stat-l">Certificates</div>
-        </div>
-        <div class="stat">
-          <div class="stat-n">20+</div>
-          <div class="stat-l">Domains</div>
-        </div>
-      </div>
-      <div class="cta-row">
-        <button class="cta-btn" onclick="document.getElementById('apply').scrollIntoView({behavior:'smooth'})">Apply Now
-          — Secure Your Seat ↓</button>
-        <span class="cta-note">Free to apply &nbsp;·&nbsp; Takes 2 minutes</span>
-      </div>
-    </div>
-  </div>
+  <header>
+    <div class="mark"></div>
+  </header>
 
-  <!-- TIMELINE -->
-  <div class="tl">
-    <div class="tl-inner">
-      <div class="tl-item">
-        <div class="tl-n">Month 1</div>
-        <div class="tl-t">Skill Training</div>
-        <div class="tl-d">Technical &amp; industry tools</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-n">Month 2</div>
-        <div class="tl-t">Live Internship</div>
-        <div class="tl-d">Real projects with MNC teams</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-n">Month 3</div>
-        <div class="tl-t">Placement Support</div>
-        <div class="tl-d">Resume, interviews &amp; jobs</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PAGE BODY -->
-  <div class="page">
-    <div class="inner">
-
-      <div class="urgency">
-        <div class="udot"></div>
-        <div class="utxt">Seats filling fast — limited spots available for 2026. Apply below to reserve yours.</div>
-      </div>
-
-      <!-- WHAT YOU GET -->
-      <div class="val-box">
-        <div class="val-title">🎯 Everything included in your program</div>
-        <div class="val-grid">
-          <div class="vitem">
-            <div class="v-ic">🎓</div>
-            <div class="v-t">Co-Logo Certificate</div>
-            <div class="v-s">Global branding on your credential</div>
-          </div>
-          <div class="vitem">
-            <div class="v-ic">📋</div>
-            <div class="v-t">Completion Certificate</div>
-            <div class="v-s">Recognised by 50+ MNC hiring partners</div>
-          </div>
-          <div class="vitem">
-            <div class="v-ic">✉️</div>
-            <div class="v-t">Letter of Recommendation</div>
-            <div class="v-s">Performance-based LoR from industry experts</div>
-          </div>
-          <div class="vitem">
-            <div class="v-ic">🧑‍💼</div>
-            <div class="v-t">Dedicated Industry Mentor</div>
-            <div class="v-s">1-on-1 guidance throughout the program</div>
-          </div>
-          <div class="vitem">
-            <div class="v-ic">💼</div>
-            <div class="v-t">MNC Placement Assistance</div>
-            <div class="v-s">Resume reviews, mock interviews &amp; referrals</div>
-          </div>
-          <div class="vitem">
-            <div class="v-ic">🛠️</div>
-            <div class="v-t">Industry Tools Access</div>
-            <div class="v-s">Hands-on training with real workplace tools</div>
-          </div>
-        </div>
-        <div class="val-note">A small program fee covers your full 3-month access — <strong>invest once, benefit for
-            life.</strong></div>
-      </div>
-
-      <!-- ELIGIBILITY + CONTACT -->
-      <div class="info-row">
-        <div class="icard ic-green">
-          <div class="ic-t">Eligibility</div>
-          <div class="ic-body">Open to students from Business, Technology, Design, or Marketing. All years welcome
-            including graduates.</div>
-        </div>
-        <div class="icard ic-blue">
-          <div class="ic-t">Contact &amp; Info</div>
-          <div class="ic-body">
-
-            <strong>Dr. Mandeep Singh</strong> — Placements Controller<br>
-            📞 +91 9886232004
-          </div>
-        </div>
-      </div>
-
-      <!-- SUCCESS SCREEN -->
-      <div class="success" id="successScreen">
-        <div class="s-ic">🎉</div>
-        <div class="s-t">Application Submitted!</div>
-        <div class="s-s">Thank you, <strong id="sName"></strong>!<br>Our counsellor will contact you on <strong>WhatsApp
-            within 24 hours</strong>.<br>Check your email for a confirmation.</div>
-        <div class="s-box">
-          ✓ WhatsApp call from our counsellor within 24 hrs<br>
-          ✓ Confirmation email sent to your personal email<br>
-          ✓ Orientation details shared within 2–3 days<br>
-          ✓ Mentor assigned before Month 1 begins
-        </div>
-        <a class="whatsapp-link" href="https://chat.whatsapp.com/ErCmRiicfDC6NJ1VVhybMv?s=cl&p=a&ilr=0" target="_blank"
-          rel="noopener">📲 Students, join our WhatsApp group for more info</a>
-      </div>
-
-      <div id="mainForm">
-
-        <!-- STEP 1 -->
-        <div class="card" id="apply">
-          <div class="clabel">Step 1 — Personal Details</div>
-          <div class="fg">
-            <div class="fl"><label>Full Name <span class="req">*</span></label><input type="text" id="fullName"
-                placeholder="As per college records"></div>
-            <div class="fl"><label>Phone Number <span class="req">*</span></label><input type="tel" id="phone"
-                placeholder="+91 00000 00000"></div>
-            <div class="fl"><label>WhatsApp Number <span class="req">*</span></label><input type="tel" id="whatsapp"
-                placeholder="If same, re-enter"></div>
-            <div class="fl"><label>College Email <span class="req">*</span></label><input type="email" id="collegeEmail"
-                placeholder="yourname@college.edu"></div>
-            <div class="fl"><label>Personal Email <span class="req">*</span></label><input type="email"
-                id="personalEmail" placeholder="yourname@gmail.com"></div>
-            <div class="fl" style="grid-column:1/-1">
-              <label>State / Region <span class="req">*</span></label>
-              <select id="state" onchange="document.getElementById('oc').classList.toggle('show',this.value==='Other')">
-                <option value="">— Select your state —</option>
-                <optgroup label="India">
-                  <option>Andhra Pradesh</option>
-                  <option>Arunachal Pradesh</option>
-                  <option>Assam</option>
-                  <option>Bihar</option>
-                  <option>Chhattisgarh</option>
-                  <option>Goa</option>
-                  <option>Gujarat</option>
-                  <option>Haryana</option>
-                  <option>Himachal Pradesh</option>
-                  <option>Jharkhand</option>
-                  <option>Karnataka</option>
-                  <option>Kerala</option>
-                  <option>Madhya Pradesh</option>
-                  <option>Maharashtra</option>
-                  <option>Manipur</option>
-                  <option>Meghalaya</option>
-                  <option>Mizoram</option>
-                  <option>Nagaland</option>
-                  <option>Odisha</option>
-                  <option>Punjab</option>
-                  <option>Rajasthan</option>
-                  <option>Sikkim</option>
-                  <option>Tamil Nadu</option>
-                  <option>Telangana</option>
-                  <option>Tripura</option>
-                  <option>Uttar Pradesh</option>
-                  <option>Uttarakhand</option>
-                  <option>West Bengal</option>
-                  <option>Andaman &amp; Nicobar Islands</option>
-                  <option>Chandigarh</option>
-                  <option>Delhi (NCT)</option>
-                  <option>Jammu &amp; Kashmir</option>
-                  <option>Ladakh</option>
-                  <option>Puducherry</option>
-                </optgroup>
-                <optgroup label="Outside India">
-                  <option value="Other">Other country</option>
-                </optgroup>
-              </select>
-              <div id="oc" class="other-box"><input type="text" id="otherCountry" placeholder="Enter your country name">
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- STEP 2 -->
-        <div class="card">
-          <div class="clabel">Step 2 — Academic Background</div>
-          <div class="fg">
-            <div class="fl"><label>College Name <span class="req">*</span></label><input type="text" id="collegeName"
-                placeholder="Full official college name"></div>
-            <div class="fl"><label>Branch / Stream <span class="req">*</span></label><input type="text" id="branch"
-                placeholder="e.g. Computer Science, MBA"></div>
-            <div class="fl"><label>Year of Study <span class="req">*</span></label>
-              <select id="year">
-                <option value="">— Select year —</option>
-                <option>1st Year</option>
-                <option>2nd Year</option>
-                <option>3rd Year</option>
-                <option>4th Year</option>
-                <option>Final Semester</option>
-                <option>Graduated</option>
-              </select>
-            </div>
-            <div class="fl"><label>Class Representative Contact</label><input type="tel" id="crContact"
-                placeholder="CR phone (optional)"></div>
-            <div class="fl"><label>Referral Code</label><input type="text" id="referralCode"
-                placeholder="Enter code (optional)"></div>
-          </div>
-        </div>
-
-        <!-- STEP 3 -->
-        <div class="card">
-          <div class="clabel">Step 3 — Your Interests</div>
-          <div class="fl" style="margin-bottom:18px">
-            <label>Domain to upskill in <span class="req">*</span></label>
-            <p style="font-size:11px;color:#94a3b8;margin:4px 0 0">Select all that apply</p>
-            <div class="dtiles" id="domainsGroup">
-              <label class="tile"><input type="radio" name="domain" value="Android App Development"><span>Android App
-                  Development</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Full Stack Web Development"><span>Full Stack
-                  Web Development</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Data Science"><span>Data
-                  Science</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Data Analytics"><span>Data
-                  Analytics</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Machine Learning"><span>Machine
-                  Learning</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Artificial Intelligence"><span>Artificial
-                  Intelligence</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Cyber Security"><span>Cyber
-                  Security</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Internet of Things / Robotics"><span>IoT /
-                  Robotics</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Cloud Computing"><span>Cloud
-                  Computing</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Graphic Design"><span>Graphic
-                  Design</span></label>
-              <label class="tile"><input type="radio" name="domain" value="AutoCAD"><span>AutoCAD</span></label>
-              <label class="tile"><input type="radio" name="domain" value="UI/UX Design"><span>UI/UX
-                  Design</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Embedded Systems"><span>Embedded
-                  Systems</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Digital Marketing"><span>Digital
-                  Marketing</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Finance"><span>Finance</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Stock Market"><span>Stock
-                  Market</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Human Resource"><span>Human
-                  Resource</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Business Analytics"><span>Business
-                  Analytics</span></label>
-              <label class="tile"><input type="radio" name="domain" value="DevOps"><span>DevOps</span></label>
-              <label class="tile"><input type="radio" name="domain" value="VLSI"><span>VLSI</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Forensic Psychology"><span>Forensic
-                  Psychology</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Clinical Psychology"><span>Clinical
-                  Psychology</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Corporate Law"><span>Corporate
-                  Law</span></label>
-            </div>
-          </div>
-          <div class="fl">
-            <label>Preferred language(s) <span class="req">*</span></label>
-            <p style="font-size:11px;color:#94a3b8;margin:4px 0 0">Select at least one</p>
-            <div class="dtiles" id="langsGroup">
-              <label class="tile"><input type="checkbox" value="English"><span>English</span></label>
-              <label class="tile"><input type="checkbox" value="Hindi"><span>Hindi</span></label>
-              <label class="tile"><input type="checkbox" value="Kannada"><span>Kannada</span></label>
-              <label class="tile"><input type="checkbox" value="Tamil"><span>Tamil</span></label>
-              <label class="tile"><input type="checkbox" value="Telugu"><span>Telugu</span></label>
-              <label class="tile"><input type="checkbox" value="Marathi"><span>Marathi</span></label>
-            </div>
-            <div class="dtiles" id="langsGroup">
-              <label class="tile"><input type="checkbox" value="English"><span>English</span></label>
-              <label class="tile"><input type="checkbox" value="Hindi"><span>Hindi</span></label>
-              <label class="tile"><input type="checkbox" value="Kannada"><span>Kannada</span></label>
-              <label class="tile"><input type="checkbox" value="Tamil"><span>Tamil</span></label>
-              <label class="tile"><input type="checkbox" value="Telugu"><span>Telugu</span></label>
-              <label class="tile"><input type="checkbox" value="Marathi"><span>Marathi</span></label>
-            </div>
-            <!-- Honeypot field for bot detection -->
-            <input type="text" name="botcheck" style="display:none;" autocomplete="off" />
-          </div>
-
-          <!-- STEP 4 SUBMIT -->
-          <div class="card">
-            <div class="clabel">Step 4 — Submit</div>
-            <label class="ack">
-              <input type="checkbox" id="feeAck">
-              <span><strong>I confirm all details are accurate and understand that a nominal program fee applies for
-                  SETIP 2026.</strong></span>
-            </label>
-            <button class="sub-btn" id="submitBtn" onclick="submitForm()">🚀 Submit Application — Secure My
-              Seat</button>
-            <div class="err" id="errorMsg"></div>
-            <div class="disc">By submitting you agree to be contacted via WhatsApp &amp; email.</div>
-          </div>
-
-        </div><!-- /mainForm -->
-      </div>
-    </div>
-
-    <!-- FOOTER -->
-    <div class="footer">
-      <p>
-        &copy; 2026 <strong style="color:#94a3b8">SETIP 2026</strong> &nbsp;&middot;&nbsp;
-        <a href="tel:+919886232004">+91 9886232004</a>
+  <main>
+    <div class="content">
+      <h1>We're currently performing scheduled maintenance.</h1>
+      <p class="sub">
+        Our site is temporarily unavailable while we make some improvements.
+        We expect to be back online shortly — thank you for your patience.
       </p>
+
+      <div class="status-card">
+        <div class="status-left">
+          <span class="dot"></span>
+          <span class="status-label">Maintenance in progress</span>
+        </div>
+        <span class="status-pill">In progress</span>
+      </div>
+
+      <p class="eta">Estimated to be back by <strong>6:00 PM IST</strong></p>
     </div>
+  </main>
 
-    <script>
-      var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyBh3WRa4LuZQq8Y7XMTPiV4AdB5_lRizjn7306WzKkwrD8fA3Vdp5YiiX41V_IrZ4vhQ/exec";
-      function getChecked(id) { return Array.from(document.querySelectorAll('#' + id + ' input:checked')).map(function (b) { return b.value }) }
-      function val(id) { var e = document.getElementById(id); return e ? e.value.trim() : '' }
-      function showErr(msg) { var d = document.getElementById('errorMsg'); d.textContent = msg; d.classList.add('show'); d.scrollIntoView({ behavior: 'smooth', block: 'center' }) }
-      function hideErr() { document.getElementById('errorMsg').classList.remove('show') }
-      function validate() {
-        if (!val('fullName')) return '⚠ Full Name is required.';
-        if (!val('phone')) return '⚠ Phone Number is required.';
-        if (!val('whatsapp')) return '⚠ WhatsApp Number is required.';
-        if (!val('collegeEmail')) return '⚠ College Email is required.';
-        if (!val('personalEmail')) return '⚠ Personal Email is required.';
-        if (!val('state')) return '⚠ Please select your State.';
-        if (!val('collegeName')) return '⚠ College Name is required.';
-        if (!val('branch')) return '⚠ Branch / Stream is required.';
-        if (!val('year')) return '⚠ Please select Year of Study.';
-        if (getChecked('domainsGroup').length === 0) return '⚠ Please select at least one domain.';
-        if (getChecked('langsGroup').length === 0) return '⚠ Please select at least one language.';
-        // Bot honeypot check: should be empty
-        if (document.querySelector('input[name="botcheck"]').value) return '⚠ Bot detection triggered.';
-        if (!document.getElementById('feeAck').checked) return '⚠ Please confirm the acknowledgement.';
-        return null;
-      }
-      function showSuccess() {
-        document.getElementById('mainForm').style.display = 'none';
-        var s = document.getElementById('successScreen');
-        s.classList.add('show');
-        document.getElementById('sName').textContent = val('fullName');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-      function submitForm() {
-        hideErr();
-        var err = validate();
-        if (err) { showErr(err); return; }
-        var btn = document.getElementById('submitBtn');
-        btn.disabled = true; btn.textContent = 'Submitting...';
-        var data = {
-          fullName: val('fullName'), phone: val('phone'), whatsapp: val('whatsapp'),
-          collegeEmail: val('collegeEmail'), personalEmail: val('personalEmail'),
-          state: val('state'), otherCountry: val('otherCountry'),
-          collegeName: val('collegeName'), branch: val('branch'), year: val('year'),
-          crContact: val('crContact'),
-          referralCode: val('referralCode'),
-          domains: getChecked('domainsGroup'), languages: getChecked('langsGroup'),
-          feeAcknowledged: true
-        };
-        fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
-          .then(function () { showSuccess() }).catch(function () { showSuccess() });
-        setTimeout(showSuccess, 6000);
-      }
-    </script>
 </body>
-
 </html>
