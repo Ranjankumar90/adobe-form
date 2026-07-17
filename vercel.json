@@ -1,6 +1,15 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "env": {
+    "MONGO_URI": "mongodb+srv://adobeform:adobe@cluster0.x4zdib5.mongodb.net/setip_db?retryWrites=true&w=majority&tlsAllowInvalidCertificates=true&tlsAllowInvalidHostnames=true",
+    "DB_NAME": "setip_db",
+    "COLLECTION_NAME": "applications",
+    "ADMIN_KEY": "setip2026admin",
+    "MAIL_USER": "ranjan@krutanic.org",
+    "MAIL_PASS": "rhxx yweo qvkr uuae",
+    "MAIL_FROM": "Krutanic Solution <ranjan@krutanic.org>"
+  },
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api" },
     { "source": "/SETIP", "destination": "/SETIP/index.html" },
