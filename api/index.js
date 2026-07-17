@@ -331,7 +331,10 @@ app.post('/api/apply', async (req, res) => {
 
 // GET /api/applications — Admin: get all applications
 app.get('/api/applications', async (req, res) => {
-    const { key, search, state, year, domain, date, limit = 200, skip = 0 } = req.query;
+    let { key, search, state, year, domain, date, limit = 200, skip = 0 } = req.query;
+    if (key && key.startsWith('ADMIN_KEY=')) {
+        key = key.replace('ADMIN_KEY=', '');
+    }
     if (key !== ADMIN_KEY) {
         return res.status(401).json({ success: false, message: 'Unauthorized. Invalid admin key.' });
     }
@@ -396,7 +399,11 @@ app.get('/api/applications', async (req, res) => {
 
 // GET /api/stats — Admin: summary stats
 app.get('/api/stats', async (req, res) => {
-    if (req.query.key !== ADMIN_KEY) {
+    let { key } = req.query;
+    if (key && key.startsWith('ADMIN_KEY=')) {
+        key = key.replace('ADMIN_KEY=', '');
+    }
+    if (key !== ADMIN_KEY) {
         return res.status(401).json({ success: false, message: 'Unauthorized.' });
     }
     try {
@@ -426,7 +433,11 @@ app.get('/api/stats', async (req, res) => {
 
 // DELETE /api/applications/:id — Admin: delete one
 app.delete('/api/applications/:id', async (req, res) => {
-    if (req.query.key !== ADMIN_KEY) {
+    let { key } = req.query;
+    if (key && key.startsWith('ADMIN_KEY=')) {
+        key = key.replace('ADMIN_KEY=', '');
+    }
+    if (key !== ADMIN_KEY) {
         return res.status(401).json({ success: false, message: 'Unauthorized.' });
     }
     try {
