@@ -3,8 +3,9 @@
   "trailingSlash": false,
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api" },
-    { "source": "/SETIP", "destination": "/SETIP/SETIP-INTERSHIP/index.html" },
-    { "source": "/SETIP/SETIP-INTERSHIP", "destination": "/SETIP/SETIP-INTERSHIP/index.html" },
+    { "source": "/SETIP", "destination": "/SETIP/SETIP-INTERNSHIP/index.html" },
+    { "source": "/SETIP/SETIP-INTERNSHIP", "destination": "/SETIP/SETIP-INTERNSHIP/index.html" },
+    { "source": "/SETIP/SETIP-INTERSHIP", "destination": "/SETIP/SETIP-INTERNSHIP/index.html" },
     { "source": "/webinar", "destination": "/webinar/index.html" },
     { "source": "/data/(.*)", "destination": "/data/$1" }
   ]

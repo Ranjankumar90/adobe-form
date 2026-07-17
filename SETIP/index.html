@@ -1,1112 +1,1030 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html class="scroll-smooth" lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>SETIP 2026 — Apply Now</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0
-    }
-
-    html {
-      scroll-behavior: smooth
-    }
-
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: #f1f5f9;
-      color: #1e293b
-    }
-
-    /* HERO */
-    .hero {
-      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 45%, #0f172a 100%);
-      position: relative;
-      overflow: hidden;
-      padding: 0 16px
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -100px;
-      right: -100px;
-      width: 480px;
-      height: 480px;
-      background: radial-gradient(circle, rgba(99, 102, 241, 0.2)0%, transparent 70%);
-      pointer-events: none
-    }
-
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: -80px;
-      left: -60px;
-      width: 360px;
-      height: 360px;
-      background: radial-gradient(circle, rgba(16, 185, 129, 0.1)0%, transparent 70%);
-      pointer-events: none
-    }
-
-    .hero-inner {
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 40px 0 32px;
-      position: relative;
-      z-index: 1
-    }
-
-    .badges {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 16px
-    }
-
-    .badge {
-      font-size: 11px;
-      font-weight: 600;
-      padding: 5px 12px;
-      border-radius: 20px
-    }
-
-    .b1 {
-      background: rgba(99, 102, 241, 0.25);
-      color: #a5b4fc;
-      border: 1px solid rgba(99, 102, 241, 0.4)
-    }
-
-    .b2 {
-      background: rgba(16, 185, 129, 0.2);
-      color: #6ee7b7;
-      border: 1px solid rgba(16, 185, 129, 0.35)
-    }
-
-    .b3 {
-      background: rgba(245, 158, 11, 0.2);
-      color: #fcd34d;
-      border: 1px solid rgba(245, 158, 11, 0.35)
-    }
-
-    .hero-by {
-      font-size: 11px;
-      font-weight: 700;
-      color: #6366f1;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 12px
-    }
-
-    .hero-title {
-      font-size: 27px;
-      font-weight: 800;
-      color: #f1f5f9;
-      line-height: 1.25;
-      margin-bottom: 10px
-    }
-
-    .hl {
-      color: #818cf8
-    }
-
-    .hero-sub {
-      font-size: 13px;
-      color: #94a3b8;
-      line-height: 1.8;
-      margin-bottom: 24px;
-      max-width: 600px
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin-bottom: 28px
-    }
-
-    .stat {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.09);
-      border-radius: 12px;
-      padding: 14px 8px;
-      text-align: center;
-      transition: all .2s
-    }
-
-    .stat:hover {
-      background: rgba(99, 102, 241, 0.15);
-      transform: translateY(-2px)
-    }
-
-    .stat-n {
-      font-size: 22px;
-      font-weight: 800;
-      color: #f1f5f9
-    }
-
-    .stat-l {
-      font-size: 10px;
-      color: #94a3b8;
-      margin-top: 3px;
-      line-height: 1.3
-    }
-
-    .cta-row {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap
-    }
-
-    .cta-btn {
-      background: #6366f1;
-      color: #fff;
-      font-size: 14px;
-      font-weight: 700;
-      padding: 14px 30px;
-      border-radius: 10px;
-      border: none;
-      cursor: pointer;
-      font-family: inherit;
-      transition: all .2s
-    }
-
-    .cta-btn:hover {
-      background: #4f46e5;
-      transform: translateY(-2px)
-    }
-
-    .cta-note {
-      font-size: 11px;
-      color: #64748b
-    }
-
-    /* TIMELINE */
-    .tl {
-      background: #1e293b;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06)
-    }
-
-    .tl-inner {
-      max-width: 700px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr)
-    }
-
-    .tl-item {
-      padding: 14px 12px;
-      text-align: center;
-      position: relative
-    }
-
-    .tl-item:not(:last-child)::after {
-      content: '';
-      position: absolute;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      height: 28px;
-      width: 1px;
-      background: rgba(255, 255, 255, 0.07)
-    }
-
-    .tl-n {
-      font-size: 10px;
-      font-weight: 700;
-      color: #6366f1;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 2px
-    }
-
-    .tl-t {
-      font-size: 12px;
-      font-weight: 600;
-      color: #f1f5f9
-    }
-
-    .tl-d {
-      font-size: 10px;
-      color: #64748b;
-      margin-top: 2px
-    }
-
-    /* CONTENT */
-    .page {
-      background: #f1f5f9;
-      padding: 22px 16px 48px
-    }
-
-    .inner {
-      max-width: 700px;
-      margin: 0 auto
-    }
-
-    .urgency {
-      background: #fffbeb;
-      border: 1.5px solid #fbbf24;
-      border-radius: 10px;
-      padding: 11px 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 18px
-    }
-
-    .udot {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: #f59e0b;
-      flex-shrink: 0;
-      animation: pulse 1.4s ease-in-out infinite
-    }
-
-    @keyframes pulse {
-
-      0%,
-      100% {
-        opacity: 1;
-        transform: scale(1)
-      }
-
-      50% {
-        opacity: .4;
-        transform: scale(.85)
-      }
-    }
-
-    .utxt {
-      font-size: 12px;
-      color: #92400e;
-      font-weight: 600;
-      line-height: 1.4
-    }
-
-    /* WHAT YOU GET */
-    .val-box {
-      background: linear-gradient(135deg, #eef2ff, #f5f3ff);
-      border: 1.5px solid #c7d2fe;
-      border-radius: 14px;
-      padding: 20px;
-      margin-bottom: 18px
-    }
-
-    .val-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: #3730a3;
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px
-    }
-
-    .val-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px
-    }
-
-    .vitem {
-      background: #fff;
-      border-radius: 10px;
-      padding: 12px;
-      border: 1px solid #e0e7ff;
-      transition: transform .2s
-    }
-
-    .vitem:hover {
-      transform: translateY(-2px)
-    }
-
-    .v-ic {
-      font-size: 20px;
-      margin-bottom: 5px
-    }
-
-    .v-t {
-      font-size: 11px;
-      font-weight: 700;
-      color: #3730a3;
-      line-height: 1.3
-    }
-
-    .v-s {
-      font-size: 10px;
-      color: #6366f1;
-      margin-top: 2px;
-      line-height: 1.4
-    }
-
-    .val-note {
-      font-size: 12px;
-      color: #4338ca;
-      margin-top: 14px;
-      text-align: center;
-      line-height: 1.6;
-      font-style: italic
-    }
-
-    /* INFO ROW */
-    .info-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 18px
-    }
-
-    .icard {
-      background: #fff;
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 14px 16px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04)
-    }
-
-    .ic-t {
-      font-size: 10px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-      margin-bottom: 6px
-    }
-
-    .ic-green .ic-t {
-      color: #15803d
-    }
-
-    .ic-blue .ic-t {
-      color: #1d4ed8
-    }
-
-    .ic-body {
-      font-size: 12px;
-      line-height: 1.7
-    }
-
-    .ic-green .ic-body {
-      color: #166534
-    }
-
-    .ic-blue .ic-body {
-      color: #1e40af
-    }
-
-    /* CARD */
-    .card {
-      background: #fff;
-      border: 1px solid #e2e8f0;
-      border-radius: 14px;
-      padding: 22px;
-      margin-bottom: 14px;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04)
-    }
-
-    .clabel {
-      font-size: 10px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: #6366f1;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px
-    }
-
-    .clabel::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: #eef2ff
-    }
-
-    /* FORM */
-    .fg {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px
-    }
-
-    .fl {
-      display: flex;
-      flex-direction: column;
-      gap: 5px
-    }
-
-    .fl label {
-      font-size: 11px;
-      font-weight: 700;
-      color: #374151
-    }
-
-    .req {
-      color: #ef4444;
-      margin-left: 2px
-    }
-
-    .fl input,
-    .fl select {
-      background: #f8fafc;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 9px;
-      padding: 10px 12px;
-      font-size: 13px;
-      color: #1e293b;
-      font-family: inherit;
-      outline: none;
-      transition: border-color .15s, box-shadow .15s;
-      width: 100%
-    }
-
-    .fl input:focus,
-    .fl select:focus {
-      border-color: #6366f1;
-      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-      background: #fff
-    }
-
-    .fl input::placeholder {
-      color: #94a3b8
-    }
-
-    .other-box {
-      display: none;
-      margin-top: 8px
-    }
-
-    .other-box.show {
-      display: block
-    }
-
-    /* TILES */
-    .dtiles {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 7px;
-      margin-top: 8px
-    }
-
-    .tile {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      padding: 9px 11px;
-      background: #f8fafc;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 9px;
-      cursor: pointer;
-      font-size: 12px;
-      color: #374151;
-      font-weight: 500;
-      transition: all .15s;
-      user-select: none
-    }
-
-    .tile:hover {
-      border-color: #6366f1;
-      background: #eef2ff;
-      color: #4338ca
-    }
-
-    .tile:has(input:checked) {
-      border-color: #6366f1;
-      background: #eef2ff;
-      color: #4338ca
-    }
-
-    .tile input {
-      accent-color: #6366f1;
-      width: 15px;
-      height: 15px;
-      flex-shrink: 0
-    }
-
-    /* SUBMIT */
-    .ack {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 13px 15px;
-      background: #f8fafc;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 10px;
-      cursor: pointer;
-      margin-bottom: 14px;
-      transition: border-color .15s
-    }
-
-    .ack:hover {
-      border-color: #6366f1
-    }
-
-    .ack input {
-      accent-color: #6366f1;
-      width: 16px;
-      height: 16px;
-      flex-shrink: 0;
-      margin-top: 2px
-    }
-
-    .ack span {
-      font-size: 12px;
-      color: #374151;
-      line-height: 1.6
-    }
-
-    .sub-btn {
-      width: 100%;
-      padding: 15px;
-      background: linear-gradient(135deg, #6366f1, #4f46e5);
-      color: #fff;
-      border: none;
-      border-radius: 11px;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      font-family: inherit;
-      transition: all .2s;
-      letter-spacing: 0.3px
-    }
-
-    .sub-btn:hover:not(:disabled) {
-      opacity: .92;
-      transform: translateY(-1px)
-    }
-
-    .sub-btn:disabled {
-      opacity: .6;
-      cursor: not-allowed;
-      transform: none
-    }
-
-    .disc {
-      font-size: 10px;
-      color: #94a3b8;
-      text-align: center;
-      margin-top: 10px;
-      line-height: 1.7
-    }
-
-    .err {
-      display: none;
-      background: #fef2f2;
-      border: 1.5px solid #fca5a5;
-      border-radius: 9px;
-      padding: 10px 14px;
-      font-size: 12px;
-      color: #b91c1c;
-      margin-top: 10px;
-      line-height: 1.5
-    }
-
-    .err.show {
-      display: block
-    }
-
-    /* SUCCESS */
-    .success {
-      display: none;
-      background: #fff;
-      border-radius: 14px;
-      border: 1px solid #e2e8f0;
-      padding: 44px 24px;
-      text-align: center;
-      margin-bottom: 14px;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04)
-    }
-
-    .success.show {
-      display: block
-    }
-
-    .s-ic {
-      font-size: 56px;
-      margin-bottom: 14px
-    }
-
-    .s-t {
-      font-size: 21px;
-      font-weight: 800;
-      color: #15803d;
-      margin-bottom: 8px
-    }
-
-    .s-s {
-      font-size: 13px;
-      color: #475569;
-      line-height: 1.9;
-      margin-bottom: 18px
-    }
-
-    .s-box {
-      background: #f0fdf4;
-      border: 1px solid #86efac;
-      border-radius: 10px;
-      padding: 14px 18px;
-      font-size: 12px;
-      color: #166534;
-      line-height: 1.9;
-      text-align: left
-    }
-
-    /* WhatsApp button styling */
-    .whatsapp-link {
-      display: inline-block;
-      margin-top: 12px;
-      padding: 10px 20px;
-      background: #25D366;
-      color: #fff;
-      border-radius: 8px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: transform .2s;
-    }
-
-    .whatsapp-link:hover {
-      transform: scale(1.05);
-    }
-
-    /* FOOTER */
-    .footer {
-      background: #0f172a;
-      padding: 22px 16px;
-      text-align: center
-    }
-
-    .footer p {
-      font-size: 11px;
-      color: #475569;
-      line-height: 1.9
-    }
-
-    .footer a {
-      color: #6366f1;
-      text-decoration: none
-    }
-
-    @media(max-width:520px) {
-      .hero-title {
-        font-size: 21px
-      }
-
-      .stats {
-        grid-template-columns: repeat(2, 1fr)
-      }
-
-      .val-grid {
-        grid-template-columns: repeat(2, 1fr)
-      }
-
-      .fg {
-        grid-template-columns: 1fr
-      }
-
-      .dtiles {
-        grid-template-columns: 1fr
-      }
-
-      .info-row {
-        grid-template-columns: 1fr
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-  <!-- HERO -->
-  <div class="hero">
-    <div class="hero-inner">
-      <div class="badges">
-        <span class="badge b1">Co-Certified</span>
-        <span class="badge b2">Placement Assured</span>
-        <span class="badge b3">2026 Cohort — Limited Seats</span>
-      </div>
-      <div class="hero-by">Skill Enhancement Training presents</div>
-      <h1 class="hero-title">
-        Skill Enhancement Training &amp; <span class="hl">Internship Program (SETIP)</span>
-      </h1>
-      <p class="hero-sub">A 3-month structured program to bridge academics and the workplace — live projects, industry
-        mentors, certified credentials, and placement support at top MNCs.</p>
-      <div class="stats">
-        <div class="stat">
-          <div class="stat-n">3</div>
-          <div class="stat-l">Month Program</div>
-        </div>
-        <div class="stat">
-          <div class="stat-n">50+</div>
-          <div class="stat-l">MNC Partners</div>
-        </div>
-        <div class="stat">
-          <div class="stat-n">3</div>
-          <div class="stat-l">Certificates</div>
-        </div>
-        <div class="stat">
-          <div class="stat-n">20+</div>
-          <div class="stat-l">Domains</div>
-        </div>
-      </div>
-      <div class="cta-row">
-        <button class="cta-btn" onclick="document.getElementById('apply').scrollIntoView({behavior:'smooth'})">Apply Now
-          — Secure Your Seat ↓</button>
-        <span class="cta-note">Free to apply &nbsp;·&nbsp; Takes 2 minutes</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- TIMELINE -->
-  <div class="tl">
-    <div class="tl-inner">
-      <div class="tl-item">
-        <div class="tl-n">Month 1</div>
-        <div class="tl-t">Skill Training</div>
-        <div class="tl-d">Technical &amp; industry tools</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-n">Month 2</div>
-        <div class="tl-t">Live Internship</div>
-        <div class="tl-d">Real projects with MNC teams</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-n">Month 3</div>
-        <div class="tl-t">Placement Support</div>
-        <div class="tl-d">Resume, interviews &amp; jobs</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PAGE BODY -->
-  <div class="page">
-    <div class="inner">
-
-      <div class="urgency">
-        <div class="udot"></div>
-        <div class="utxt">Seats filling fast — limited spots available for 2026. Apply below to reserve yours.</div>
-      </div>
-
-      <!-- WHAT YOU GET -->
-      <div class="val-box">
-        <div class="val-title">🎯 Everything included in your program</div>
-        <div class="val-grid">
-          <div class="vitem">
-            <div class="v-ic">🎓</div>
-            <div class="v-t">Co-Logo Certificate</div>
-            <div class="v-s">Global branding on your credential</div>
-          </div>
-          <div class="vitem">
-            <div class="v-ic">📋</div>
-            <div class="v-t">Completion Certificate</div>
-            <div class="v-s">Recognised by 50+ MNC hiring partners</div>
-          </div>
-          <div class="vitem">
-            <div class="v-ic">✉️</div>
-            <div class="v-t">Letter of Recommendation</div>
-            <div class="v-s">Performance-based LoR from industry experts</div>
-          </div>
-          <div class="vitem">
-            <div class="v-ic">🧑‍💼</div>
-            <div class="v-t">Dedicated Industry Mentor</div>
-            <div class="v-s">1-on-1 guidance throughout the program</div>
-          </div>
-          <div class="vitem">
-            <div class="v-ic">💼</div>
-            <div class="v-t">MNC Placement Assistance</div>
-            <div class="v-s">Resume reviews, mock interviews &amp; referrals</div>
-          </div>
-          <div class="vitem">
-            <div class="v-ic">🛠️</div>
-            <div class="v-t">Industry Tools Access</div>
-            <div class="v-s">Hands-on training with real workplace tools</div>
-          </div>
-        </div>
-        <div class="val-note">A small program fee covers your full 3-month access — <strong>invest once, benefit for
-            life.</strong></div>
-      </div>
-
-      <!-- ELIGIBILITY + CONTACT -->
-      <div class="info-row">
-        <div class="icard ic-green">
-          <div class="ic-t">Eligibility</div>
-          <div class="ic-body">Open to students from Business, Technology, Design, or Marketing. All years welcome
-            including graduates.</div>
-        </div>
-        <div class="icard ic-blue">
-          <div class="ic-t">Contact &amp; Info</div>
-          <div class="ic-body">
-
-            <strong>Dr. Mandeep Singh</strong> — Placements Controller<br>
-            📞 +91 9886232004
-          </div>
-        </div>
-      </div>
-
-      <!-- SUCCESS SCREEN -->
-      <div class="success" id="successScreen">
-        <div class="s-ic">🎉</div>
-        <div class="s-t">Application Submitted!</div>
-        <div class="s-s">Thank you, <strong id="sName"></strong>!<br>Our counsellor will contact you on <strong>WhatsApp
-            within 24 hours</strong>.<br>Check your email for a confirmation.</div>
-        <div class="s-box">
-          ✓ WhatsApp call from our counsellor within 24 hrs<br>
-          ✓ Confirmation email sent to your personal email<br>
-          ✓ Orientation details shared within 2–3 days<br>
-          ✓ Mentor assigned before Month 1 begins
-        </div>
-        <a class="whatsapp-link" href="https://chat.whatsapp.com/ErCmRiicfDC6NJ1VVhybMv?s=cl&p=a&ilr=0" target="_blank"
-          rel="noopener">📲 Students, join our WhatsApp group for more info</a>
-      </div>
-
-      <div id="mainForm">
-
-        <!-- STEP 1 -->
-        <div class="card" id="apply">
-          <div class="clabel">Step 1 — Personal Details</div>
-          <div class="fg">
-            <div class="fl"><label>Full Name <span class="req">*</span></label><input type="text" id="fullName"
-                placeholder="As per college records"></div>
-            <div class="fl"><label>Phone Number <span class="req">*</span></label><input type="tel" id="phone"
-                placeholder="+91 00000 00000"></div>
-            <div class="fl"><label>WhatsApp Number <span class="req">*</span></label><input type="tel" id="whatsapp"
-                placeholder="If same, re-enter"></div>
-            <div class="fl"><label>College Email <span class="req">*</span></label><input type="email" id="collegeEmail"
-                placeholder="yourname@college.edu"></div>
-            <div class="fl"><label>Personal Email <span class="req">*</span></label><input type="email"
-                id="personalEmail" placeholder="yourname@gmail.com"></div>
-            <div class="fl" style="grid-column:1/-1">
-              <label>State / Region <span class="req">*</span></label>
-              <select id="state" onchange="document.getElementById('oc').classList.toggle('show',this.value==='Other')">
-                <option value="">— Select your state —</option>
-                <optgroup label="India">
-                  <option>Andhra Pradesh</option>
-                  <option>Arunachal Pradesh</option>
-                  <option>Assam</option>
-                  <option>Bihar</option>
-                  <option>Chhattisgarh</option>
-                  <option>Goa</option>
-                  <option>Gujarat</option>
-                  <option>Haryana</option>
-                  <option>Himachal Pradesh</option>
-                  <option>Jharkhand</option>
-                  <option>Karnataka</option>
-                  <option>Kerala</option>
-                  <option>Madhya Pradesh</option>
-                  <option>Maharashtra</option>
-                  <option>Manipur</option>
-                  <option>Meghalaya</option>
-                  <option>Mizoram</option>
-                  <option>Nagaland</option>
-                  <option>Odisha</option>
-                  <option>Punjab</option>
-                  <option>Rajasthan</option>
-                  <option>Sikkim</option>
-                  <option>Tamil Nadu</option>
-                  <option>Telangana</option>
-                  <option>Tripura</option>
-                  <option>Uttar Pradesh</option>
-                  <option>Uttarakhand</option>
-                  <option>West Bengal</option>
-                  <option>Andaman &amp; Nicobar Islands</option>
-                  <option>Chandigarh</option>
-                  <option>Delhi (NCT)</option>
-                  <option>Jammu &amp; Kashmir</option>
-                  <option>Ladakh</option>
-                  <option>Puducherry</option>
-                </optgroup>
-                <optgroup label="Outside India">
-                  <option value="Other">Other country</option>
-                </optgroup>
-              </select>
-              <div id="oc" class="other-box"><input type="text" id="otherCountry" placeholder="Enter your country name">
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- STEP 2 -->
-        <div class="card">
-          <div class="clabel">Step 2 — Academic Background</div>
-          <div class="fg">
-            <div class="fl"><label>College Name <span class="req">*</span></label><input type="text" id="collegeName"
-                placeholder="Full official college name"></div>
-            <div class="fl"><label>Branch / Stream <span class="req">*</span></label><input type="text" id="branch"
-                placeholder="e.g. Computer Science, MBA"></div>
-            <div class="fl"><label>Year of Study <span class="req">*</span></label>
-              <select id="year">
-                <option value="">— Select year —</option>
-                <option>1st Year</option>
-                <option>2nd Year</option>
-                <option>3rd Year</option>
-                <option>4th Year</option>
-                <option>Final Semester</option>
-                <option>Graduated</option>
-              </select>
-            </div>
-            <div class="fl"><label>Class Representative Contact</label><input type="tel" id="crContact"
-                placeholder="CR phone (optional)"></div>
-            <div class="fl"><label>Referral Code</label><input type="text" id="referralCode"
-                placeholder="Enter code (optional)"></div>
-          </div>
-        </div>
-
-        <!-- STEP 3 -->
-        <div class="card">
-          <div class="clabel">Step 3 — Your Interests</div>
-          <div class="fl" style="margin-bottom:18px">
-            <label>Domain to upskill in <span class="req">*</span></label>
-            <p style="font-size:11px;color:#94a3b8;margin:4px 0 0">Select all that apply</p>
-            <div class="dtiles" id="domainsGroup">
-              <label class="tile"><input type="radio" name="domain" value="Android App Development"><span>Android App
-                  Development</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Full Stack Web Development"><span>Full Stack
-                  Web Development</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Data Science"><span>Data
-                  Science</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Data Analytics"><span>Data
-                  Analytics</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Machine Learning"><span>Machine
-                  Learning</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Artificial Intelligence"><span>Artificial
-                  Intelligence</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Cyber Security"><span>Cyber
-                  Security</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Internet of Things / Robotics"><span>IoT /
-                  Robotics</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Cloud Computing"><span>Cloud
-                  Computing</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Graphic Design"><span>Graphic
-                  Design</span></label>
-              <label class="tile"><input type="radio" name="domain" value="AutoCAD"><span>AutoCAD</span></label>
-              <label class="tile"><input type="radio" name="domain" value="UI/UX Design"><span>UI/UX
-                  Design</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Embedded Systems"><span>Embedded
-                  Systems</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Digital Marketing"><span>Digital
-                  Marketing</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Finance"><span>Finance</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Stock Market"><span>Stock
-                  Market</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Human Resource"><span>Human
-                  Resource</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Business Analytics"><span>Business
-                  Analytics</span></label>
-              <label class="tile"><input type="radio" name="domain" value="DevOps"><span>DevOps</span></label>
-              <label class="tile"><input type="radio" name="domain" value="VLSI"><span>VLSI</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Forensic Psychology"><span>Forensic
-                  Psychology</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Clinical Psychology"><span>Clinical
-                  Psychology</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Corporate Law"><span>Corporate
-                  Law</span></label>
-            </div>
-          </div>
-          <div class="fl">
-            <label>Preferred language(s) <span class="req">*</span></label>
-            <p style="font-size:11px;color:#94a3b8;margin:4px 0 0">Select at least one</p>
-            <div class="dtiles" id="langsGroup">
-              <label class="tile"><input type="checkbox" value="English"><span>English</span></label>
-              <label class="tile"><input type="checkbox" value="Hindi"><span>Hindi</span></label>
-              <label class="tile"><input type="checkbox" value="Kannada"><span>Kannada</span></label>
-              <label class="tile"><input type="checkbox" value="Tamil"><span>Tamil</span></label>
-              <label class="tile"><input type="checkbox" value="Telugu"><span>Telugu</span></label>
-              <label class="tile"><input type="checkbox" value="Marathi"><span>Marathi</span></label>
-            </div>
-            <div class="dtiles" id="langsGroup">
-              <label class="tile"><input type="checkbox" value="English"><span>English</span></label>
-              <label class="tile"><input type="checkbox" value="Hindi"><span>Hindi</span></label>
-              <label class="tile"><input type="checkbox" value="Kannada"><span>Kannada</span></label>
-              <label class="tile"><input type="checkbox" value="Tamil"><span>Tamil</span></label>
-              <label class="tile"><input type="checkbox" value="Telugu"><span>Telugu</span></label>
-              <label class="tile"><input type="checkbox" value="Marathi"><span>Marathi</span></label>
-            </div>
-            <!-- Honeypot field for bot detection -->
-            <input type="text" name="botcheck" style="display:none;" autocomplete="off" />
-          </div>
-
-          <!-- STEP 4 SUBMIT -->
-          <div class="card">
-            <div class="clabel">Step 4 — Submit</div>
-            <label class="ack">
-              <input type="checkbox" id="feeAck">
-              <span><strong>I confirm all details are accurate and understand that a nominal program fee applies for
-                  SETIP 2026.</strong></span>
-            </label>
-            <button class="sub-btn" id="submitBtn" onclick="submitForm()">🚀 Submit Application — Secure My
-              Seat</button>
-            <div class="err" id="errorMsg"></div>
-            <div class="disc">By submitting you agree to be contacted via WhatsApp &amp; email.</div>
-          </div>
-
-        </div><!-- /mainForm -->
-      </div>
-    </div>
-
-    <!-- FOOTER -->
-    <div class="footer">
-      <p>
-        &copy; 2026 <strong style="color:#94a3b8">SETIP 2026</strong> &nbsp;&middot;&nbsp;
-        <a href="tel:+919886232004">+91 9886232004</a>
-      </p>
-    </div>
-
-    <script>
-      var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyx8tFqRRhFn8TgXsmdpi0gfFRkvJKyn1FNp5kkLRBEYcEfsxCEahmVbHdnuwXg3u9H/exec";
-      function getChecked(id) { return Array.from(document.querySelectorAll('#' + id + ' input:checked')).map(function (b) { return b.value }) }
-      function val(id) { var e = document.getElementById(id); return e ? e.value.trim() : '' }
-      function showErr(msg) { var d = document.getElementById('errorMsg'); d.textContent = msg; d.classList.add('show'); d.scrollIntoView({ behavior: 'smooth', block: 'center' }) }
-      function hideErr() { document.getElementById('errorMsg').classList.remove('show') }
-      function validate() {
-        if (!val('fullName')) return '⚠ Full Name is required.';
-        if (!val('phone')) return '⚠ Phone Number is required.';
-        if (!val('whatsapp')) return '⚠ WhatsApp Number is required.';
-        if (!val('collegeEmail')) return '⚠ College Email is required.';
-        if (!val('personalEmail')) return '⚠ Personal Email is required.';
-        if (!val('state')) return '⚠ Please select your State.';
-        if (!val('collegeName')) return '⚠ College Name is required.';
-        if (!val('branch')) return '⚠ Branch / Stream is required.';
-        if (!val('year')) return '⚠ Please select Year of Study.';
-        if (getChecked('domainsGroup').length === 0) return '⚠ Please select at least one domain.';
-        if (getChecked('langsGroup').length === 0) return '⚠ Please select at least one language.';
-        // Bot honeypot check: should be empty
-        if (document.querySelector('input[name="botcheck"]').value) return '⚠ Bot detection triggered.';
-        if (!document.getElementById('feeAck').checked) return '⚠ Please confirm the acknowledgement.';
-        return null;
-      }
-      function showSuccess() {
-        document.getElementById('mainForm').style.display = 'none';
-        var s = document.getElementById('successScreen');
-        s.classList.add('show');
-        document.getElementById('sName').textContent = val('fullName');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-      function submitForm() {
-        hideErr();
-        var err = validate();
-        if (err) { showErr(err); return; }
-        var btn = document.getElementById('submitBtn');
-        btn.disabled = true; btn.textContent = 'Submitting...';
-        var data = {
-          fullName: val('fullName'), phone: val('phone'), whatsapp: val('whatsapp'),
-          collegeEmail: val('collegeEmail'), personalEmail: val('personalEmail'),
-          state: val('state'), otherCountry: val('otherCountry'),
-          collegeName: val('collegeName'), branch: val('branch'), year: val('year'),
-          crContact: val('crContact'),
-          referralCode: val('referralCode'),
-          domains: getChecked('domainsGroup'), languages: getChecked('langsGroup'),
-          feeAcknowledged: true
-        };
-        fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
-          .then(function () { showSuccess() }).catch(function () { showSuccess() });
-        setTimeout(showSuccess, 6000);
-      }
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>SETIP 2026 | Launch Your Global Career</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-tertiary-fixed-variant": "#6e3900",
+                        "on-primary-fixed-variant": "#2e476f",
+                        "on-error": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-tint": "#465f88",
+                        "surface-container": "#e5eeff",
+                        "outline": "#74777f",
+                        "surface-dim": "#cbdbf5",
+                        "surface-container-high": "#dce9ff",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#004f54",
+                        "on-primary-fixed": "#001b3d",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container-highest": "#d3e4fe",
+                        "secondary-container": "#9af1f8",
+                        "primary": "#002046",
+                        "inverse-surface": "#213145",
+                        "primary-fixed": "#d6e3ff",
+                        "primary-container": "#1b365d",
+                        "secondary-fixed": "#9af1f8",
+                        "surface": "#f8f9ff",
+                        "on-background": "#0b1c30",
+                        "tertiary-fixed": "#ffdcc3",
+                        "inverse-primary": "#aec7f7",
+                        "secondary-fixed-dim": "#7ed4db",
+                        "on-secondary-fixed": "#002022",
+                        "on-secondary-container": "#007076",
+                        "surface-variant": "#d3e4fe",
+                        "tertiary": "#361900",
+                        "on-tertiary-container": "#eb851c",
+                        "tertiary-container": "#552b00",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed": "#2f1500",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#c4c6cf",
+                        "tertiary-fixed-dim": "#ffb77d",
+                        "on-primary-container": "#87a0cd",
+                        "on-surface": "#0b1c30",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#aec7f7",
+                        "background": "#f8f9ff",
+                        "surface-bright": "#f8f9ff",
+                        "on-surface-variant": "#44474e",
+                        "secondary": "#00696f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "unit": "8px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "stack-md": "16px",
+                        "margin-desktop": "48px",
+                        "stack-lg": "32px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Atkinson Hyperlegible Next"],
+                        "headline-md": ["Atkinson Hyperlegible Next"],
+                        "headline-lg": ["Atkinson Hyperlegible Next"],
+                        "body-md": ["Atkinson Hyperlegible Next"],
+                        "headline-lg-mobile": ["Atkinson Hyperlegible Next"],
+                        "headline-xl-mobile": ["Atkinson Hyperlegible Next"],
+                        "headline-xl": ["Atkinson Hyperlegible Next"],
+                        "label-sm": ["Atkinson Hyperlegible Next"],
+                        "label-md": ["Atkinson Hyperlegible Next"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-xl-mobile": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}]
+                    },
+                    "animation": {
+                        "pulse-subtle": "pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+                    },
+                    "keyframes": {
+                        "pulse-subtle": {
+                            "0%, 100%": { transform: "scale(1)" },
+                            "50%": { transform: "scale(1.03)" },
+                        }
+                    }
+                },
+            },
+        }
     </script>
-</body>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        /* Custom scrollbar for premium look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f8f9ff;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md selection:bg-secondary-container selection:text-on-secondary-container">
 
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface-container-lowest/80 backdrop-blur-md border-b border-outline-variant h-16 flex justify-between items-center px-margin-mobile md:px-margin-desktop">
+    <div class="flex items-center gap-unit">
+        <span class="material-symbols-outlined text-primary text-2xl" data-icon="rocket">rocket_launch</span>
+        <span class="font-headline-md text-primary tracking-tight">SETIP 2026</span>
+    </div>
+    <nav class="hidden md:flex gap-gutter items-center">
+        <a class="text-on-surface-variant hover:text-primary transition-colors font-label-md" href="#program">Program</a>
+        <a class="text-on-surface-variant hover:text-primary transition-colors font-label-md" href="#eligibility">Eligibility</a>
+        <a class="bg-primary text-on-primary px-6 py-2 rounded-full font-label-md hover:shadow-lg transition-all hover:bg-primary-container" href="#apply">Apply Now</a>
+    </nav>
+    <button id="menuBtn" class="md:hidden text-primary focus:outline-none p-1">
+        <span class="material-symbols-outlined text-3xl" data-icon="menu">menu</span>
+    </button>
+</header>
+
+<!-- Mobile Navigation Drawer -->
+<div id="mobileMenu" class="fixed inset-0 z-50 bg-primary/40 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 md:hidden">
+    <div class="absolute right-0 top-0 w-80 h-full bg-white shadow-2xl p-6 flex flex-col gap-8 transform translate-x-full transition-transform duration-300" id="mobileMenuContent">
+        <div class="flex justify-between items-center border-b pb-4">
+            <div class="flex items-center gap-unit">
+                <span class="material-symbols-outlined text-primary text-2xl" data-icon="rocket">rocket_launch</span>
+                <span class="font-headline-md text-primary tracking-tight">SETIP 2026</span>
+            </div>
+            <button id="closeMenuBtn" class="text-primary hover:text-secondary focus:outline-none">
+                <span class="material-symbols-outlined text-3xl">close</span>
+            </button>
+        </div>
+        <nav class="flex flex-col gap-6 font-headline-md">
+            <a class="text-on-surface-variant hover:text-primary transition-colors text-lg font-medium mobile-nav-link" href="#program">Program</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors text-lg font-medium mobile-nav-link" href="#eligibility">Eligibility</a>
+            <a class="bg-primary text-on-primary px-6 py-3 rounded-xl text-center font-label-md hover:shadow-lg transition-all mt-4" href="#apply" id="mobileApplyBtn">Apply Now</a>
+        </nav>
+    </div>
+</div>
+
+<main class="pt-16">
+    <!-- Hero Section -->
+    <section class="relative min-h-[85vh] flex items-center px-margin-mobile md:px-margin-desktop overflow-hidden">
+        <!-- High-energy Background Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img alt="Modern Tech Campus" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBo9bnxWt99Bd2RgaXTvbhkcTYr-d9HPS-jEsnfBFQh0ZGBu4lyTbsyeNu_PwH7wIR28SkPjm76pSc5FlmHcWAGmrXP53Kdfexv0bdWKcLJtQu7tZVVvMiCb1OP1r4WhUIoWeFdy5vd-T-As9unq7-ESrqHsWVss6p-NWbMFGidNM1f5-ZlvGJ1lRHs6iVT88DDI04ZJrh5yBjoeA2J50rWK6OX9JhxIvaQn7UMXlMyBhQ0hHx2EUJdyzPWkUkSc8ZWkD4ddFcw8Nw"/>
+            <div class="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/70 to-transparent"></div>
+        </div>
+        <div class="max-w-container-max mx-auto grid md:grid-cols-2 gap-12 items-center w-full py-stack-lg relative z-10 text-on-primary">
+            <div class="space-y-stack-md">
+                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-secondary text-on-secondary font-label-sm uppercase tracking-widest shadow-lg">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                    </span>
+                    2026 Cohort Now Open
+                </span>
+                <h1 class="font-headline-xl text-headline-xl-mobile md:text-headline-xl leading-[1.1] text-white">
+                    Launch Your Global Career in 90 Days. <span class="text-secondary-container">Guaranteed.</span>
+                </h1>
+                <p class="font-body-lg text-primary-fixed opacity-90 max-w-xl text-xl">
+                    Stop dreaming, start doing. Join the 2026 Cohort and bridge the gap between college and your dream MNC with elite training and guaranteed internship pathways.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-stack-sm pt-stack-sm">
+                    <a class="bg-gradient-to-r from-tertiary-container to-on-tertiary-container text-white px-10 py-5 rounded-xl font-headline-md text-center hover:shadow-[0_0_20px_rgba(235,133,28,0.4)] transition-all transform hover:-translate-y-1 animate-pulse-subtle" href="#apply">
+                        Secure My Seat
+                    </a>
+                    <a class="backdrop-blur-md bg-white/10 border border-white/30 text-white px-10 py-5 rounded-xl font-headline-md text-center hover:bg-white/20 transition-all" href="#program">
+                        Explore Program
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Counter / Motivation Section -->
+    <section class="bg-primary border-y border-outline/20 py-12 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary-container/20 via-transparent to-transparent opacity-50"></div>
+        <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-3 gap-12 text-center relative z-10">
+            <div class="space-y-2">
+                <p class="text-5xl font-bold text-secondary-fixed">15,000+</p>
+                <p class="text-primary-fixed font-label-md uppercase tracking-widest opacity-80">Students Placed</p>
+            </div>
+            <div class="space-y-2">
+                <p class="text-5xl font-bold text-secondary-fixed">500+</p>
+                <p class="text-primary-fixed font-label-md uppercase tracking-widest opacity-80">MNC Partners</p>
+            </div>
+            <div class="space-y-2">
+                <p class="text-5xl font-bold text-secondary-fixed">4.8/5</p>
+                <p class="text-primary-fixed font-label-md uppercase tracking-widest opacity-80">Student Rating</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Program Timeline (Glassmorphism) -->
+    <section class="py-stack-lg px-margin-mobile md:px-margin-desktop bg-surface relative overflow-hidden" id="program">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-secondary-container/10 rounded-full blur-[120px] -z-10"></div>
+        <div class="max-w-container-max mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="font-headline-lg text-primary mb-4">The 90-Day Hype Cycle</h2>
+                <p class="text-on-surface-variant max-w-2xl mx-auto text-lg">Your accelerated path from student to industry professional starts here. No fluff, just results.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8 relative">
+                <!-- Month 1 -->
+                <div class="glass-card p-10 rounded-[2rem] hover:shadow-2xl transition-all group">
+                    <div class="w-16 h-16 rounded-2xl bg-primary text-on-primary flex items-center justify-center font-bold text-2xl mb-8 shadow-lg group-hover:rotate-12 transition-transform">01</div>
+                    <h3 class="font-headline-md text-primary mb-4">Master the Industry: Week 1-4</h3>
+                    <p class="text-on-surface-variant">Deep dive into the tech stacks and business tools used by Google, Meta, and Amazon. Hard skills that actually get you hired.</p>
+                </div>
+                <!-- Month 2 -->
+                <div class="glass-card p-10 rounded-[2rem] hover:shadow-2xl transition-all group border-primary/20">
+                    <div class="w-16 h-16 rounded-2xl bg-secondary text-on-secondary flex items-center justify-center font-bold text-2xl mb-8 shadow-lg group-hover:rotate-12 transition-transform">02</div>
+                    <h3 class="font-headline-md text-primary mb-4">Work Like a Pro: Week 5-8</h3>
+                    <p class="text-on-surface-variant">Get your hands dirty with live projects. You won't be watching tutorials; you'll be building solutions for our partner MNCs.</p>
+                </div>
+                <!-- Month 3 -->
+                <div class="glass-card p-10 rounded-[2rem] hover:shadow-2xl transition-all group">
+                    <div class="w-16 h-16 rounded-2xl bg-tertiary-container text-white flex items-center justify-center font-bold text-2xl mb-8 shadow-lg group-hover:rotate-12 transition-transform">03</div>
+                    <h3 class="font-headline-md text-primary mb-4">Global Takeover: Week 9-12</h3>
+                    <p class="text-on-surface-variant">Resume optimization, high-stakes mock interviews, and exclusive recruitment drives with 500+ global partners.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Program Benefits (Bento Style) -->
+    <section class="py-stack-lg px-margin-mobile md:px-margin-desktop bg-surface-container-low">
+        <div class="max-w-container-max mx-auto">
+            <h2 class="font-headline-lg text-primary text-center mb-16">The SETIP Edge</h2>
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                <!-- Large Feature 1 -->
+                <div class="md:col-span-8 bg-white p-10 rounded-[2.5rem] border border-outline-variant shadow-sm hover:shadow-xl transition-all flex flex-col justify-between group">
+                    <div class="max-w-md">
+                        <span class="material-symbols-outlined text-secondary text-5xl mb-6 block group-hover:scale-110 transition-transform" data-icon="verified">verified</span>
+                        <h3 class="font-headline-lg text-primary mb-4">Double-Platinum Certification</h3>
+                        <p class="text-on-surface-variant text-lg">Gain the most prestigious credential in the sector. Your certificate is co-signed by ADOBE and an elite industry lead from a Fortune 500 firm.</p>
+                    </div>
+                    <div class="mt-8 flex flex-wrap gap-3">
+                        <span class="px-4 py-1.5 bg-surface-container-high rounded-full text-sm font-bold text-primary">Global Credibility</span>
+                        <span class="px-4 py-1.5 bg-surface-container-high rounded-full text-sm font-bold text-primary">Verified Skills</span>
+                    </div>
+                </div>
+                <!-- Small Feature 1 -->
+                <div class="md:col-span-4 bg-primary text-on-primary p-10 rounded-[2.5rem] shadow-lg hover:shadow-primary/20 transition-all flex flex-col justify-center">
+                    <span class="material-symbols-outlined text-secondary-fixed text-4xl mb-6" data-icon="hub">hub</span>
+                    <h3 class="font-headline-md mb-2">50+ Global Hubs</h3>
+                    <p class="opacity-80">Direct placement pipelines into top tech and business hubs worldwide.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="md:col-span-4 bg-secondary-container p-10 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-all flex flex-col justify-center border border-secondary-container">
+                    <span class="material-symbols-outlined text-on-secondary-container text-4xl mb-6" data-icon="psychology">psychology</span>
+                    <h4 class="font-headline-md text-primary mb-2">1:1 Elite Mentorship</h4>
+                    <p class="text-on-surface-variant">Direct access to industry leads. Not just teachers, but professional guides.</p>
+                </div>
+                <!-- Large Feature 2 -->
+                <div class="md:col-span-8 bg-gradient-to-br from-white to-surface-container p-10 rounded-[2.5rem] border border-outline-variant shadow-sm hover:shadow-xl transition-all flex flex-col md:flex-row gap-8 items-center">
+                    <div class="flex-1">
+                        <span class="material-symbols-outlined text-on-tertiary-container text-5xl mb-6 block" data-icon="auto_awesome">auto_awesome</span>
+                        <h3 class="font-headline-lg text-primary mb-4">Placement Assurance</h3>
+                        <p class="text-on-surface-variant text-lg">We don't just train you; we get you hired. Our dedicated placement cell works 24/7 to secure your future.</p>
+                    </div>
+                    <div class="w-full md:w-48 aspect-square bg-primary-container rounded-3xl flex items-center justify-center text-on-primary text-6xl font-bold shadow-inner animate-pulse">98%</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Program Perks / What You'll Earn -->
+    <section class="py-stack-lg px-margin-mobile md:px-margin-desktop bg-white relative overflow-hidden">
+        <!-- Decorative blobs -->
+        <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-secondary/5 rounded-full blur-[100px] -z-0 translate-x-1/3 -translate-y-1/3"></div>
+        <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] -z-0 -translate-x-1/3 translate-y-1/3"></div>
+        <div class="max-w-container-max mx-auto relative z-10">
+            <div class="text-center mb-16">
+                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-secondary/10 text-secondary font-label-sm uppercase tracking-widest mb-4">
+                    <span class="w-2 h-2 rounded-full bg-secondary inline-block"></span>
+                    Included in Every Seat
+                </span>
+                <h2 class="font-headline-lg text-primary mb-4">Everything You'll Earn</h2>
+                <p class="text-on-surface-variant max-w-2xl mx-auto text-lg">Five career-defining benefits packaged into one program — no extras, no hidden tiers.</p>
+            </div>
+
+            <!-- Bento Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+
+                <!-- Large card: Completion Certificate -->
+                <div class="md:col-span-7 glass-card p-10 rounded-[2rem] hover:shadow-2xl transition-all group border border-secondary/20 flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-secondary/10 flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform shadow-sm">📋</div>
+                        <h3 class="font-headline-lg text-primary mb-3">Completion Certificate</h3>
+                        <p class="text-on-surface-variant text-lg">A globally recognised certificate co-signed by <strong class="text-primary">Adobe</strong> and elite Fortune 500 industry leads — your proof of professional readiness.</p>
+                    </div>
+                    <div class="mt-8 flex flex-wrap gap-3">
+                        <span class="px-4 py-1.5 bg-secondary/10 text-secondary rounded-full text-sm font-bold">50+ MNC Hiring Partners</span>
+                        <span class="px-4 py-1.5 bg-surface-container rounded-full text-sm font-bold text-primary">Globally Recognised</span>
+                    </div>
+                </div>
+
+                <!-- Small card: LoR -->
+                <div class="md:col-span-5 bg-primary text-on-primary p-10 rounded-[2rem] shadow-lg hover:shadow-primary/30 transition-all flex flex-col justify-center group">
+                    <div class="text-3xl mb-4">✉️</div>
+                    <h3 class="font-headline-md mb-3">Letter of Recommendation</h3>
+                    <p class="opacity-80 text-sm leading-relaxed">A personalised, performance-based LoR written by industry experts — the edge that sets your resume apart.</p>
+                </div>
+
+                <!-- Small card: Dedicated Mentor -->
+                <div class="md:col-span-4 bg-secondary-container p-10 rounded-[2rem] shadow-sm hover:shadow-xl transition-all flex flex-col justify-center group border border-secondary/10">
+                    <div class="text-3xl mb-4">🧑‍💼</div>
+                    <h4 class="font-headline-md text-primary mb-2">Dedicated Industry Mentor</h4>
+                    <p class="text-on-surface-variant text-sm leading-relaxed">1-on-1 guidance from an assigned industry professional throughout every phase of the program.</p>
+                </div>
+
+                <!-- Small card: MNC Placement -->
+                <div class="md:col-span-4 glass-card p-10 rounded-[2rem] hover:shadow-xl transition-all group border border-outline-variant flex flex-col justify-center">
+                    <div class="text-3xl mb-4">💼</div>
+                    <h4 class="font-headline-md text-primary mb-2">MNC Placement Assistance</h4>
+                    <p class="text-on-surface-variant text-sm leading-relaxed">Resume reviews, high-stakes mock interviews, and direct referrals to 500+ global partner companies.</p>
+                </div>
+
+                <!-- Small card: Industry Tools -->
+                <div class="md:col-span-4 bg-gradient-to-br from-primary-container to-surface-container p-10 rounded-[2rem] hover:shadow-xl transition-all flex flex-col justify-center group border border-outline-variant">
+                    <div class="text-3xl mb-4">🛠️</div>
+                    <h4 class="font-headline-md text-primary mb-2">Industry Tools Access</h4>
+                    <p class="text-on-surface-variant text-sm leading-relaxed">Hands-on training with the exact tools used in real MNC workplaces — from day one of the program.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof / Why Wait -->
+    <section class="py-24 px-margin-mobile md:px-margin-desktop bg-primary text-on-primary overflow-hidden relative">
+        <div class="max-w-3xl mx-auto text-center space-y-8 relative z-10">
+            <div class="inline-block px-4 py-1 rounded-lg bg-error text-white font-bold animate-pulse">
+                LIMITED SEATS REMAINING
+            </div>
+            <h2 class="font-headline-xl text-white">Why Wait for Opportunity? Create It.</h2>
+            <div class="grid grid-cols-4 gap-4 max-w-md mx-auto">
+                <div class="bg-white/10 p-4 rounded-xl backdrop-blur-md">
+                    <div class="text-3xl font-bold" id="cd-days">02</div>
+                    <div class="text-xs opacity-60">DAYS</div>
+                </div>
+                <div class="bg-white/10 p-4 rounded-xl backdrop-blur-md">
+                    <div class="text-3xl font-bold" id="cd-hours">14</div>
+                    <div class="text-xs opacity-60">HRS</div>
+                </div>
+                <div class="bg-white/10 p-4 rounded-xl backdrop-blur-md">
+                    <div class="text-3xl font-bold" id="cd-minutes">38</div>
+                    <div class="text-xs opacity-60">MINS</div>
+                </div>
+                <div class="bg-white/10 p-4 rounded-xl backdrop-blur-md">
+                    <div class="text-3xl font-bold" id="cd-seconds">59</div>
+                    <div class="text-xs opacity-60">SECS</div>
+                </div>
+            </div>
+            <p class="text-xl opacity-80 max-w-lg mx-auto">The 2026 cohort is filling up 4x faster than last year. Don't let your dream career slip away.</p>
+            <a class="inline-block bg-secondary text-on-secondary px-12 py-5 rounded-full font-headline-md shadow-2xl hover:bg-secondary-fixed hover:scale-105 transition-all duration-300" href="#apply">
+                Grab Your Spot Now
+            </a>
+        </div>
+    </section>
+
+    <!-- Eligibility Section -->
+    <section class="py-stack-lg px-margin-mobile md:px-margin-desktop bg-white" id="eligibility">
+        <div class="max-w-container-max mx-auto grid md:grid-cols-2 gap-16 items-center">
+            <div class="relative">
+                <div class="absolute -top-10 -left-10 w-40 h-40 bg-secondary/10 rounded-full blur-3xl"></div>
+                <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-primary/10 rounded-full blur-3xl"></div>
+                <img alt="Modern Learning" class="rounded-[2.5rem] shadow-2xl relative z-10 border border-outline-variant grayscale hover:grayscale-0 transition-all duration-700 w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeHj3HnjKFDDdHwDYvIK5p6qSqnJB2EIb5QHLQZasr0BCnPI0ZufAlVquz2oRhPaHZYX7Ae09bD-XEkHgouHIrjJIAFkYa5DZelQFVybg9uhag9b8vIHg6k-MRwoaSWNfK42j2HWXwzea0SdvcUgk49b9mLmUo3VVfIgADY97Kccgj_E4bebsP4cHoKtIICfajl1Gpa5WsuQ2y8RKVqKLyUihxB-h19Rn5kKUiXKo1hvrm-cu_0oZik3Ra8NruDUgfbmGBJgpd4ZQ"/>
+            </div>
+            <div class="space-y-8">
+                <h2 class="font-headline-lg text-primary leading-tight">Built for the Next Generation of Industry Leaders.</h2>
+                <p class="text-body-lg text-on-surface-variant">We don't look at just grades. We look for hunger, curiosity, and the drive to excel.</p>
+                <div class="space-y-6">
+                    <div class="flex items-center gap-6 p-6 rounded-2xl bg-surface-container hover:bg-secondary-container transition-colors cursor-default">
+                        <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center text-secondary shadow-sm">
+                            <span class="material-symbols-outlined" data-icon="school">school</span>
+                        </div>
+                        <span class="text-on-surface font-headline-md">Tech, Business, Design, or Marketing Students</span>
+                    </div>
+                    <div class="flex items-center gap-6 p-6 rounded-2xl bg-surface-container hover:bg-secondary-container transition-colors cursor-default">
+                        <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center text-secondary shadow-sm">
+                            <span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+                        </div>
+                        <span class="text-on-surface font-headline-md">Open to all 1st to 4th-year students &amp; grads</span>
+                    </div>
+                    <div class="flex items-center gap-6 p-6 rounded-2xl bg-surface-container hover:bg-secondary-container transition-colors cursor-default">
+                        <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center text-secondary shadow-sm">
+                            <span class="material-symbols-outlined" data-icon="trending_up">trending_up</span>
+                        </div>
+                        <span class="text-on-surface font-headline-md">High ambition for professional growth</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Application Multi-step Form -->
+    <section class="py-stack-lg px-margin-mobile md:px-margin-desktop bg-surface-container-low" id="apply">
+        <div class="max-w-4xl mx-auto bg-white rounded-[2.5rem] shadow-2xl border border-outline-variant overflow-hidden">
+            <div class="bg-primary p-12 text-on-primary relative overflow-hidden text-center">
+                <!-- Decorative blobs -->
+                <div class="absolute top-0 right-0 w-72 h-72 bg-secondary/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4"></div>
+                <div class="absolute bottom-0 left-0 w-72 h-72 bg-secondary/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/4"></div>
+                <div class="absolute top-1/2 left-1/2 w-48 h-48 bg-white/5 rounded-full blur-2xl -translate-x-1/2 -translate-y-1/2"></div>
+
+                <!-- Badge -->
+                <div class="relative z-10 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-sm border border-white/20 text-sm font-semibold mb-6">
+                    <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                    SETIP 2026 — Cohort Applications Open
+                </div>
+
+                <!-- Title -->
+                <h2 class="font-headline-lg mb-3 relative z-10 text-4xl font-bold tracking-tight">Application Portal</h2>
+                <p class="text-primary-fixed opacity-80 relative z-10 text-lg max-w-xl mx-auto">Join thousands of students already transforming their careers with SETIP's industry-led internship program.</p>
+
+                <!-- Stats Row -->
+                <div class="relative z-10 mt-8 grid grid-cols-3 gap-4 max-w-lg mx-auto">
+                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/10">
+                        <div class="text-2xl font-bold">15,000+</div>
+                        <div class="text-xs opacity-70 mt-1">Students Placed</div>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/10">
+                        <div class="text-2xl font-bold">500+</div>
+                        <div class="text-xs opacity-70 mt-1">MNC Partners</div>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/10">
+                        <div class="text-2xl font-bold">4.8/5</div>
+                        <div class="text-xs opacity-70 mt-1">Student Rating</div>
+                    </div>
+                </div>
+
+                <!-- Adobe co-sign badge -->
+                <div class="relative z-10 mt-6 inline-flex items-center gap-2 text-sm opacity-75">
+                    <span class="material-symbols-outlined text-base">verified</span>
+                    Certificate co-signed by <strong>ADOBE</strong> &amp; Fortune 500 industry leaders
+                </div>
+            </div>
+
+
+            <form class="p-12 space-y-8" id="applicationForm" novalidate>
+                <!-- Step 1: Personal -->
+                <div class="space-y-6" id="step-1">
+                    <h3 class="font-headline-md text-primary">Personal Details</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="block font-label-md text-on-surface-variant">Full Name *</label>
+                            <input id="fullName" class="w-full p-4 border border-outline rounded-xl focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all" placeholder="As per college records" required type="text"/>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block font-label-md text-on-surface-variant">Phone Number *</label>
+                            <input id="phoneNumber" class="w-full p-4 border border-outline rounded-xl focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all" placeholder="+91 00000 00000" required type="tel"/>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block font-label-md text-on-surface-variant">WhatsApp Number *</label>
+                            <input id="whatsappNumber" class="w-full p-4 border border-outline rounded-xl focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all" placeholder="If same, re-enter" required type="tel"/>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block font-label-md text-on-surface-variant">College Email *</label>
+                            <input id="collegeEmail" class="w-full p-4 border border-outline rounded-xl focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all" placeholder="yourname@college.edu" required type="email"/>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block font-label-md text-on-surface-variant">Personal Email *</label>
+                            <input id="personalEmail" class="w-full p-4 border border-outline rounded-xl focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all" placeholder="yourname@gmail.com" required type="email"/>
+                        </div>
+                        <div class="space-y-2 md:col-span-2">
+                            <label class="block font-label-md text-on-surface-variant">State / Region *</label>
+                            <select id="stateRegion" class="w-full p-4 border border-outline rounded-xl outline-none focus:ring-2 focus:ring-secondary" required onchange="document.getElementById('otherStateWrapper').classList.toggle('hidden', this.value !== 'Other'); if(this.value !== 'Other') document.getElementById('otherStateRegion').removeAttribute('required'); else document.getElementById('otherStateRegion').setAttribute('required', 'required');">
+                                <option value="" disabled selected>— Select your state —</option>
+                                <option>Andhra Pradesh</option>
+                                <option>Arunachal Pradesh</option>
+                                <option>Assam</option>
+                                <option>Bihar</option>
+                                <option>Chhattisgarh</option>
+                                <option>Goa</option>
+                                <option>Gujarat</option>
+                                <option>Haryana</option>
+                                <option>Himachal Pradesh</option>
+                                <option>Jharkhand</option>
+                                <option>Karnataka</option>
+                                <option>Kerala</option>
+                                <option>Madhya Pradesh</option>
+                                <option>Maharashtra</option>
+                                <option>Manipur</option>
+                                <option>Meghalaya</option>
+                                <option>Mizoram</option>
+                                <option>Nagaland</option>
+                                <option>Odisha</option>
+                                <option>Punjab</option>
+                                <option>Rajasthan</option>
+                                <option>Sikkim</option>
+                                <option>Tamil Nadu</option>
+                                <option>Telangana</option>
+                                <option>Tripura</option>
+                                <option>Uttar Pradesh</option>
+                                <option>Uttarakhand</option>
+                                <option>West Bengal</option>
+                                <option>Andaman and Nicobar Islands</option>
+                                <option>Chandigarh</option>
+                                <option>Dadra and Nagar Haveli and Daman and Diu</option>
+                                <option>Delhi</option>
+                                <option>Jammu and Kashmir</option>
+                                <option>Ladakh</option>
+                                <option>Lakshadweep</option>
+                                <option>Puducherry</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="space-y-2 md:col-span-2 hidden" id="otherStateWrapper">
+                            <label class="block font-label-md text-on-surface-variant">Please specify your State / Country *</label>
+                            <input id="otherStateRegion" class="w-full p-4 border border-outline rounded-xl focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all" placeholder="Enter your state or country" type="text"/>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Academic (Hidden) -->
+                <div class="space-y-6" id="step-2">
+                    <h3 class="font-headline-md text-primary">Academic Background</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="block font-label-md text-on-surface-variant">College Name *</label>
+                            <input id="collegeName" class="w-full p-4 border border-outline rounded-xl focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all" placeholder="Full official college name" required type="text"/>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block font-label-md text-on-surface-variant">Branch / Stream *</label>
+                            <input id="branchStream" class="w-full p-4 border border-outline rounded-xl focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all" placeholder="e.g. Computer Science, MBA" required type="text"/>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block font-label-md text-on-surface-variant">Year of Study *</label>
+                            <select id="yearStudy" class="w-full p-4 border border-outline rounded-xl outline-none focus:ring-2 focus:ring-secondary" required>
+                                <option value="" disabled selected>— Select year —</option>
+                                <option>1st Year</option>
+                                <option>2nd Year</option>
+                                <option>3rd Year</option>
+                                <option>4th Year</option>
+                                <option>Graduate</option>
+                            </select>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block font-label-md text-on-surface-variant">Class Representative Contact</label>
+                            <input id="crContact" class="w-full p-4 border border-outline rounded-xl focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all" placeholder="CR phone (optional)" type="tel"/>
+                        </div>
+                        <div class="space-y-2 md:col-span-2">
+                            <label class="block font-label-md text-on-surface-variant">Referral Code</label>
+                            <input id="referralCode" class="w-full p-4 border border-outline rounded-xl focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all" placeholder="Enter code (optional)" type="text"/>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Domains (Hidden) -->
+                <div class="space-y-6" id="step-3">
+                    <h3 class="font-headline-md text-primary">Your Interests</h3>
+                    <div class="space-y-6">
+                        <div class="space-y-2 md:col-span-2">
+                            <label class="block font-label-md text-on-surface-variant">Domain to upskill in *</label>
+                            <select id="domainSelect" class="w-full p-4 border border-outline rounded-xl outline-none focus:ring-2 focus:ring-secondary" required>
+                                <option value="" disabled selected>— Select domain —</option>
+                                <option>Android App Development</option>
+                                <option>Full Stack Web Development</option>
+                                <option>Data Science</option>
+                                <option>Data Analytics</option>
+                                <option>Machine Learning</option>
+                                <option>Artificial Intelligence</option>
+                                <option>Cyber Security</option>
+                                <option>IoT / Robotics</option>
+                                <option>Cloud Computing</option>
+                                <option>Graphic Design</option>
+                                <option>AutoCAD</option>
+                                <option>UI/UX Design</option>
+                                <option>Embedded Systems</option>
+                                <option>Digital Marketing</option>
+                                <option>Finance</option>
+                                <option>Stock Market</option>
+                                <option>Human Resource</option>
+                                <option>Business Analytics</option>
+                                <option>DevOps</option>
+                                <option>VLSI</option>
+                                <option>Forensic Psychology</option>
+                                <option>Clinical Psychology</option>
+                                <option>Corporate Law</option>
+                            </select>
+                        </div>
+
+                        <div class="space-y-4">
+                            <label class="block font-label-md text-on-surface-variant">Preferred language(s) * <span class="text-xs block opacity-70">Select at least one</span></label>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="language-grid">
+                                <label class="flex items-center gap-3 p-4 bg-white border border-outline rounded-xl hover:border-secondary hover:shadow-sm cursor-pointer transition-all">
+                                    <input type="checkbox" name="languages" value="English" class="w-5 h-5 rounded border-outline text-secondary focus:ring-secondary cursor-pointer transition-colors" />
+                                    <span class="font-medium text-on-surface-variant">English</span>
+                                </label>
+                                <label class="flex items-center gap-3 p-4 bg-white border border-outline rounded-xl hover:border-secondary hover:shadow-sm cursor-pointer transition-all">
+                                    <input type="checkbox" name="languages" value="Hindi" class="w-5 h-5 rounded border-outline text-secondary focus:ring-secondary cursor-pointer transition-colors" />
+                                    <span class="font-medium text-on-surface-variant">Hindi</span>
+                                </label>
+                                <label class="flex items-center gap-3 p-4 bg-white border border-outline rounded-xl hover:border-secondary hover:shadow-sm cursor-pointer transition-all">
+                                    <input type="checkbox" name="languages" value="Kannada" class="w-5 h-5 rounded border-outline text-secondary focus:ring-secondary cursor-pointer transition-colors" />
+                                    <span class="font-medium text-on-surface-variant">Kannada</span>
+                                </label>
+                                <label class="flex items-center gap-3 p-4 bg-white border border-outline rounded-xl hover:border-secondary hover:shadow-sm cursor-pointer transition-all">
+                                    <input type="checkbox" name="languages" value="Tamil" class="w-5 h-5 rounded border-outline text-secondary focus:ring-secondary cursor-pointer transition-colors" />
+                                    <span class="font-medium text-on-surface-variant">Tamil</span>
+                                </label>
+                                <label class="flex items-center gap-3 p-4 bg-white border border-outline rounded-xl hover:border-secondary hover:shadow-sm cursor-pointer transition-all">
+                                    <input type="checkbox" name="languages" value="Telugu" class="w-5 h-5 rounded border-outline text-secondary focus:ring-secondary cursor-pointer transition-colors" />
+                                    <span class="font-medium text-on-surface-variant">Telugu</span>
+                                </label>
+                                <label class="flex items-center gap-3 p-4 bg-white border border-outline rounded-xl hover:border-secondary hover:shadow-sm cursor-pointer transition-all">
+                                    <input type="checkbox" name="languages" value="Marathi" class="w-5 h-5 rounded border-outline text-secondary focus:ring-secondary cursor-pointer transition-colors" />
+                                    <span class="font-medium text-on-surface-variant">Marathi</span>
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Final Step -->
+                <div class="space-y-6" id="submit-section">
+                    <div class="mb-6">
+                        <label class="flex items-start gap-3 p-4 bg-white border border-outline rounded-xl hover:border-secondary hover:shadow-sm cursor-pointer transition-all">
+                            <input type="checkbox" id="confirmationCheck" class="w-5 h-5 mt-0.5 rounded border-outline text-secondary focus:ring-secondary cursor-pointer" required />
+                            <span class="font-medium text-on-surface-variant text-sm">I confirm that all provided details are accurate and I acknowledge that a nominal program fee is applicable for SETIP 2026.</span>
+                        </label>
+                    </div>
+                    <button class="w-full py-6 bg-gradient-to-r from-primary to-secondary text-white font-headline-md rounded-2xl shadow-xl hover:scale-[1.02] active:scale-95 transition-all duration-200" type="submit" id="submitBtn">
+                        🚀 FINAL SUBMIT — LAUNCH MY CAREER
+                    </button>
+                    <div id="submit-error" class="hidden bg-red-50 border border-red-200 text-red-700 rounded-xl p-4 text-sm font-medium mt-4"></div>
+                </div>
+
+                <!-- Form Success State (Replaces form content entirely upon submit) -->
+                <div id="success-screen" class="hidden text-center py-12 space-y-8 max-w-lg mx-auto bg-white p-8 rounded-3xl border border-outline-variant shadow-sm">
+                    <!-- Party Popper Icon -->
+                    <div class="flex justify-center">
+                        <span class="text-6xl animate-bounce">🎉</span>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <h3 class="font-headline-xl text-green-700 text-3xl md:text-4xl font-bold">Application Submitted!</h3>
+                        <p class="text-on-surface-variant text-lg">
+                            Thank you, <strong id="summary-name" class="text-primary">—</strong>!
+                        </p>
+                        <p class="text-on-surface-variant font-medium">
+                            Our counsellor will contact you on <strong class="text-primary">WhatsApp within 24 hours</strong>.
+                        </p>
+                        <p class="text-sm text-on-surface-variant/80">
+                            Check your email for a confirmation.
+                        </p>
+                    </div>
+
+                    <!-- Checklist -->
+                    <div class="bg-green-50/50 border border-green-200/80 rounded-2xl p-6 text-left space-y-3">
+                        <div class="flex items-start gap-2.5 text-green-800 font-medium text-sm">
+                            <span class="text-green-600 font-bold">✓</span>
+                            <span>WhatsApp call from our counsellor within 24 hrs</span>
+                        </div>
+                        <div class="flex items-start gap-2.5 text-green-800 font-medium text-sm">
+                            <span class="text-green-600 font-bold">✓</span>
+                            <span>Confirmation email sent to your personal email</span>
+                        </div>
+                        <div class="flex items-start gap-2.5 text-green-800 font-medium text-sm">
+                            <span class="text-green-600 font-bold">✓</span>
+                            <span>Orientation details shared within 2–3 days</span>
+                        </div>
+                        <div class="flex items-start gap-2.5 text-green-800 font-medium text-sm">
+                            <span class="text-green-600 font-bold">✓</span>
+                            <span>Mentor assigned before Month 1 begins</span>
+                        </div>
+                    </div>
+                    <!-- Application ID Badge (Small reference) -->
+                    <div class="bg-surface-container-low p-4 rounded-xl text-center border border-outline-variant/60 shadow-sm max-w-xs mx-auto">
+                        <p class="text-xs text-on-surface-variant/80">
+                            Application ID: <span id="summary-app-id" class="font-mono text-primary font-bold">—</span>
+                        </p>
+                    </div>
+
+                    <!-- WhatsApp Group Button -->
+                    <div class="pt-2">
+                        <a href="https://chat.whatsapp.com/KjGldDWVgdjBsfpliyjbhw" target="_blank" class="inline-flex items-center justify-center gap-2 w-full py-4 px-6 bg-[#1ebd60] hover:bg-[#19a552] text-white font-headline-md rounded-2xl shadow-md transition-all hover:scale-[1.01] active:scale-95 text-base font-bold">
+                            📲 Students, join our WhatsApp group for more info
+                        </a>
+                    </div>
+                </div>
+
+
+                <!-- Loading State Overlay (Shown during submit simulation) -->
+                <div id="loading-screen" class="hidden text-center py-16 space-y-6">
+                    <div class="flex justify-center items-center">
+                        <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-secondary"></div>
+                    </div>
+                    <div class="space-y-2">
+                        <h4 class="font-headline-md text-primary text-xl">Securing Your Placement Slot...</h4>
+                        <p class="text-on-surface-variant text-sm max-w-xs mx-auto">Verifying academic credentials and registering with MNC portal pipelines.</p>
+                    </div>
+                </div>
+
+
+
+            </form>
+        </div>
+    </section>
+
+    <!-- Support Section -->
+    <section class="py-stack-lg px-margin-mobile md:px-margin-desktop bg-white">
+        <div class="max-w-container-max mx-auto bg-surface-container-low rounded-[2rem] p-10 md:p-16 flex flex-col md:flex-row gap-12 items-center border border-outline-variant">
+            <div class="flex-1 space-y-6">
+                <h2 class="font-headline-lg text-primary">Need a Human Connection?</h2>
+                <p class="text-on-surface-variant text-lg">Talk to our placement controller directly about how we can accelerate your specific career goals.</p>
+                <div class="flex gap-4">
+                    <a class="bg-[#25D366] text-white px-8 py-3 rounded-full font-bold flex items-center gap-2 hover:opacity-90 transition-all" href="https://wa.me/919886232004" target="_blank">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.116.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.116-.198-.012-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.2-.33.065-.134.032-.248-.016-.346-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.808 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.13 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg> WhatsApp
+                    </a>
+                </div>
+            </div>
+            <div class="flex items-center gap-8 p-8 bg-white rounded-[2rem] shadow-xl border border-outline-variant w-full md:w-auto">
+                <div class="w-20 h-20 rounded-2xl bg-secondary-container flex items-center justify-center text-secondary relative">
+                    <span class="material-symbols-outlined text-4xl" data-icon="person_2">person_2</span>
+                    <div class="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 border-4 border-white rounded-full"></div>
+                </div>
+                <div>
+                    <p class="font-headline-md text-primary text-lg md:text-xl">Dr. Mandeep Singh</p>
+                    <p class="text-on-surface-variant font-label-md">Placements Controller</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="w-full py-16 bg-primary text-white flex flex-col items-center text-center px-margin-mobile space-y-8">
+    <div class="flex items-center gap-2 mb-4">
+        <span class="material-symbols-outlined text-secondary text-2xl" data-icon="rocket">rocket_launch</span>
+        <span class="font-headline-md tracking-tight">SETIP 2026</span>
+    </div>
+
+    <div class="w-full max-w-sm h-px bg-white/10 my-8"></div>
+    <p class="text-sm opacity-50">
+        © 2026 Special Education Teacher Induction Program. <br/>
+        All rights reserved. Designed for the Next Generation.
+    </p>
+</footer>
+
+<script>
+    // Mobile menu logic
+    const menuBtn = document.getElementById('menuBtn');
+    const closeMenuBtn = document.getElementById('closeMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileMenuContent = document.getElementById('mobileMenuContent');
+
+    function openMobileMenu() {
+        mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+        mobileMenuContent.classList.remove('translate-x-full');
+    }
+
+    function closeMobileMenu() {
+        mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+        mobileMenuContent.classList.add('translate-x-full');
+    }
+
+    if (menuBtn) menuBtn.addEventListener('click', openMobileMenu);
+    if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeMobileMenu);
+    if (mobileMenu) {
+        mobileMenu.addEventListener('click', (e) => {
+            if (e.target === mobileMenu) {
+                closeMobileMenu();
+            }
+        });
+    }
+    
+    // Auto-close menu when navigating
+    document.querySelectorAll('.mobile-nav-link, #mobileApplyBtn').forEach(link => {
+        link.addEventListener('click', closeMobileMenu);
+    });
+
+    // Countdown Timer logic
+    let countdownEndTime = localStorage.getItem('countdownEndTime');
+    if (!countdownEndTime) {
+        // Initialize: 2 Days, 14 Hours, 38 Mins, 59 Secs in milliseconds
+        const durationMs = (2 * 24 * 3600 + 14 * 3600 + 38 * 60 + 59) * 1000;
+        countdownEndTime = Date.now() + durationMs;
+        localStorage.setItem('countdownEndTime', countdownEndTime);
+    } else {
+        countdownEndTime = parseInt(countdownEndTime, 10);
+        // If expired, loop/reset it by adding 3 more days to keep urgency going
+        if (countdownEndTime < Date.now()) {
+            const durationMs = (2 * 24 * 3600 + 14 * 3600 + 38 * 60 + 59) * 1000;
+            countdownEndTime = Date.now() + durationMs;
+            localStorage.setItem('countdownEndTime', countdownEndTime);
+        }
+    }
+
+    function updateCountdown() {
+        const now = Date.now();
+        const distance = countdownEndTime - now;
+
+        if (distance <= 0) {
+            document.getElementById('cd-days').innerText = "00";
+            document.getElementById('cd-hours').innerText = "00";
+            document.getElementById('cd-minutes').innerText = "00";
+            document.getElementById('cd-seconds').innerText = "00";
+            return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById('cd-days').innerText = String(days).padStart(2, '0');
+        document.getElementById('cd-hours').innerText = String(hours).padStart(2, '0');
+        document.getElementById('cd-minutes').innerText = String(minutes).padStart(2, '0');
+        document.getElementById('cd-seconds').innerText = String(seconds).padStart(2, '0');
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Selection highlights helper for Grid Labels (Domains & Languages)
+    function setupGridHighlights(gridId) {
+        const labels = document.querySelectorAll(`#${gridId} label`);
+        labels.forEach(label => {
+            const input = label.querySelector('input');
+            if (!input) return;
+
+            const updateStyle = () => {
+                if (input.checked) {
+                    label.classList.add('border-secondary', 'bg-secondary-container/20');
+                } else {
+                    label.classList.remove('border-secondary', 'bg-secondary-container/20');
+                }
+            };
+
+            // Initial sync
+            updateStyle();
+
+            label.addEventListener('click', () => {
+                setTimeout(() => {
+                    if (input.type === 'radio') {
+                        // Uncheck others in style
+                        labels.forEach(l => {
+                            const inp = l.querySelector('input');
+                            if (inp) {
+                                if (inp.checked) {
+                                    l.classList.add('border-secondary', 'bg-secondary-container/20');
+                                } else {
+                                    l.classList.remove('border-secondary', 'bg-secondary-container/20');
+                                }
+                            }
+                        });
+                    } else {
+                        updateStyle();
+                    }
+                }, 10);
+            });
+        });
+    }
+
+    setupGridHighlights('language-grid');
+
+    // Handle final submission
+    const appForm = document.getElementById('applicationForm');
+    if (appForm) {
+        appForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // 1. Hide all form content
+            ['step-1', 'step-2', 'step-3'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.classList.add('hidden');
+            });
+            const formControls = document.getElementById('form-controls');
+            if (formControls) formControls.classList.add('hidden');
+
+            // Hide confirmation checkbox + submit button area
+            const submitBtn = document.getElementById('submitBtn');
+            const submitSection = document.getElementById('submit-section');
+            if (submitSection) {
+                const checkboxDiv = submitSection.querySelector('.mb-6');
+                if (checkboxDiv) checkboxDiv.classList.add('hidden');
+            }
+            if (submitBtn) submitBtn.classList.add('hidden');
+
+            // 2. Show loading screen
+            const loadingScreen = document.getElementById('loading-screen');
+            if (loadingScreen) loadingScreen.classList.remove('hidden');
+
+            // 3. Collect all form fields
+            const phoneVal = document.getElementById('phoneNumber').value;
+            const domainSelectEl = document.getElementById('domainSelect');
+            const selectedDomains = domainSelectEl && domainSelectEl.value ? [domainSelectEl.value] : [];
+
+            const selectedLanguages = Array.from(document.querySelectorAll('input[name="languages"]:checked'))
+                .map(cb => cb.value);
+
+            const stateValue = document.getElementById('stateRegion').value;
+            const finalStateRegion = stateValue === 'Other' ? document.getElementById('otherStateRegion').value : stateValue;
+
+            const payload = {
+                fullName:       document.getElementById('fullName').value,
+                phoneNumber:    document.getElementById('phoneNumber').value,
+                whatsappNumber: document.getElementById('whatsappNumber').value,
+                collegeEmail:   document.getElementById('collegeEmail').value,
+                personalEmail:  document.getElementById('personalEmail').value,
+                stateRegion:    finalStateRegion,
+                collegeName:    document.getElementById('collegeName').value,
+                branchStream:   document.getElementById('branchStream').value,
+                yearStudy:      document.getElementById('yearStudy').value,
+                crContact:      document.getElementById('crContact').value,
+                referralCode:   document.getElementById('referralCode').value,
+                domains:        selectedDomains,
+                languages:      selectedLanguages,
+            };
+
+            try {
+                // 4. POST to backend API
+                const response = await fetch('/api/apply', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload),
+                });
+
+                const result = await response.json();
+
+                if (loadingScreen) loadingScreen.classList.add('hidden');
+
+                if (result.success) {
+                    // Show success with real app ID from DB
+                    document.getElementById('summary-app-id').innerText = result.applicationId;
+                    const summaryName = document.getElementById('summary-name');
+                    if (summaryName) {
+                        summaryName.innerText = document.getElementById('fullName').value;
+                    }
+                    document.getElementById('success-screen').classList.remove('hidden');
+                    if (submitSection) submitSection.classList.add('hidden');
+                } else {
+                    // Show error & restore form
+                    ['step-1', 'step-2', 'step-3'].forEach(id => {
+                        const el = document.getElementById(id);
+                        if (el) el.classList.remove('hidden');
+                    });
+                    if (formControls) formControls.classList.remove('hidden');
+                    if (submitSection) {
+                        const checkboxDiv = submitSection.querySelector('.mb-6');
+                        if (checkboxDiv) checkboxDiv.classList.remove('hidden');
+                    }
+                    if (submitBtn) submitBtn.classList.remove('hidden');
+                    const errDiv = document.getElementById('submit-error');
+                    if (errDiv) {
+                        errDiv.textContent = result.message || 'Submission failed. Please try again.';
+                        errDiv.classList.remove('hidden');
+                    }
+                }
+            } catch (err) {
+                if (loadingScreen) loadingScreen.classList.add('hidden');
+                ['step-1', 'step-2', 'step-3'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.classList.remove('hidden');
+                });
+                if (formControls) formControls.classList.remove('hidden');
+                if (submitSection) {
+                    const checkboxDiv = submitSection.querySelector('.mb-6');
+                    if (checkboxDiv) checkboxDiv.classList.remove('hidden');
+                }
+                if (submitBtn) submitBtn.classList.remove('hidden');
+                const errDiv = document.getElementById('submit-error');
+                if (errDiv) {
+                    errDiv.textContent = 'Network error. Please check your connection and try again.';
+                    errDiv.classList.remove('hidden');
+                }
+            }
+
+            document.getElementById('apply').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    }
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            e.preventDefault();
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+</script>
+</body>
 </html>
