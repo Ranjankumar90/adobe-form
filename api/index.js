@@ -27,26 +27,10 @@ async function getDB() {
     if (!MONGO_URI) {
         throw new Error('MONGO_URI is not set in environment variables');
     }
-    const mongoOptions = {
-        connectTimeoutMS: 15000,
-        socketTimeoutMS: 45000,
-        tls: true,
-        tlsAllowInvalidCertificates: true,
-        tlsAllowInvalidHostnames: true,
-    };
-    const client = new MongoClient(MONGO_URI, mongoOptions);
+    const client = new MongoClient(MONGO_URI);
     await client.connect();
     cachedClient = client;
     cachedDb = client.db(DB_NAME);
-
-    // Try creating indexes on first connection
-    try {
-        await cachedDb.collection(COLLECTION_NAME).createIndex({ submittedAt: -1 });
-        await cachedDb.collection(COLLECTION_NAME).createIndex({ personalEmail: 1 });
-        await cachedDb.collection(COLLECTION_NAME).createIndex({ applicationId: 1 }, { unique: true });
-    } catch (e) {
-        console.warn('Index creation warning:', e.message);
-    }
     return cachedDb;
 }
 
