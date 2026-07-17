@@ -1,9 +1,9 @@
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '../SETIP/SETIP-INTERSHIP/.env') });
 const express = require('express');
 const { MongoClient, ObjectId } = require('mongodb');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
-const path = require('path');
 const fs = require('fs');
 
 const app = express();
