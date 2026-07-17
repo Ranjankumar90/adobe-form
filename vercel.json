@@ -2,6 +2,7 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/index.js" },
     { "source": "/SETIP", "destination": "/SETIP/index.html" },
     { "source": "/SETIP/SETIP-INTERSHIP", "destination": "/SETIP/SETIP-INTERSHIP/index.html" },
     { "source": "/webinar", "destination": "/webinar/index.html" },
