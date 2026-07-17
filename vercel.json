@@ -3,7 +3,7 @@
   "trailingSlash": false,
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api" },
-    { "source": "/SETIP", "destination": "/SETIP/index.html" },
+    { "source": "/SETIP", "destination": "/SETIP/SETIP-INTERSHIP/index.html" },
     { "source": "/SETIP/SETIP-INTERSHIP", "destination": "/SETIP/SETIP-INTERSHIP/index.html" },
     { "source": "/webinar", "destination": "/webinar/index.html" },
     { "source": "/data/(.*)", "destination": "/data/$1" }
