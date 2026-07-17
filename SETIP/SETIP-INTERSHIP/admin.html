@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SETIP 2026 — Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --bg: #0a0f1e;
+            --surface: #111827;
+            --surface-2: #1a2235;
+            --surface-3: #1f2d45;
+            --border: rgba(255,255,255,0.08);
+            --primary: #3b82f6;
+            --primary-glow: rgba(59,130,246,0.2);
+            --secondary: #06b6d4;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --text: #f0f4ff;
+            --text-muted: #8892a4;
+            --text-dim: #4b5563;
+
+            /* Row state colors */
+            --row-selected: rgba(59,130,246,0.18);
+            --row-selected-border: rgba(59,130,246,0.5);
+            --row-copied: rgba(245,158,11,0.13);
+            --row-copied-border: rgba(245,158,11,0.4);
+            --row-noted: rgba(16,185,129,0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--surface); }
+        ::-webkit-scrollbar-thumb { background: #2d3748; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+
+        /* ───── LOGIN ───── */
+        #login-screen {
+            position: fixed; inset: 0;
+            background: var(--bg);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 1000;
+            background-image: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(59,130,246,0.12), transparent);
+        }
+        #login-screen.hidden { display: none; }
+
+        .login-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 48px;
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+            animation: slideUp 0.4s ease;
+        }
+        @keyframes slideUp {
+            from { opacity:0; transform:translateY(20px); }
+            to   { opacity:1; transform:translateY(0); }
+        }
+
+        .login-logo {
+            width: 72px; height: 72px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 20px;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 36px;
+            box-shadow: 0 0 40px var(--primary-glow);
+        }
+        .login-card h1 { font-size: 28px; font-weight: 800; margin-bottom: 6px; }
+        .login-card p  { color: var(--text-muted); font-size: 14px; margin-bottom: 32px; }
+
+        .login-input {
+            width: 100%;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 18px;
+            font-size: 15px; color: var(--text);
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.1em;
+            margin-bottom: 16px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .login-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-glow); }
+
+        .login-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff; border: none; border-radius: 12px;
+            padding: 15px; font-size: 15px; font-weight: 700;
+            cursor: pointer; font-family: 'Inter', sans-serif;
+            transition: opacity 0.2s, transform 0.15s;
+        }
+        .login-btn:hover { opacity:0.9; transform:translateY(-1px); }
+        .login-error {
+            background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3);
+            color: #fca5a5; border-radius: 10px; padding: 10px 14px;
+            font-size: 13px; margin-top: 12px; display: none;
+        }
+
+        /* ───── DASHBOARD ───── */
+        #dashboard { display: none; flex-direction: column; min-height: 100vh; }
+        #dashboard.visible { display: flex; }
+
+        /* Header */
+        .dash-header {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(10,15,30,0.92);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 28px;
+            display: flex; align-items: center; justify-content: space-between; gap: 12px;
+        }
+        .dash-logo { display: flex; align-items: center; gap: 10px; }
+        .dash-logo-icon {
+            width: 38px; height: 38px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center; font-size: 18px;
+        }
+        .dash-logo-text { font-size: 17px; font-weight: 800; }
+        .dash-logo-badge {
+            background: var(--surface-2); border: 1px solid var(--border);
+            color: var(--text-muted); font-size: 11px; font-weight: 600;
+            padding: 3px 10px; border-radius: 100px; letter-spacing: 0.08em;
+        }
+        .header-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex; align-items: center; gap: 6px;
+            border-radius: 9px; padding: 8px 14px;
+            font-size: 13px; font-weight: 600; cursor: pointer;
+            font-family: 'Inter', sans-serif; border: none;
+            transition: all 0.18s; white-space: nowrap;
+        }
+        .btn .material-symbols-outlined { font-size: 16px; }
+        .btn-ghost {
+            background: var(--surface-2); border: 1px solid var(--border); color: var(--text-muted);
+        }
+        .btn-ghost:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-glow); }
+        .btn-blue  { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff; }
+        .btn-blue:hover  { opacity:0.9; transform:translateY(-1px); }
+        .btn-amber { background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.35); color: #fbbf24; }
+        .btn-amber:hover { background: rgba(245,158,11,0.25); }
+        .btn-green { background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.35); color: #34d399; }
+        .btn-green:hover { background: rgba(16,185,129,0.25); }
+        .btn-red   { background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.3); color: #fca5a5; }
+        .btn-red:hover   { background: rgba(239,68,68,0.22); }
+        .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
+
+        /* Selection bar */
+        #selection-bar {
+            position: sticky; top: 66px; z-index: 90;
+            background: rgba(59,130,246,0.1);
+            border-bottom: 1px solid rgba(59,130,246,0.25);
+            padding: 10px 28px;
+            display: none; align-items: center; gap: 12px;
+            backdrop-filter: blur(12px);
+            animation: slideDown 0.2s ease;
+        }
+        @keyframes slideDown {
+            from { opacity:0; transform:translateY(-8px); }
+            to   { opacity:1; transform:translateY(0); }
+        }
+        #selection-bar.visible { display: flex; }
+        #sel-count { font-size: 14px; font-weight: 700; color: #93c5fd; }
+        #sel-count span { color: #fff; }
+        .sel-bar-divider { width: 1px; height: 20px; background: rgba(255,255,255,0.15); }
+
+        /* Keyboard hint */
+        .kbd {
+            display: inline-block;
+            background: var(--surface-3); border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 5px; padding: 1px 7px;
+            font-size: 11px; font-family: monospace; color: var(--text-muted);
+        }
+
+        /* Main */
+        .dash-main { padding: 24px 28px; flex: 1; }
+
+        /* Stats */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 14px; margin-bottom: 22px;
+        }
+        .stat-card {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: 14px; padding: 20px 22px;
+            position: relative; overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .stat-card:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,0.3); }
+        .stat-card::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(135deg, var(--cc, var(--primary)), transparent);
+            opacity: 0.05;
+        }
+        .stat-icon {
+            width: 38px; height: 38px; border-radius: 9px;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 12px; font-size: 18px;
+        }
+        .stat-value { font-size: 30px; font-weight: 800; line-height: 1; margin-bottom: 5px; }
+        .stat-label { font-size: 11px; font-weight: 600; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; }
+
+        /* Filter bar */
+        .filter-bar {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: 14px; padding: 16px 20px;
+            margin-bottom: 18px;
+            display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+        }
+        .filter-search { flex: 1; min-width: 220px; position: relative; }
+        .filter-search .material-symbols-outlined {
+            position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+            color: var(--text-muted); font-size: 17px;
+        }
+        .filter-search input, .filter-select, .filter-date {
+            background: var(--surface-2); border: 1px solid var(--border);
+            border-radius: 9px; padding: 9px 12px;
+            font-size: 13px; color: var(--text); font-family: 'Inter', sans-serif;
+            outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .filter-search input { width: 100%; padding-left: 38px; }
+        .filter-search input:focus,
+        .filter-select:focus,
+        .filter-date:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-glow); }
+        .filter-search input::placeholder { color: var(--text-dim); }
+        .filter-select option { background: #1a2235; }
+        .filter-count { font-size: 13px; color: var(--text-muted); white-space: nowrap; margin-left: auto; }
+        .filter-count strong { color: var(--text); }
+
+        /* Legend */
+        .legend {
+            display: flex; align-items: center; gap: 16px;
+            font-size: 12px; color: var(--text-muted);
+            margin-bottom: 12px; flex-wrap: wrap;
+        }
+        .legend-item { display: flex; align-items: center; gap: 6px; }
+        .legend-dot {
+            width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0;
+        }
+
+        /* ═══ TABLE WRAPPER ═══ */
+        .table-wrapper {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: 14px; overflow: hidden;
+        }
+        .table-scroll { overflow-x: auto; overflow-y: auto; max-height: calc(100vh - 340px); }
+
+        table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 1300px; }
+
+        /* Sticky header */
+        thead tr {
+            background: var(--surface-2);
+            position: sticky; top: 0; z-index: 10;
+        }
+        thead tr::after {
+            content: ''; position: absolute; left: 0; right: 0; bottom: 0;
+            height: 1px; background: var(--border);
+        }
+
+        th {
+            padding: 11px 14px;
+            text-align: left; font-size: 11px; font-weight: 700;
+            color: var(--text-muted); letter-spacing: 0.07em; text-transform: uppercase;
+            white-space: nowrap; cursor: pointer; user-select: none;
+            transition: color 0.2s; position: relative;
+        }
+        th:hover { color: var(--primary); }
+        th.sort-asc::after  { content: ' ↑'; color: var(--primary); }
+        th.sort-desc::after { content: ' ↓'; color: var(--primary); }
+
+        /* Select-all checkbox col */
+        th.col-check, td.col-check {
+            width: 40px; padding: 0 0 0 14px; cursor: default;
+        }
+        th.col-check { cursor: pointer; }
+
+        /* ═══ ROW STATES ═══ */
+        tbody tr {
+            border-bottom: 1px solid var(--border);
+            transition: background 0.12s;
+            cursor: pointer;
+        }
+        tbody tr:last-child { border-bottom: none; }
+
+        /* Normal hover */
+        tbody tr:not(.row-selected):not(.row-copied):hover { background: rgba(255,255,255,0.03); }
+
+        /* Selected (blue) */
+        tbody tr.row-selected {
+            background: var(--row-selected);
+            box-shadow: inset 3px 0 0 var(--primary);
+        }
+
+        /* Copied/marked (amber) */
+        tbody tr.row-copied:not(.row-selected) {
+            background: var(--row-copied);
+            box-shadow: inset 3px 0 0 rgba(245,158,11,0.6);
+        }
+        tbody tr.row-copied.row-selected {
+            background: linear-gradient(to right, var(--row-selected), var(--row-copied));
+            box-shadow: inset 3px 0 0 var(--primary);
+        }
+
+        /* Has note (subtle green left border) */
+        tbody tr.row-noted:not(.row-selected):not(.row-copied) {
+            background: var(--row-noted);
+            box-shadow: inset 3px 0 0 rgba(16,185,129,0.4);
+        }
+
+        td {
+            padding: 11px 14px; color: var(--text);
+            vertical-align: middle; white-space: nowrap;
+            max-width: 160px; overflow: hidden; text-overflow: ellipsis;
+        }
+
+        td.app-id {
+            font-family: 'Courier New', monospace;
+            font-size: 11.5px; font-weight: 700; color: var(--primary);
+        }
+        td.name  { font-weight: 600; max-width: 140px; }
+        td.email { color: var(--text-muted); max-width: 170px; }
+        td.phone { color: var(--secondary); font-weight: 500; }
+
+        .domain-tag {
+            display: inline-block;
+            background: rgba(59,130,246,0.12);
+            border: 1px solid rgba(59,130,246,0.22);
+            color: #93c5fd; font-size: 10px; font-weight: 600;
+            padding: 2px 7px; border-radius: 100px; margin: 1px 2px 1px 0;
+            white-space: nowrap;
+        }
+        .year-badge {
+            background: var(--surface-3); color: var(--text-muted);
+            font-size: 11px; font-weight: 600;
+            padding: 2px 9px; border-radius: 100px;
+        }
+        .copied-badge {
+            background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3);
+            color: #fbbf24; font-size: 10px; font-weight: 700;
+            padding: 2px 8px; border-radius: 100px; letter-spacing: 0.04em;
+        }
+
+        /* ── Notes cell ── */
+        td.notes-cell { max-width: 220px; }
+
+        .note-view {
+            display: flex; align-items: center; gap: 6px;
+            min-height: 28px; padding: 3px 6px;
+            border-radius: 6px; border: 1px solid transparent;
+            transition: border-color 0.2s, background 0.2s;
+            cursor: text;
+        }
+        .note-view:hover {
+            border-color: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.04);
+        }
+        .note-text {
+            font-size: 12px; color: #34d399; font-weight: 500;
+            white-space: normal; word-break: break-word; line-height: 1.4;
+            flex: 1;
+        }
+        .note-empty {
+            font-size: 11px; color: var(--text-dim); font-style: italic;
+        }
+        .note-edit-icon { color: var(--text-dim); font-size: 14px; flex-shrink: 0; }
+        .note-view:hover .note-edit-icon { color: var(--text-muted); }
+
+        .note-input {
+            width: 100%;
+            background: var(--surface-3);
+            border: 1px solid var(--primary);
+            border-radius: 6px;
+            padding: 5px 8px;
+            font-size: 12px; color: var(--text);
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            box-shadow: 0 0 0 3px var(--primary-glow);
+            resize: none;
+            min-height: 60px;
+        }
+        .note-hint { font-size: 10px; color: var(--text-dim); margin-top: 4px; }
+
+        /* Row number */
+        td.row-num { color: var(--text-dim); font-size: 11px; font-weight: 600; width: 36px; }
+
+        /* Status badge column */
+        .status-select {
+            background: var(--surface-3); border: 1px solid var(--border);
+            border-radius: 7px; padding: 3px 8px;
+            font-size: 11px; font-weight: 600; color: var(--text-muted);
+            font-family: 'Inter', sans-serif; outline: none; cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .status-select:focus { border-color: var(--primary); }
+        .status-select option { background: #1a2235; }
+
+        /* Table placeholder */
+        .table-placeholder {
+            padding: 70px 32px; text-align: center; color: var(--text-muted);
+        }
+        .table-placeholder .material-symbols-outlined { font-size: 44px; margin-bottom: 10px; display: block; opacity: 0.35; }
+        .table-placeholder h3 { font-size: 16px; font-weight: 600; margin-bottom: 5px; color: var(--text); }
+
+        .spinner {
+            width: 38px; height: 38px;
+            border: 3px solid var(--border); border-top-color: var(--primary);
+            border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 14px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ── Checkbox ── */
+        input[type="checkbox"] {
+            width: 16px; height: 16px; cursor: pointer;
+            accent-color: var(--primary);
+        }
+
+        /* ── Toast ── */
+        #toast {
+            position: fixed; bottom: 28px; right: 28px;
+            background: var(--surface-2); border: 1px solid var(--border);
+            border-radius: 12px; padding: 13px 18px;
+            font-size: 14px; font-weight: 500;
+            display: flex; align-items: center; gap: 9px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            transform: translateY(20px); opacity: 0;
+            transition: all 0.3s ease; z-index: 9999; max-width: 320px;
+        }
+        #toast.show { transform: translateY(0); opacity: 1; }
+        #toast.success { border-color: rgba(16,185,129,0.4); }
+        #toast.error   { border-color: rgba(239,68,68,0.4); }
+        #toast.info    { border-color: rgba(59,130,246,0.4); }
+
+        @keyframes fadeIn {
+            from { opacity:0; transform:translateY(6px); }
+            to   { opacity:1; transform:translateY(0); }
+        }
+        .fade-in { animation: fadeIn 0.25s ease forwards; }
+
+        @media (max-width: 768px) {
+            .dash-main { padding: 14px; }
+            .dash-header, #selection-bar { padding: 12px 14px; }
+            .stats-row { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ══════════ LOGIN ══════════ -->
+<div id="login-screen">
+    <div class="login-card">
+        <div class="login-logo">🚀</div>
+        <h1>Admin Portal</h1>
+        <p>SETIP 2026 — Application Responses</p>
+        <input class="login-input" id="admin-key-input" type="password" placeholder="Enter admin key" autocomplete="current-password" />
+        <button class="login-btn" onclick="doLogin()">
+            <span class="material-symbols-outlined" style="font-size:17px;margin-right:6px;">lock_open</span>
+            Access Dashboard
+        </button>
+        <div class="login-error" id="login-error">❌ Invalid admin key. Please try again.</div>
+    </div>
+</div>
+
+<!-- ══════════ DASHBOARD ══════════ -->
+<div id="dashboard">
+
+    <!-- Header -->
+    <header class="dash-header">
+        <div class="dash-logo">
+            <div class="dash-logo-icon">🚀</div>
+            <span class="dash-logo-text">SETIP 2026</span>
+            <span class="dash-logo-badge">ADMIN</span>
+        </div>
+        <div class="header-right">
+            <button class="btn btn-ghost" onclick="loadData()">
+                <span class="material-symbols-outlined">refresh</span> Refresh
+            </button>
+            <button class="btn btn-ghost" id="btn-select-all" onclick="selectAll()">
+                <span class="material-symbols-outlined">select_all</span> Select All
+            </button>
+            <button class="btn btn-blue" onclick="exportCSV()">
+                <span class="material-symbols-outlined">download</span> Export CSV
+            </button>
+            <button class="btn btn-ghost" onclick="logout()">
+                <span class="material-symbols-outlined">logout</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Selection Toolbar (shows when rows selected) -->
+    <div id="selection-bar">
+        <span id="sel-count">📋 <span id="sel-num">0</span> rows selected</span>
+        <div class="sel-bar-divider"></div>
+        <button class="btn btn-blue" onclick="copySelected()">
+            <span class="material-symbols-outlined">content_copy</span>
+            Copy to Clipboard <span class="kbd">Ctrl+C</span>
+        </button>
+        <button class="btn btn-amber" onclick="markCopied()">
+            <span class="material-symbols-outlined">bookmark</span>
+            Mark as Copied
+        </button>
+        <button class="btn btn-ghost" onclick="clearSelection()">
+            <span class="material-symbols-outlined">deselect</span>
+            Deselect All
+        </button>
+        <div class="sel-bar-divider"></div>
+        <button class="btn btn-ghost" onclick="clearCopiedMarks()" title="Remove amber highlight from all rows">
+            <span class="material-symbols-outlined">format_color_reset</span>
+            Clear Highlights
+        </button>
+    </div>
+
+    <!-- Main -->
+    <main class="dash-main">
+
+        <!-- Stats -->
+        <div class="stats-row">
+            <div class="stat-card" style="--cc:#3b82f6">
+                <div class="stat-icon" style="background:rgba(59,130,246,0.15);color:#60a5fa">
+                    <span class="material-symbols-outlined">group</span>
+                </div>
+                <div class="stat-value" id="stat-total">—</div>
+                <div class="stat-label">Total Applications</div>
+            </div>
+            <div class="stat-card" style="--cc:#10b981">
+                <div class="stat-icon" style="background:rgba(16,185,129,0.15);color:#34d399">
+                    <span class="material-symbols-outlined">today</span>
+                </div>
+                <div class="stat-value" id="stat-today">—</div>
+                <div class="stat-label">Today</div>
+            </div>
+            <div class="stat-card" style="--cc:#f59e0b">
+                <div class="stat-icon" style="background:rgba(245,158,11,0.15);color:#fbbf24">
+                    <span class="material-symbols-outlined">bookmark</span>
+                </div>
+                <div class="stat-value" id="stat-copied">0</div>
+                <div class="stat-label">Marked as Copied</div>
+            </div>
+            <div class="stat-card" style="--cc:#8b5cf6">
+                <div class="stat-icon" style="background:rgba(139,92,246,0.15);color:#a78bfa">
+                    <span class="material-symbols-outlined">trending_up</span>
+                </div>
+                <div class="stat-value" id="stat-domain" style="font-size:15px;padding-top:8px">—</div>
+                <div class="stat-label">Top Domain</div>
+            </div>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+            <div class="filter-search">
+                <span class="material-symbols-outlined">search</span>
+                <input id="search-input" type="text" placeholder="Search name, email, college, app ID…" oninput="debounceLoad()" />
+            </div>
+            <select class="filter-select" id="filter-state" onchange="loadData()">
+                <option value="all">All States</option>
+                <option>Andhra Pradesh</option>
+                <option>Assam</option>
+                <option>Bihar</option>
+                <option>Delhi</option>
+                <option>Gujarat</option>
+                <option>Haryana</option>
+                <option>Karnataka</option>
+                <option>Kerala</option>
+                <option>Madhya Pradesh</option>
+                <option>Maharashtra</option>
+                <option>Punjab</option>
+                <option>Rajasthan</option>
+                <option>Tamil Nadu</option>
+                <option>Telangana</option>
+                <option>Uttar Pradesh</option>
+                <option>West Bengal</option>
+                <option>Other</option>
+            </select>
+            <select class="filter-select" id="filter-year" onchange="loadData()">
+                <option value="all">All Years</option>
+                <option>1st Year</option><option>2nd Year</option>
+                <option>3rd Year</option><option>4th Year</option><option>Graduate</option>
+            </select>
+            <select class="filter-select" id="filter-domain" onchange="loadData()">
+                <option value="all">All Domains</option>
+                <option>Android App Development</option>
+                <option>Full Stack Web Development</option>
+                <option>Data Science</option>
+                <option>Data Analytics</option>
+                <option>Machine Learning</option>
+                <option>Artificial Intelligence</option>
+                <option>Cyber Security</option>
+                <option>IoT / Robotics</option>
+                <option>Cloud Computing</option>
+                <option>Graphic Design</option>
+                <option>AutoCAD</option>
+                <option>UI/UX Design</option>
+                <option>Embedded Systems</option>
+                <option>Digital Marketing</option>
+                <option>Finance</option>
+                <option>Stock Market</option>
+                <option>Human Resource</option>
+                <option>Business Analytics</option>
+                <option>DevOps</option>
+                <option>VLSI</option>
+                <option>Forensic Psychology</option>
+                <option>Clinical Psychology</option>
+                <option>Corporate Law</option>
+            </select>
+            <select class="filter-select" id="filter-status" onchange="applyLocalFilter()">
+                <option value="all">All Status</option>
+                <option value="copied">Marked (Copied)</option>
+                <option value="noted">Has Notes</option>
+                <option value="normal">Unmarked</option>
+            </select>
+            <input class="filter-date" type="date" id="filter-date" onchange="loadData()" title="Filter by date" />
+            <button class="btn btn-ghost" onclick="clearFilters()">
+                <span class="material-symbols-outlined" style="font-size:15px">filter_alt_off</span> Clear
+            </button>
+            <span class="filter-count" id="filter-count"><strong>—</strong> results</span>
+        </div>
+
+        <!-- Color Legend -->
+        <div class="legend">
+            <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">Row Colors:</span>
+            <div class="legend-item">
+                <div class="legend-dot" style="background:rgba(59,130,246,0.35);box-shadow:inset 3px 0 0 var(--primary)"></div>
+                <span>Selected</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot" style="background:rgba(245,158,11,0.25);box-shadow:inset 3px 0 0 rgba(245,158,11,0.6)"></div>
+                <span>Copied / Marked</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot" style="background:rgba(16,185,129,0.15);box-shadow:inset 3px 0 0 rgba(16,185,129,0.4)"></div>
+                <span>Has Notes</span>
+            </div>
+            <span style="margin-left:8px;color:var(--text-dim)">
+                <span class="kbd">Click</span> select row &nbsp;
+                <span class="kbd">Shift+Click</span> range &nbsp;
+                <span class="kbd">Ctrl+Click</span> multi &nbsp;
+                <span class="kbd">Ctrl+C</span> copy &nbsp;
+                <span class="kbd">Esc</span> deselect
+            </span>
+        </div>
+
+        <!-- Table -->
+        <div class="table-wrapper">
+            <div class="table-scroll" id="table-scroll">
+                <table id="data-table">
+                    <thead>
+                        <tr>
+                            <th class="col-check" onclick="toggleSelectAll()">
+                                <input type="checkbox" id="master-check" onclick="e=>e.stopPropagation()" />
+                            </th>
+                            <th style="width:36px" title="Row #">#</th>
+                            <th onclick="sortBy('applicationId')">App ID</th>
+                            <th onclick="sortBy('fullName')">Name</th>
+                            <th onclick="sortBy('phoneNumber')">Phone</th>
+                            <th onclick="sortBy('whatsappNumber')">WhatsApp</th>
+                            <th onclick="sortBy('collegeEmail')">College Email</th>
+                            <th onclick="sortBy('personalEmail')">Personal Email</th>
+                            <th onclick="sortBy('stateRegion')">State</th>
+                            <th onclick="sortBy('collegeName')">College</th>
+                            <th onclick="sortBy('branchStream')">Branch</th>
+                            <th onclick="sortBy('yearStudy')">Year</th>
+                            <th onclick="sortBy('crContact')">CR Contact</th>
+                            <th onclick="sortBy('referralCode')">Referral</th>
+                            <th>Domains</th>
+                            <th onclick="sortBy('submittedAt')">Submitted</th>
+                            <th>Status</th>
+                            <th style="min-width:180px">📝 Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        <tr><td colspan="18">
+                            <div class="table-placeholder">
+                                <div class="spinner"></div>
+                                <h3>Loading…</h3>
+                            </div>
+                        </td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<!-- Toast -->
+<div id="toast">
+    <span class="material-symbols-outlined" id="toast-icon" style="font-size:18px">check_circle</span>
+    <span id="toast-msg"></span>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════════════════════════
+let ADMIN_KEY      = '';
+let allData        = [];         // raw from API
+let displayData    = [];         // after local filter
+let selectedIds    = new Set();  // _id of selected rows
+let lastClickedIdx = -1;         // for shift+click range
+
+let sortKey = 'submittedAt';
+let sortDir = 'desc';
+let debounceTimer = null;
+
+// Persisted per-row state (keyed by applicationId)
+// Structure: { [appId]: { copied: bool, note: string, status: string } }
+const ROW_META_KEY = 'setip_row_meta';
+let rowMeta = {};
+
+function loadMeta() {
+    try { rowMeta = JSON.parse(localStorage.getItem(ROW_META_KEY) || '{}'); } catch { rowMeta = {}; }
+}
+function saveMeta() {
+    localStorage.setItem(ROW_META_KEY, JSON.stringify(rowMeta));
+}
+function getMeta(appId) {
+    if (!rowMeta[appId]) rowMeta[appId] = { copied: false, note: '', status: 'New' };
+    return rowMeta[appId];
+}
+function setMeta(appId, key, val) {
+    getMeta(appId)[key] = val;
+    saveMeta();
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  LOGIN
+// ═══════════════════════════════════════════════════════════════
+document.getElementById('admin-key-input').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+
+async function doLogin() {
+    const key = document.getElementById('admin-key-input').value.trim();
+    if (!key) return;
+    const btn = document.querySelector('.login-btn');
+    btn.textContent = 'Verifying…'; btn.disabled = true;
+    try {
+        const res  = await fetch(`/api/applications?key=${encodeURIComponent(key)}&limit=1`);
+        const data = await res.json();
+        if (data.success) {
+            ADMIN_KEY = key;
+            loadMeta();
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('dashboard').classList.add('visible');
+            loadData();
+        } else { showLoginError(); }
+    } catch { showLoginError('Server unreachable. Make sure server.js is running.'); }
+    btn.innerHTML = '<span class="material-symbols-outlined" style="font-size:17px;margin-right:6px;">lock_open</span>Access Dashboard';
+    btn.disabled = false;
+}
+function showLoginError(msg) {
+    const el = document.getElementById('login-error');
+    el.textContent = msg || '❌ Invalid admin key.';
+    el.style.display = 'block';
+}
+function logout() {
+    ADMIN_KEY = ''; allData = []; displayData = []; selectedIds.clear();
+    document.getElementById('login-screen').classList.remove('hidden');
+    document.getElementById('dashboard').classList.remove('visible');
+    document.getElementById('admin-key-input').value = '';
+    document.getElementById('login-error').style.display = 'none';
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  DATA LOADING
+// ═══════════════════════════════════════════════════════════════
+function debounceLoad() { clearTimeout(debounceTimer); debounceTimer = setTimeout(loadData, 280); }
+
+async function loadData() {
+    const search = document.getElementById('search-input').value.trim();
+    const state  = document.getElementById('filter-state').value;
+    const year   = document.getElementById('filter-year').value;
+    const domain = document.getElementById('filter-domain').value;
+    const date   = document.getElementById('filter-date').value;
+
+    const params = new URLSearchParams({ key: ADMIN_KEY });
+    if (search) params.set('search', search);
+    if (state  !== 'all') params.set('state', state);
+    if (year   !== 'all') params.set('year', year);
+    if (domain !== 'all') params.set('domain', domain);
+    if (date)             params.set('date', date);
+
+    setTableLoading();
+    try {
+        const res  = await fetch(`/api/applications?${params}`);
+        const data = await res.json();
+        if (!data.success) { setTableError(data.message); return; }
+
+        allData = data.applications || [];
+        document.getElementById('stat-total').textContent  = data.total ?? '—';
+        document.getElementById('stat-today').textContent  = data.todayCount ?? '—';
+        document.getElementById('stat-domain').textContent = data.topDomain ?? '—';
+        applyLocalFilter();
+    } catch (e) { setTableError('Network error — is the server running?'); }
+}
+
+function applyLocalFilter() {
+    const statusF = document.getElementById('filter-status').value;
+    if (statusF === 'all') {
+        displayData = [...allData];
+    } else if (statusF === 'copied') {
+        displayData = allData.filter(r => getMeta(r.applicationId).copied);
+    } else if (statusF === 'noted') {
+        displayData = allData.filter(r => getMeta(r.applicationId).note);
+    } else if (statusF === 'normal') {
+        displayData = allData.filter(r => !getMeta(r.applicationId).copied && !getMeta(r.applicationId).note);
+    }
+
+    document.getElementById('filter-count').innerHTML = `<strong>${displayData.length}</strong> result${displayData.length !== 1 ? 's' : ''}`;
+    updateCopiedStat();
+    renderTable();
+}
+
+function updateCopiedStat() {
+    const cnt = allData.filter(r => getMeta(r.applicationId).copied).length;
+    document.getElementById('stat-copied').textContent = cnt;
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  TABLE RENDER
+// ═══════════════════════════════════════════════════════════════
+function renderTable() {
+    const tbody = document.getElementById('table-body');
+    if (displayData.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="18"><div class="table-placeholder">
+            <span class="material-symbols-outlined">inbox</span>
+            <h3>No applications found</h3><p>Try adjusting your filters.</p>
+        </div></td></tr>`;
+        updateSelectionBar();
+        return;
+    }
+
+    // Sort
+    const sorted = [...displayData].sort((a, b) => {
+        let av = a[sortKey] ?? '', bv = b[sortKey] ?? '';
+        if (sortKey === 'submittedAt') { av = new Date(av); bv = new Date(bv); }
+        if (av < bv) return sortDir === 'asc' ? -1 : 1;
+        if (av > bv) return sortDir === 'asc' ?  1 : -1;
+        return 0;
+    });
+    displayData = sorted; // store sorted order for range select
+
+    tbody.innerHTML = sorted.map((row, idx) => buildRow(row, idx)).join('');
+    updateSelectionBar();
+}
+
+function buildRow(row, idx) {
+    const id    = row._id;
+    const appId = row.applicationId || '';
+    const meta  = getMeta(appId);
+
+    const classes = [
+        selectedIds.has(id) ? 'row-selected' : '',
+        meta.copied          ? 'row-copied'   : '',
+        meta.note            ? 'row-noted'    : '',
+    ].filter(Boolean).join(' ');
+
+    const domains = Array.isArray(row.domains) ? row.domains : [];
+
+    // Status color mapping
+    const statusColors = {
+        'New':       'color:#8892a4',
+        'Contacted': 'color:#60a5fa',
+        'Enrolled':  'color:#34d399',
+        'Rejected':  'color:#f87171',
+        'On Hold':   'color:#fbbf24',
+    };
+    const statusStyle = statusColors[meta.status] || 'color:#8892a4';
+
+    return `
+    <tr class="${classes}" data-id="${id}" data-appid="${appId}" data-idx="${idx}"
+        onclick="handleRowClick(event, '${id}', ${idx})"
+        ondblclick="startNoteEdit('${appId}', event)">
+        <td class="col-check" onclick="event.stopPropagation()">
+            <input type="checkbox" ${selectedIds.has(id) ? 'checked' : ''}
+                onchange="toggleRowById('${id}', this.checked)" />
+        </td>
+        <td class="row-num">${idx + 1}</td>
+        <td class="app-id">${esc(appId) || '—'}${meta.copied ? '<br><span class="copied-badge">COPIED</span>' : ''}</td>
+        <td class="name" title="${esc(row.fullName)}">${esc(row.fullName) || '—'}</td>
+        <td class="phone">${esc(row.phoneNumber) || '—'}</td>
+        <td style="color:var(--text-muted)">${esc(row.whatsappNumber) || '—'}</td>
+        <td class="email" title="${esc(row.collegeEmail)}">${esc(row.collegeEmail) || '—'}</td>
+        <td class="email" title="${esc(row.personalEmail)}">${esc(row.personalEmail) || '—'}</td>
+        <td>${esc(row.stateRegion) || '—'}</td>
+        <td title="${esc(row.collegeName)}">${truncate(row.collegeName, 18)}</td>
+        <td title="${esc(row.branchStream)}">${truncate(row.branchStream, 16)}</td>
+        <td><span class="year-badge">${esc(row.yearStudy) || '—'}</span></td>
+        <td style="color:var(--text-muted)">${esc(row.crContact) || '—'}</td>
+        <td style="color:var(--accent);font-weight:600">${esc(row.referralCode) || '<span style="color:var(--text-dim)">—</span>'}</td>
+        <td style="white-space:normal">${domains.map(d => `<span class="domain-tag">${esc(d)}</span>`).join('')}</td>
+        <td style="color:var(--text-muted);font-size:12px">${row.submittedAt ? fmtDate(row.submittedAt) : '—'}</td>
+        <td onclick="event.stopPropagation()">
+            <select class="status-select" style="${statusStyle}"
+                onchange="setMeta('${appId}', 'status', this.value); this.style.cssText='${statusStyle}'.replace('_STATUS_', this.value); rerenderRow('${id}')">
+                ${['New','Contacted','Enrolled','On Hold','Rejected'].map(s =>
+                    `<option ${meta.status === s ? 'selected' : ''}>${s}</option>`
+                ).join('')}
+            </select>
+        </td>
+        <td class="notes-cell" onclick="event.stopPropagation()" id="note-cell-${appId}">
+            ${renderNoteView(appId, meta.note)}
+        </td>
+    </tr>`;
+}
+
+function renderNoteView(appId, note) {
+    if (note) {
+        return `<div class="note-view" onclick="startNoteEdit('${appId}', event)" title="Click to edit note">
+            <span class="note-text">${esc(note)}</span>
+            <span class="material-symbols-outlined note-edit-icon">edit</span>
+        </div>`;
+    }
+    return `<div class="note-view" onclick="startNoteEdit('${appId}', event)" title="Click to add note">
+        <span class="note-empty">Add note…</span>
+        <span class="material-symbols-outlined note-edit-icon">add</span>
+    </div>`;
+}
+
+function startNoteEdit(appId, e) {
+    e && e.stopPropagation();
+    const cell = document.getElementById(`note-cell-${appId}`);
+    if (!cell) return;
+    const meta = getMeta(appId);
+    cell.innerHTML = `
+        <textarea class="note-input" id="note-input-${appId}"
+            placeholder="Type your note here…">${esc(meta.note)}</textarea>
+        <div class="note-hint">Enter to save • Shift+Enter new line • Esc to cancel</div>`;
+    const ta = document.getElementById(`note-input-${appId}`);
+    ta.focus();
+    ta.addEventListener('keydown', ev => {
+        if (ev.key === 'Enter' && !ev.shiftKey) {
+            ev.preventDefault();
+            saveNote(appId, ta.value.trim());
+        }
+        if (ev.key === 'Escape') { cancelNote(appId); }
+    });
+    ta.addEventListener('blur', () => saveNote(appId, ta.value.trim()));
+}
+
+function saveNote(appId, note) {
+    setMeta(appId, 'note', note);
+    const cell = document.getElementById(`note-cell-${appId}`);
+    if (cell) cell.innerHTML = renderNoteView(appId, note);
+    // Update row classes
+    const row = document.querySelector(`tr[data-appid="${appId}"]`);
+    if (row) {
+        if (note) row.classList.add('row-noted');
+        else row.classList.remove('row-noted');
+    }
+    applyLocalFilter(); // refresh filter count if status filter active
+    showToast(note ? 'Note saved ✓' : 'Note cleared', 'success');
+}
+
+function cancelNote(appId) {
+    const cell = document.getElementById(`note-cell-${appId}`);
+    if (cell) cell.innerHTML = renderNoteView(appId, getMeta(appId).note);
+}
+
+function rerenderRow(id) {
+    const tr = document.querySelector(`tr[data-id="${id}"]`);
+    if (!tr) return;
+    const idx = parseInt(tr.dataset.idx);
+    const row = displayData[idx];
+    if (!row) return;
+    tr.outerHTML = buildRow(row, idx);
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  SELECTION
+// ═══════════════════════════════════════════════════════════════
+function handleRowClick(e, id, idx) {
+    // Don't select when clicking interactive elements
+    if (e.target.tagName === 'SELECT' || e.target.tagName === 'INPUT' ||
+        e.target.tagName === 'TEXTAREA' || e.target.tagName === 'BUTTON') return;
+
+    if (e.shiftKey && lastClickedIdx >= 0) {
+        // Range select
+        const lo = Math.min(lastClickedIdx, idx);
+        const hi = Math.max(lastClickedIdx, idx);
+        for (let i = lo; i <= hi; i++) {
+            if (displayData[i]) selectedIds.add(displayData[i]._id);
+        }
+    } else if (e.ctrlKey || e.metaKey) {
+        // Toggle single
+        if (selectedIds.has(id)) selectedIds.delete(id);
+        else selectedIds.add(id);
+    } else {
+        // Single select (deselect all others)
+        if (selectedIds.size === 1 && selectedIds.has(id)) {
+            selectedIds.clear();
+        } else {
+            selectedIds.clear();
+            selectedIds.add(id);
+        }
+    }
+    lastClickedIdx = idx;
+    refreshRowHighlights();
+    updateSelectionBar();
+}
+
+function toggleRowById(id, checked) {
+    if (checked) selectedIds.add(id);
+    else selectedIds.delete(id);
+    refreshRowHighlights();
+    updateSelectionBar();
+}
+
+function toggleSelectAll() {
+    const mc = document.getElementById('master-check');
+    if (selectedIds.size === displayData.length && displayData.length > 0) {
+        selectedIds.clear();
+        if (mc) mc.checked = false;
+    } else {
+        displayData.forEach(r => selectedIds.add(r._id));
+        if (mc) mc.checked = true;
+    }
+    refreshRowHighlights();
+    updateSelectionBar();
+}
+
+function selectAll() { displayData.forEach(r => selectedIds.add(r._id)); refreshRowHighlights(); updateSelectionBar(); }
+function clearSelection() { selectedIds.clear(); refreshRowHighlights(); updateSelectionBar(); }
+
+function refreshRowHighlights() {
+    document.querySelectorAll('tbody tr[data-id]').forEach(tr => {
+        const id    = tr.dataset.id;
+        const appId = tr.dataset.appid;
+        const cb    = tr.querySelector('input[type=checkbox]');
+        if (selectedIds.has(id)) { tr.classList.add('row-selected'); if (cb) cb.checked = true; }
+        else                     { tr.classList.remove('row-selected'); if (cb) cb.checked = false; }
+    });
+    // Master checkbox
+    const mc = document.getElementById('master-check');
+    if (mc) mc.checked = displayData.length > 0 && selectedIds.size === displayData.length;
+}
+
+function updateSelectionBar() {
+    const bar = document.getElementById('selection-bar');
+    const cnt = selectedIds.size;
+    document.getElementById('sel-num').textContent = cnt;
+    if (cnt > 0) bar.classList.add('visible');
+    else         bar.classList.remove('visible');
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  COPY & MARK
+// ═══════════════════════════════════════════════════════════════
+function copySelected() {
+    const rows = displayData.filter(r => selectedIds.has(r._id));
+    if (rows.length === 0) { showToast('No rows selected.', 'error'); return; }
+
+    const headers = [
+        'App ID','Full Name','Phone','WhatsApp','College Email','Personal Email',
+        'State','College','Branch','Year','CR Contact','Referral','Domains','Submitted','Status','Notes'
+    ];
+
+    const tsv = [
+        headers.join('\t'),
+        ...rows.map(r => {
+            const meta = getMeta(r.applicationId);
+            return [
+                r.applicationId, r.fullName, r.phoneNumber, r.whatsappNumber,
+                r.collegeEmail, r.personalEmail, r.stateRegion, r.collegeName,
+                r.branchStream, r.yearStudy, r.crContact, r.referralCode,
+                Array.isArray(r.domains) ? r.domains.join(' | ') : r.domains,
+                r.submittedAt ? new Date(r.submittedAt).toLocaleString() : '',
+                meta.status, meta.note
+            ].map(v => String(v ?? '')).join('\t');
+        })
+    ].join('\n');
+
+    navigator.clipboard.writeText(tsv).then(() => {
+        // Auto-mark as copied
+        markCopied();
+        showToast(`✅ Copied ${rows.length} row${rows.length>1?'s':''} to clipboard! Ready to paste into Google Sheets or Excel.`, 'success');
+    }).catch(() => {
+        // Fallback
+        const ta = document.createElement('textarea');
+        ta.value = tsv; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        markCopied();
+        showToast(`✅ Copied ${rows.length} rows!`, 'success');
+    });
+}
+
+function markCopied() {
+    if (selectedIds.size === 0) { showToast('Select rows first.', 'error'); return; }
+    selectedIds.forEach(id => {
+        const row = displayData.find(r => r._id === id);
+        if (row) setMeta(row.applicationId, 'copied', true);
+    });
+    saveMeta();
+    clearSelection();
+    renderTable();
+    updateCopiedStat();
+    showToast(`🔖 ${selectedIds.size || 'Selected'} rows marked as copied (amber highlight).`, 'info');
+}
+
+function clearCopiedMarks() {
+    let cnt = 0;
+    allData.forEach(r => {
+        if (getMeta(r.applicationId).copied) {
+            setMeta(r.applicationId, 'copied', false);
+            cnt++;
+        }
+    });
+    saveMeta();
+    renderTable();
+    updateCopiedStat();
+    showToast(`Cleared amber highlight from ${cnt} row${cnt!==1?'s':''}.`, 'info');
+}
+
+// Keyboard shortcuts
+document.addEventListener('keydown', e => {
+    if (!ADMIN_KEY) return;
+    // Ctrl+C = copy selected
+    if ((e.ctrlKey || e.metaKey) && e.key === 'c' && selectedIds.size > 0 && !isTyping()) {
+        e.preventDefault(); copySelected();
+    }
+    // Ctrl+A = select all
+    if ((e.ctrlKey || e.metaKey) && e.key === 'a' && !isTyping()) {
+        e.preventDefault(); selectAll();
+    }
+    // Escape = deselect
+    if (e.key === 'Escape') clearSelection();
+});
+
+function isTyping() {
+    const t = document.activeElement?.tagName;
+    return t === 'INPUT' || t === 'TEXTAREA' || t === 'SELECT';
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  EXPORT CSV
+// ═══════════════════════════════════════════════════════════════
+function exportCSV() {
+    const rows = selectedIds.size > 0 ? displayData.filter(r => selectedIds.has(r._id)) : displayData;
+    if (rows.length === 0) { showToast('No data to export.', 'error'); return; }
+
+    const headers = [
+        'Application ID','Full Name','Phone','WhatsApp','College Email','Personal Email',
+        'State','College','Branch','Year','CR Contact','Referral','Domains','Submitted At','Status','Notes'
+    ];
+    const csvRows = rows.map(r => {
+        const meta = getMeta(r.applicationId);
+        return [
+            r.applicationId, r.fullName, r.phoneNumber, r.whatsappNumber,
+            r.collegeEmail, r.personalEmail, r.stateRegion, r.collegeName,
+            r.branchStream, r.yearStudy, r.crContact || '', r.referralCode || '',
+            Array.isArray(r.domains) ? r.domains.join(' | ') : r.domains,
+            r.submittedAt ? new Date(r.submittedAt).toLocaleString() : '',
+            meta.status, meta.note
+        ].map(v => `"${String(v ?? '').replace(/"/g,'""')}"`);
+    });
+
+    const csv  = [headers.join(','), ...csvRows.map(r => r.join(','))].join('\n');
+    const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    a.href = url;
+    a.download = `SETIP_2026_${selectedIds.size > 0 ? 'Selected' : 'All'}_${new Date().toISOString().slice(0,10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast(`Exported ${rows.length} records as CSV.`, 'success');
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  SORT
+// ═══════════════════════════════════════════════════════════════
+function sortBy(key) {
+    if (sortKey === key) sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+    else { sortKey = key; sortDir = 'asc'; }
+    renderTable();
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  FILTERS
+// ═══════════════════════════════════════════════════════════════
+function clearFilters() {
+    document.getElementById('search-input').value  = '';
+    document.getElementById('filter-state').value  = 'all';
+    document.getElementById('filter-year').value   = 'all';
+    document.getElementById('filter-domain').value = 'all';
+    document.getElementById('filter-status').value = 'all';
+    document.getElementById('filter-date').value   = '';
+    loadData();
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  TABLE STATES
+// ═══════════════════════════════════════════════════════════════
+function setTableLoading() {
+    document.getElementById('table-body').innerHTML = `<tr><td colspan="18">
+        <div class="table-placeholder"><div class="spinner"></div><h3>Loading…</h3></div>
+    </td></tr>`;
+}
+function setTableError(msg) {
+    document.getElementById('table-body').innerHTML = `<tr><td colspan="18">
+        <div class="table-placeholder">
+            <span class="material-symbols-outlined" style="color:var(--danger)">error</span>
+            <h3>Error</h3><p>${esc(msg)}</p>
+        </div>
+    </td></tr>`;
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  TOAST
+// ═══════════════════════════════════════════════════════════════
+let toastTimer = null;
+function showToast(msg, type = 'success') {
+    const el   = document.getElementById('toast');
+    const icon = document.getElementById('toast-icon');
+    const text = document.getElementById('toast-msg');
+    const icons  = { success: 'check_circle', error: 'error', info: 'info' };
+    const colors = { success: 'var(--success)', error: 'var(--danger)', info: '#60a5fa' };
+
+    el.className = `show ${type}`;
+    icon.textContent = icons[type] || 'check_circle';
+    icon.style.color = colors[type] || colors.success;
+    text.textContent = msg;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { el.className = ''; }, 4000);
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  HELPERS
+// ═══════════════════════════════════════════════════════════════
+function esc(s) {
+    return String(s ?? '')
+        .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function truncate(s, n) {
+    s = String(s ?? '');
+    return s.length > n ? `<span title="${esc(s)}">${esc(s.slice(0,n))}…</span>` : esc(s);
+}
+function fmtDate(iso) {
+    const d = new Date(iso);
+    return d.toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' })
+         + ' ' + d.toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit', hour12:true });
+}
+</script>
+</body>
+</html>
