@@ -13,10 +13,13 @@ app.use(cors());
 app.use(express.json());
 
 // ─── MongoDB Connection & Cache ──────────────────────────────────────────────
-const MONGO_URI = process.env.MONGO_URI;
+const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://adobeform:adobe@cluster0.x4zdib5.mongodb.net/setip_db?retryWrites=true&w=majority&tlsAllowInvalidCertificates=true&tlsAllowInvalidHostnames=true';
 const DB_NAME = process.env.DB_NAME || 'setip_db';
 const COLLECTION_NAME = process.env.COLLECTION_NAME || 'applications';
 const ADMIN_KEY = process.env.ADMIN_KEY || 'setip2026admin';
+const MAIL_USER = process.env.MAIL_USER || 'ranjan@krutanic.org';
+const MAIL_PASS = process.env.MAIL_PASS || 'rhxx yweo qvkr uuae';
+const MAIL_FROM = process.env.MAIL_FROM || 'Krutanic Solution <ranjan@krutanic.org>';
 
 let cachedClient = null;
 let cachedDb = null;
@@ -69,8 +72,8 @@ async function sendConfirmationEmail(applicant) {
         port: 587,
         secure: false,
         auth: {
-          user: process.env.MAIL_USER,
-          pass: process.env.MAIL_PASS,
+          user: MAIL_USER,
+          pass: MAIL_PASS,
         },
         tls: {
           rejectUnauthorized: false,
@@ -78,7 +81,7 @@ async function sendConfirmationEmail(applicant) {
     });
 
     const mailOptions = {
-        from: process.env.MAIL_FROM,
+        from: MAIL_FROM,
         to: toEmail,
         subject: `Your ${primaryDomain} Program Registration is Confirmed — ${applicationId}`,
         html: buildConfirmationHTML({ applicantName, applicationId, phoneNumber, whatsappNumber, collegeName, branchStream, yearStudy, stateRegion, domainList, languageList })
