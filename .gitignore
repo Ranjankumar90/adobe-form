@@ -1,0 +1,11 @@
+node_modules/
+.env
+.env.*
+*.log
+.DS_Store
+dist/
+build/
+package-lock.json
+verify_js.js
+test_mail.js
+test_template_delivery.js
