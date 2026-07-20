@@ -628,10 +628,18 @@
                 <option>Corporate Law</option>
             </select>
             <select class="filter-select" id="filter-status" onchange="applyLocalFilter()">
-                <option value="all">All Status</option>
+                <option value="all">All Highlight Status</option>
                 <option value="copied">Marked (Copied)</option>
                 <option value="noted">Has Notes</option>
                 <option value="normal">Unmarked</option>
+            </select>
+            <select class="filter-select" id="filter-app-status" onchange="applyLocalFilter()">
+                <option value="all">All App Status</option>
+                <option>New</option>
+                <option>Contacted</option>
+                <option>Enrolled</option>
+                <option>On Hold</option>
+                <option>Rejected</option>
             </select>
             <input class="filter-date" type="date" id="filter-date" onchange="loadData()" title="Filter by date" />
             <button class="btn btn-ghost" onclick="clearFilters()">
@@ -671,7 +679,7 @@
                     <thead>
                         <tr>
                             <th class="col-check" onclick="toggleSelectAll()">
-                                <input type="checkbox" id="master-check" onclick="e=>e.stopPropagation()" />
+                                <input type="checkbox" id="master-check" onclick="event.stopPropagation(); toggleSelectAll()" />
                             </th>
                             <th style="width:36px" title="Row #">#</th>
                             <th onclick="sortBy('applicationId')">App ID</th>
@@ -762,6 +770,7 @@ async function doLogin() {
         const data = await res.json();
         if (data.success) {
             ADMIN_KEY = key;
+            sessionStorage.setItem('admin_key', key);
             loadMeta();
             document.getElementById('login-screen').classList.add('hidden');
             document.getElementById('dashboard').classList.add('visible');
@@ -778,6 +787,7 @@ function showLoginError(msg) {
 }
 function logout() {
     ADMIN_KEY = ''; allData = []; displayData = []; selectedIds.clear();
+    sessionStorage.removeItem('admin_key');
     document.getElementById('login-screen').classList.remove('hidden');
     document.getElementById('dashboard').classList.remove('visible');
     document.getElementById('admin-key-input').value = '';
@@ -790,6 +800,7 @@ function logout() {
 function debounceLoad() { clearTimeout(debounceTimer); debounceTimer = setTimeout(loadData, 280); }
 
 async function loadData() {
+    lastClickedIdx = -1;
     const search = document.getElementById('search-input').value.trim();
     const state  = document.getElementById('filter-state').value;
     const year   = document.getElementById('filter-year').value;
@@ -817,18 +828,48 @@ async function loadData() {
     } catch (e) { setTableError('Network error — is the server running?'); }
 }
 
+function changeStatus(selectEl, appId) {
+    const status = selectEl.value;
+    setMeta(appId, 'status', status);
+    
+    const statusColors = {
+        'New':       'color:#8892a4',
+        'Contacted': 'color:#60a5fa',
+        'Enrolled':  'color:#34d399',
+        'Rejected':  'color:#f87171',
+        'On Hold':   'color:#fbbf24',
+    };
+    selectEl.style.cssText = statusColors[status] || 'color:#8892a4';
+    
+    const appStatusF = document.getElementById('filter-app-status') ? document.getElementById('filter-app-status').value : 'all';
+    if (appStatusF !== 'all') {
+        applyLocalFilter();
+    } else {
+        showToast(`Status updated: ${status}`, 'success');
+    }
+}
+
 function applyLocalFilter() {
     const statusF = document.getElementById('filter-status').value;
-    if (statusF === 'all') {
-        displayData = [...allData];
-    } else if (statusF === 'copied') {
-        displayData = allData.filter(r => getMeta(r.applicationId).copied);
+    const appStatusF = document.getElementById('filter-app-status') ? document.getElementById('filter-app-status').value : 'all';
+    
+    let temp = [...allData];
+    
+    // 1. Meta Highlight Filter
+    if (statusF === 'copied') {
+        temp = temp.filter(r => getMeta(r.applicationId).copied);
     } else if (statusF === 'noted') {
-        displayData = allData.filter(r => getMeta(r.applicationId).note);
+        temp = temp.filter(r => getMeta(r.applicationId).note);
     } else if (statusF === 'normal') {
-        displayData = allData.filter(r => !getMeta(r.applicationId).copied && !getMeta(r.applicationId).note);
+        temp = temp.filter(r => !getMeta(r.applicationId).copied && !getMeta(r.applicationId).note);
     }
-
+    
+    // 2. Application Status Filter
+    if (appStatusF !== 'all') {
+        temp = temp.filter(r => getMeta(r.applicationId).status === appStatusF);
+    }
+    
+    displayData = temp;
     document.getElementById('filter-count').innerHTML = `<strong>${displayData.length}</strong> result${displayData.length !== 1 ? 's' : ''}`;
     updateCopiedStat();
     renderTable();
@@ -856,15 +897,20 @@ function renderTable() {
     // Sort
     const sorted = [...displayData].sort((a, b) => {
         let av = a[sortKey] ?? '', bv = b[sortKey] ?? '';
-        if (sortKey === 'submittedAt') { av = new Date(av); bv = new Date(bv); }
-        if (av < bv) return sortDir === 'asc' ? -1 : 1;
-        if (av > bv) return sortDir === 'asc' ?  1 : -1;
-        return 0;
+        if (sortKey === 'submittedAt') {
+            const da = new Date(av);
+            const db = new Date(bv);
+            return sortDir === 'asc' ? da - db : db - da;
+        }
+        const strA = String(av).toLowerCase();
+        const strB = String(bv).toLowerCase();
+        return sortDir === 'asc' ? strA.localeCompare(strB) : strB.localeCompare(strA);
     });
     displayData = sorted; // store sorted order for range select
 
     tbody.innerHTML = sorted.map((row, idx) => buildRow(row, idx)).join('');
     updateSelectionBar();
+    refreshRowHighlights();
 }
 
 function buildRow(row, idx) {
@@ -915,7 +961,7 @@ function buildRow(row, idx) {
         <td style="color:var(--text-muted);font-size:12px">${row.submittedAt ? fmtDate(row.submittedAt) : '—'}</td>
         <td onclick="event.stopPropagation()">
             <select class="status-select" style="${statusStyle}"
-                onchange="setMeta('${appId}', 'status', this.value); this.style.cssText='${statusStyle}'.replace('_STATUS_', this.value); rerenderRow('${id}')">
+                onchange="changeStatus(this, '${appId}')">
                 ${['New','Contacted','Enrolled','On Hold','Rejected'].map(s =>
                     `<option ${meta.status === s ? 'selected' : ''}>${s}</option>`
                 ).join('')}
@@ -951,14 +997,26 @@ function startNoteEdit(appId, e) {
         <div class="note-hint">Enter to save • Shift+Enter new line • Esc to cancel</div>`;
     const ta = document.getElementById(`note-input-${appId}`);
     ta.focus();
+    
+    let finished = false;
+    const finishSave = () => {
+        if (finished) return;
+        finished = true;
+        saveNote(appId, ta.value.trim());
+    };
+    
     ta.addEventListener('keydown', ev => {
         if (ev.key === 'Enter' && !ev.shiftKey) {
             ev.preventDefault();
-            saveNote(appId, ta.value.trim());
+            finishSave();
         }
-        if (ev.key === 'Escape') { cancelNote(appId); }
+        if (ev.key === 'Escape') {
+            finished = true;
+            ev.stopPropagation(); // Prevent clearing table selection on Escape
+            cancelNote(appId);
+        }
     });
-    ta.addEventListener('blur', () => saveNote(appId, ta.value.trim()));
+    ta.addEventListener('blur', finishSave);
 }
 
 function saveNote(appId, note) {
@@ -1030,40 +1088,53 @@ function toggleRowById(id, checked) {
 }
 
 function toggleSelectAll() {
-    const mc = document.getElementById('master-check');
-    if (selectedIds.size === displayData.length && displayData.length > 0) {
-        selectedIds.clear();
-        if (mc) mc.checked = false;
+    const allVisibleSelected = displayData.length > 0 && displayData.every(r => selectedIds.has(r._id));
+    if (allVisibleSelected) {
+        displayData.forEach(r => selectedIds.delete(r._id));
     } else {
         displayData.forEach(r => selectedIds.add(r._id));
-        if (mc) mc.checked = true;
     }
     refreshRowHighlights();
     updateSelectionBar();
 }
 
-function selectAll() { displayData.forEach(r => selectedIds.add(r._id)); refreshRowHighlights(); updateSelectionBar(); }
-function clearSelection() { selectedIds.clear(); refreshRowHighlights(); updateSelectionBar(); }
+function selectAll() { 
+    displayData.forEach(r => selectedIds.add(r._id)); 
+    refreshRowHighlights(); 
+    updateSelectionBar(); 
+}
+
+function clearSelection() { 
+    selectedIds.clear(); 
+    refreshRowHighlights(); 
+    updateSelectionBar(); 
+}
 
 function refreshRowHighlights() {
     document.querySelectorAll('tbody tr[data-id]').forEach(tr => {
         const id    = tr.dataset.id;
-        const appId = tr.dataset.appid;
         const cb    = tr.querySelector('input[type=checkbox]');
-        if (selectedIds.has(id)) { tr.classList.add('row-selected'); if (cb) cb.checked = true; }
-        else                     { tr.classList.remove('row-selected'); if (cb) cb.checked = false; }
+        if (selectedIds.has(id)) { 
+            tr.classList.add('row-selected'); 
+            if (cb) cb.checked = true; 
+        } else { 
+            tr.classList.remove('row-selected'); 
+            if (cb) cb.checked = false; 
+        }
     });
     // Master checkbox
     const mc = document.getElementById('master-check');
-    if (mc) mc.checked = displayData.length > 0 && selectedIds.size === displayData.length;
+    if (mc) {
+        mc.checked = displayData.length > 0 && displayData.every(r => selectedIds.has(r._id));
+    }
 }
 
 function updateSelectionBar() {
     const bar = document.getElementById('selection-bar');
-    const cnt = selectedIds.size;
-    document.getElementById('sel-num').textContent = cnt;
-    if (cnt > 0) bar.classList.add('visible');
-    else         bar.classList.remove('visible');
+    const visibleSelectedCount = displayData.filter(r => selectedIds.has(r._id)).length;
+    document.getElementById('sel-num').textContent = visibleSelectedCount;
+    if (visibleSelectedCount > 0) bar.classList.add('visible');
+    else                         bar.classList.remove('visible');
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -1094,32 +1165,38 @@ function copySelected() {
     ].join('\n');
 
     navigator.clipboard.writeText(tsv).then(() => {
-        // Auto-mark as copied
-        markCopied();
+        markCopied(true);
         showToast(`✅ Copied ${rows.length} row${rows.length>1?'s':''} to clipboard! Ready to paste into Google Sheets or Excel.`, 'success');
     }).catch(() => {
-        // Fallback
         const ta = document.createElement('textarea');
         ta.value = tsv; ta.style.position = 'fixed'; ta.style.opacity = '0';
         document.body.appendChild(ta); ta.select();
         document.execCommand('copy');
         document.body.removeChild(ta);
-        markCopied();
+        markCopied(true);
         showToast(`✅ Copied ${rows.length} rows!`, 'success');
     });
 }
 
-function markCopied() {
-    if (selectedIds.size === 0) { showToast('Select rows first.', 'error'); return; }
-    selectedIds.forEach(id => {
-        const row = displayData.find(r => r._id === id);
-        if (row) setMeta(row.applicationId, 'copied', true);
+function markCopied(skipToast = false) {
+    const visibleSelected = displayData.filter(r => selectedIds.has(r._id));
+    if (visibleSelected.length === 0) {
+        if (!skipToast) showToast('Select rows first.', 'error');
+        return;
+    }
+    
+    visibleSelected.forEach(row => {
+        setMeta(row.applicationId, 'copied', true);
     });
     saveMeta();
+    
+    const countMarked = visibleSelected.length;
     clearSelection();
     renderTable();
     updateCopiedStat();
-    showToast(`🔖 ${selectedIds.size || 'Selected'} rows marked as copied (amber highlight).`, 'info');
+    if (!skipToast) {
+        showToast(`🔖 ${countMarked} rows marked as copied (amber highlight).`, 'info');
+    }
 }
 
 function clearCopiedMarks() {
@@ -1139,16 +1216,25 @@ function clearCopiedMarks() {
 // Keyboard shortcuts
 document.addEventListener('keydown', e => {
     if (!ADMIN_KEY) return;
-    // Ctrl+C = copy selected
-    if ((e.ctrlKey || e.metaKey) && e.key === 'c' && selectedIds.size > 0 && !isTyping()) {
-        e.preventDefault(); copySelected();
+    if (isTyping()) return;
+    
+    // Ctrl+C = copy selected (only if no cell text is currently highlighted)
+    if ((e.ctrlKey || e.metaKey) && e.key === 'c' && !window.getSelection().toString()) {
+        const visibleSelectedCount = displayData.filter(r => selectedIds.has(r._id)).length;
+        if (visibleSelectedCount > 0) {
+            e.preventDefault(); 
+            copySelected();
+        }
     }
     // Ctrl+A = select all
-    if ((e.ctrlKey || e.metaKey) && e.key === 'a' && !isTyping()) {
-        e.preventDefault(); selectAll();
+    if ((e.ctrlKey || e.metaKey) && e.key === 'a') {
+        e.preventDefault(); 
+        selectAll();
     }
     // Escape = deselect
-    if (e.key === 'Escape') clearSelection();
+    if (e.key === 'Escape') {
+        clearSelection();
+    }
 });
 
 function isTyping() {
@@ -1160,7 +1246,8 @@ function isTyping() {
 //  EXPORT CSV
 // ═══════════════════════════════════════════════════════════════
 function exportCSV() {
-    const rows = selectedIds.size > 0 ? displayData.filter(r => selectedIds.has(r._id)) : displayData;
+    const visibleSelected = displayData.filter(r => selectedIds.has(r._id));
+    const rows = visibleSelected.length > 0 ? visibleSelected : displayData;
     if (rows.length === 0) { showToast('No data to export.', 'error'); return; }
 
     const headers = [
@@ -1208,6 +1295,9 @@ function clearFilters() {
     document.getElementById('filter-year').value   = 'all';
     document.getElementById('filter-domain').value = 'all';
     document.getElementById('filter-status').value = 'all';
+    if (document.getElementById('filter-app-status')) {
+        document.getElementById('filter-app-status').value = 'all';
+    }
     document.getElementById('filter-date').value   = '';
     loadData();
 }
@@ -1265,6 +1355,18 @@ function fmtDate(iso) {
     return d.toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' })
          + ' ' + d.toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit', hour12:true });
 }
+
+// On page load, auto-check session storage
+window.addEventListener('DOMContentLoaded', () => {
+    const savedKey = sessionStorage.getItem('admin_key');
+    if (savedKey) {
+        ADMIN_KEY = savedKey;
+        loadMeta();
+        document.getElementById('login-screen').classList.add('hidden');
+        document.getElementById('dashboard').classList.add('visible');
+        loadData();
+    }
+});
 </script>
 </body>
 </html>
