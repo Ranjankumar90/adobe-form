@@ -695,6 +695,7 @@
                             <th onclick="sortBy('crContact')">CR Contact</th>
                             <th onclick="sortBy('referralCode')">Referral</th>
                             <th>Domains</th>
+                            <th>Languages</th>
                             <th onclick="sortBy('submittedAt')">Submitted</th>
                             <th>Status</th>
                             <th style="min-width:180px">📝 Notes</th>
@@ -821,6 +822,15 @@ async function loadData() {
         if (!data.success) { setTableError(data.message); return; }
 
         allData = data.applications || [];
+
+        // Sync adminStatus & adminNote from DB into rowMeta (so they persist across browsers)
+        allData.forEach(app => {
+            const m = getMeta(app.applicationId);
+            if (app.adminStatus) m.status = app.adminStatus;
+            if (app.adminNote !== undefined) m.note = app.adminNote;
+        });
+        saveMeta();
+
         document.getElementById('stat-total').textContent  = data.total ?? '—';
         document.getElementById('stat-today').textContent  = data.todayCount ?? '—';
         document.getElementById('stat-domain').textContent = data.topDomain ?? '—';
@@ -840,7 +850,14 @@ function changeStatus(selectEl, appId) {
         'On Hold':   'color:#fbbf24',
     };
     selectEl.style.cssText = statusColors[status] || 'color:#8892a4';
-    
+
+    // Persist status to MongoDB so it syncs across all browsers/devices
+    fetch(`/api/applications/${appId}/status?key=${encodeURIComponent(ADMIN_KEY)}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status })
+    }).catch(() => {}); // silent fail — localStorage still has it
+
     const appStatusF = document.getElementById('filter-app-status') ? document.getElementById('filter-app-status').value : 'all';
     if (appStatusF !== 'all') {
         applyLocalFilter();
@@ -925,6 +942,7 @@ function buildRow(row, idx) {
     ].filter(Boolean).join(' ');
 
     const domains = Array.isArray(row.domains) ? row.domains : [];
+    const languages = Array.isArray(row.languages) ? row.languages : [];
 
     // Status color mapping
     const statusColors = {
@@ -958,6 +976,7 @@ function buildRow(row, idx) {
         <td style="color:var(--text-muted)">${esc(row.crContact) || '—'}</td>
         <td style="color:var(--accent);font-weight:600">${esc(row.referralCode) || '<span style="color:var(--text-dim)">—</span>'}</td>
         <td style="white-space:normal">${domains.map(d => `<span class="domain-tag">${esc(d)}</span>`).join('')}</td>
+        <td style="white-space:normal">${languages.map(l => `<span class="domain-tag" style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.22);color:#34d399">${esc(l)}</span>`).join('')}</td>
         <td style="color:var(--text-muted);font-size:12px">${row.submittedAt ? fmtDate(row.submittedAt) : '—'}</td>
         <td onclick="event.stopPropagation()">
             <select class="status-select" style="${statusStyle}"
@@ -1029,6 +1048,14 @@ function saveNote(appId, note) {
         if (note) row.classList.add('row-noted');
         else row.classList.remove('row-noted');
     }
+
+    // Persist note to MongoDB so it syncs across all browsers/devices
+    fetch(`/api/applications/${appId}/note?key=${encodeURIComponent(ADMIN_KEY)}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ note })
+    }).catch(() => {}); // silent fail — localStorage still has it
+
     applyLocalFilter(); // refresh filter count if status filter active
     showToast(note ? 'Note saved ✓' : 'Note cleared', 'success');
 }
@@ -1146,7 +1173,7 @@ function copySelected() {
 
     const headers = [
         'App ID','Full Name','Phone','WhatsApp','College Email','Personal Email',
-        'State','College','Branch','Year','CR Contact','Referral','Domains','Submitted','Status','Notes'
+        'State','College','Branch','Year','CR Contact','Referral','Domains','Languages','Submitted','Status','Notes'
     ];
 
     const tsv = [
@@ -1158,6 +1185,7 @@ function copySelected() {
                 r.collegeEmail, r.personalEmail, r.stateRegion, r.collegeName,
                 r.branchStream, r.yearStudy, r.crContact, r.referralCode,
                 Array.isArray(r.domains) ? r.domains.join(' | ') : r.domains,
+                Array.isArray(r.languages) ? r.languages.join(' | ') : r.languages,
                 r.submittedAt ? new Date(r.submittedAt).toLocaleString() : '',
                 meta.status, meta.note
             ].map(v => String(v ?? '')).join('\t');
@@ -1252,7 +1280,7 @@ function exportCSV() {
 
     const headers = [
         'Application ID','Full Name','Phone','WhatsApp','College Email','Personal Email',
-        'State','College','Branch','Year','CR Contact','Referral','Domains','Submitted At','Status','Notes'
+        'State','College','Branch','Year','CR Contact','Referral','Domains','Languages','Submitted At','Status','Notes'
     ];
     const csvRows = rows.map(r => {
         const meta = getMeta(r.applicationId);
@@ -1261,6 +1289,7 @@ function exportCSV() {
             r.collegeEmail, r.personalEmail, r.stateRegion, r.collegeName,
             r.branchStream, r.yearStudy, r.crContact || '', r.referralCode || '',
             Array.isArray(r.domains) ? r.domains.join(' | ') : r.domains,
+            Array.isArray(r.languages) ? r.languages.join(' | ') : r.languages,
             r.submittedAt ? new Date(r.submittedAt).toLocaleString() : '',
             meta.status, meta.note
         ].map(v => `"${String(v ?? '').replace(/"/g,'""')}"`);
