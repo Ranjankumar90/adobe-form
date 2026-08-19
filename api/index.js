@@ -448,4 +448,39 @@ app.delete('/api/applications/:id', async (req, res) => {
     }
 });
 
+// PATCH /api/applications/:applicationId/status — Admin: update app status
+app.patch('/api/applications/:applicationId/status', async (req, res) => {
+    let { key } = req.query;
+    if (key && key.startsWith('ADMIN_KEY=')) key = key.replace('ADMIN_KEY=', '');
+    if (key !== ADMIN_KEY) return res.status(401).json({ success: false, message: 'Unauthorized.' });
+    const { status } = req.body;
+    if (!status) return res.status(400).json({ success: false, message: 'Missing status.' });
+    try {
+        await db.collection(COLLECTION_NAME).updateOne(
+            { applicationId: req.params.applicationId },
+            { $set: { adminStatus: status, adminStatusUpdatedAt: new Date() } }
+        );
+        res.json({ success: true, message: 'Status updated.' });
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Server error.' });
+    }
+});
+
+// PATCH /api/applications/:applicationId/note — Admin: update note
+app.patch('/api/applications/:applicationId/note', async (req, res) => {
+    let { key } = req.query;
+    if (key && key.startsWith('ADMIN_KEY=')) key = key.replace('ADMIN_KEY=', '');
+    if (key !== ADMIN_KEY) return res.status(401).json({ success: false, message: 'Unauthorized.' });
+    const { note } = req.body;
+    try {
+        await db.collection(COLLECTION_NAME).updateOne(
+            { applicationId: req.params.applicationId },
+            { $set: { adminNote: note !== undefined ? note : '', adminNoteUpdatedAt: new Date() } }
+        );
+        res.json({ success: true, message: 'Note updated.' });
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Server error.' });
+    }
+});
+
 module.exports = app;

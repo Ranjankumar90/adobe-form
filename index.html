@@ -3,718 +3,1132 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>SETIP 2026 — Apply Now</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>SETIP 2026 — Official Skill &amp; Internship Program</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Grotesk:wght@600;700&display=swap"
+    rel="stylesheet">
+
   <style>
+    :root {
+      --bg-dark: #070914;
+      --bg-card: rgba(15, 23, 42, 0.78);
+      --bg-card-hover: rgba(30, 41, 59, 0.88);
+      --border-glass: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(99, 102, 241, 0.45);
+
+      --primary: #6366f1;
+      --primary-glow: #818cf8;
+      --secondary: #8b5cf6;
+      --accent-cyan: #06b6d4;
+      --accent-green: #10b981;
+      --accent-amber: #f59e0b;
+
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-sub: #cbd5e1;
+
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
-      padding: 0
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-tap-highlight-color: transparent;
     }
 
     html {
-      scroll-behavior: smooth
+      scroll-behavior: smooth;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
     }
 
     body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: #f1f5f9;
-      color: #1e293b
-    }
-
-    /* HERO */
-    .hero {
-      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 45%, #0f172a 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 15% 12%, rgba(99, 102, 241, 0.16) 0%, transparent 40%),
+        radial-gradient(circle at 85% 35%, rgba(139, 92, 246, 0.14) 0%, transparent 45%),
+        radial-gradient(circle at 50% 75%, rgba(6, 182, 212, 0.10) 0%, transparent 50%),
+        #070914;
+      background-attachment: fixed;
       position: relative;
-      overflow: hidden;
-      padding: 0 16px
     }
 
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -100px;
-      right: -100px;
-      width: 480px;
-      height: 480px;
-      background: radial-gradient(circle, rgba(99, 102, 241, 0.2)0%, transparent 70%);
-      pointer-events: none
+    /* Ambient Dynamic Grid Background */
+    .ambient-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
     }
 
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: -80px;
-      left: -60px;
-      width: 360px;
-      height: 360px;
-      background: radial-gradient(circle, rgba(16, 185, 129, 0.1)0%, transparent 70%);
-      pointer-events: none
-    }
-
-    .hero-inner {
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 40px 0 32px;
-      position: relative;
-      z-index: 1
-    }
-
-    .badges {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 16px
-    }
-
-    .badge {
-      font-size: 11px;
-      font-weight: 600;
-      padding: 5px 12px;
-      border-radius: 20px
-    }
-
-    .b1 {
-      background: rgba(99, 102, 241, 0.25);
-      color: #a5b4fc;
-      border: 1px solid rgba(99, 102, 241, 0.4)
-    }
-
-    .b2 {
-      background: rgba(16, 185, 129, 0.2);
-      color: #6ee7b7;
-      border: 1px solid rgba(16, 185, 129, 0.35)
-    }
-
-    .b3 {
-      background: rgba(245, 158, 11, 0.2);
-      color: #fcd34d;
-      border: 1px solid rgba(245, 158, 11, 0.35)
-    }
-
-    .hero-by {
-      font-size: 11px;
-      font-weight: 700;
-      color: #6366f1;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 12px
-    }
-
-    .hero-title {
-      font-size: 27px;
-      font-weight: 800;
-      color: #f1f5f9;
-      line-height: 1.25;
-      margin-bottom: 10px
-    }
-
-    .hl {
-      color: #818cf8
-    }
-
-    .hero-sub {
-      font-size: 13px;
-      color: #94a3b8;
-      line-height: 1.8;
-      margin-bottom: 24px;
-      max-width: 600px
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin-bottom: 28px
-    }
-
-    .stat {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.09);
-      border-radius: 12px;
-      padding: 14px 8px;
-      text-align: center;
-      transition: all .2s
-    }
-
-    .stat:hover {
-      background: rgba(99, 102, 241, 0.15);
-      transform: translateY(-2px)
-    }
-
-    .stat-n {
-      font-size: 22px;
-      font-weight: 800;
-      color: #f1f5f9
-    }
-
-    .stat-l {
-      font-size: 10px;
-      color: #94a3b8;
-      margin-top: 3px;
-      line-height: 1.3
-    }
-
-    .cta-row {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap
-    }
-
-    .cta-btn {
-      background: #6366f1;
-      color: #fff;
-      font-size: 14px;
-      font-weight: 700;
-      padding: 14px 30px;
-      border-radius: 10px;
-      border: none;
-      cursor: pointer;
-      font-family: inherit;
-      transition: all .2s
-    }
-
-    .cta-btn:hover {
-      background: #4f46e5;
-      transform: translateY(-2px)
-    }
-
-    .cta-note {
-      font-size: 11px;
-      color: #64748b
-    }
-
-    /* TIMELINE */
-    .tl {
-      background: #1e293b;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06)
-    }
-
-    .tl-inner {
-      max-width: 700px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr)
-    }
-
-    .tl-item {
-      padding: 14px 12px;
-      text-align: center;
-      position: relative
-    }
-
-    .tl-item:not(:last-child)::after {
-      content: '';
-      position: absolute;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      height: 28px;
-      width: 1px;
-      background: rgba(255, 255, 255, 0.07)
-    }
-
-    .tl-n {
-      font-size: 10px;
-      font-weight: 700;
-      color: #6366f1;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 2px
-    }
-
-    .tl-t {
-      font-size: 12px;
-      font-weight: 600;
-      color: #f1f5f9
-    }
-
-    .tl-d {
-      font-size: 10px;
-      color: #64748b;
-      margin-top: 2px
-    }
-
-    /* CONTENT */
-    .page {
-      background: #f1f5f9;
-      padding: 22px 16px 48px
-    }
-
-    .inner {
-      max-width: 700px;
-      margin: 0 auto
-    }
-
-    .urgency {
-      background: #fffbeb;
-      border: 1.5px solid #fbbf24;
-      border-radius: 10px;
-      padding: 11px 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 18px
-    }
-
-    .udot {
-      width: 9px;
-      height: 9px;
+    .ambient-orb {
+      position: fixed;
       border-radius: 50%;
-      background: #f59e0b;
-      flex-shrink: 0;
-      animation: pulse 1.4s ease-in-out infinite
+      filter: blur(120px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.45;
+      animation: orbFloat 20s ease-in-out infinite alternate;
     }
 
-    @keyframes pulse {
+    .orb-1 {
+      top: -120px;
+      left: -120px;
+      width: 550px;
+      height: 550px;
+      background: radial-gradient(circle, #4f46e5 0%, transparent 70%);
+    }
+
+    .orb-2 {
+      bottom: -160px;
+      right: -120px;
+      width: 650px;
+      height: 650px;
+      background: radial-gradient(circle, #7c3aed 0%, transparent 70%);
+      animation-delay: -10s;
+    }
+
+    @keyframes orbFloat {
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      100% {
+        transform: translate(50px, 70px) scale(1.08);
+      }
+    }
+
+    /* NAVIGATION BAR */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7, 9, 20, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-glass);
+      padding: 12px 20px;
+    }
+
+    .nav-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .brand-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+    }
+
+    .brand-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.3px;
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #ffffff;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.35);
+      padding: 8px 16px;
+      border-radius: 20px;
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+
+    .nav-cta:hover,
+    .nav-cta:active {
+      background: var(--primary);
+      border-color: var(--primary);
+      box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+    }
+
+    /* CONTAINER */
+    .container {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 0 16px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* HEADER & HERO */
+    .header {
+      padding: 36px 0 28px;
+      text-align: center;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: rgba(99, 102, 241, 0.12);
+      border: 1px solid rgba(99, 102, 241, 0.35);
+      border-radius: 30px;
+      backdrop-filter: blur(12px);
+      margin-bottom: 20px;
+    }
+
+    .pulse-indicator {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-green);
+      box-shadow: 0 0 10px var(--accent-green);
+      animation: pulseSoft 2s infinite;
+    }
+
+    @keyframes pulseSoft {
 
       0%,
       100% {
+        transform: scale(1);
         opacity: 1;
-        transform: scale(1)
       }
 
       50% {
-        opacity: .4;
-        transform: scale(.85)
+        transform: scale(1.2);
+        opacity: 0.6;
       }
     }
 
-    .utxt {
-      font-size: 12px;
-      color: #92400e;
-      font-weight: 600;
-      line-height: 1.4
-    }
-
-    /* WHAT YOU GET */
-    .val-box {
-      background: linear-gradient(135deg, #eef2ff, #f5f3ff);
-      border: 1.5px solid #c7d2fe;
-      border-radius: 14px;
-      padding: 20px;
-      margin-bottom: 18px
-    }
-
-    .val-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: #3730a3;
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px
-    }
-
-    .val-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px
-    }
-
-    .vitem {
-      background: #fff;
-      border-radius: 10px;
-      padding: 12px;
-      border: 1px solid #e0e7ff;
-      transition: transform .2s
-    }
-
-    .vitem:hover {
-      transform: translateY(-2px)
-    }
-
-    .v-ic {
-      font-size: 20px;
-      margin-bottom: 5px
-    }
-
-    .v-t {
+    .badge-caption {
       font-size: 11px;
       font-weight: 700;
-      color: #3730a3;
-      line-height: 1.3
-    }
-
-    .v-s {
-      font-size: 10px;
-      color: #6366f1;
-      margin-top: 2px;
-      line-height: 1.4
-    }
-
-    .val-note {
-      font-size: 12px;
-      color: #4338ca;
-      margin-top: 14px;
-      text-align: center;
-      line-height: 1.6;
-      font-style: italic
-    }
-
-    /* INFO ROW */
-    .info-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 18px
-    }
-
-    .icard {
-      background: #fff;
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 14px 16px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04)
-    }
-
-    .ic-t {
-      font-size: 10px;
-      font-weight: 700;
-      text-transform: uppercase;
       letter-spacing: 0.6px;
-      margin-bottom: 6px
-    }
-
-    .ic-green .ic-t {
-      color: #15803d
-    }
-
-    .ic-blue .ic-t {
-      color: #1d4ed8
-    }
-
-    .ic-body {
-      font-size: 12px;
-      line-height: 1.7
-    }
-
-    .ic-green .ic-body {
-      color: #166534
-    }
-
-    .ic-blue .ic-body {
-      color: #1e40af
-    }
-
-    /* CARD */
-    .card {
-      background: #fff;
-      border: 1px solid #e2e8f0;
-      border-radius: 14px;
-      padding: 22px;
-      margin-bottom: 14px;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04)
-    }
-
-    .clabel {
-      font-size: 10px;
-      font-weight: 700;
+      color: #c7d2fe;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      color: #6366f1;
+    }
+
+    .hero-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(24px, 5.5vw, 40px);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.5px;
       margin-bottom: 16px;
+      color: #ffffff;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #818cf8 0%, #c084fc 50%, #38bdf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-description {
+      font-size: clamp(13px, 3.5vw, 15px);
+      line-height: 1.7;
+      color: var(--text-muted);
+      max-width: 660px;
+      margin: 0 auto 30px;
+    }
+
+    /* METRIC CARDS GRID */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .metric-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      backdrop-filter: blur(16px);
+      border-radius: var(--radius-md);
+      padding: 14px 8px;
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .metric-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--border-glow);
+      background: var(--bg-card-hover);
+    }
+
+    .metric-val {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(20px, 4vw, 26px);
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.1;
+    }
+
+    .metric-lbl {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    /* URGENCY ALERT */
+    .urgency-alert {
+      background: linear-gradient(90deg, rgba(245, 158, 11, 0.12) 0%, rgba(239, 68, 68, 0.12) 100%);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      border-radius: var(--radius-md);
+      padding: 12px 18px;
       display: flex;
       align-items: center;
-      gap: 8px
+      gap: 12px;
+      margin-bottom: 28px;
+      backdrop-filter: blur(12px);
     }
 
-    .clabel::after {
+    .alert-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-amber);
+      box-shadow: 0 0 10px var(--accent-amber);
+      flex-shrink: 0;
+      animation: alertBlink 1.4s infinite;
+    }
+
+    @keyframes alertBlink {
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      50% {
+        transform: scale(1.25);
+        opacity: 0.5;
+      }
+    }
+
+    .alert-text {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #fef08a;
+      line-height: 1.5;
+    }
+
+    /* PROGRAM ROADMAP SECTION */
+    .section-header {
+      font-size: 11.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--primary-glow);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .roadmap-card {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--border-glass);
+      backdrop-filter: blur(16px);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      margin-bottom: 28px;
+    }
+
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .roadmap-step {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius-md);
+      padding: 16px 14px;
+      transition: all 0.3s ease;
+    }
+
+    .roadmap-step:hover {
+      border-color: rgba(99, 102, 241, 0.4);
+      background: rgba(99, 102, 241, 0.08);
+    }
+
+    .step-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--accent-cyan);
+      background: rgba(6, 182, 212, 0.15);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      padding: 3px 8px;
+      border-radius: 12px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .step-heading {
+      font-size: 14px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .step-detail {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* ADVANTAGES SHOWCASE GRID */
+    .advantages-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .advantage-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      backdrop-filter: blur(12px);
+      transition: all 0.3s ease;
+    }
+
+    .advantage-card:hover {
+      border-color: rgba(139, 92, 246, 0.4);
+      background: var(--bg-card-hover);
+    }
+
+    .advantage-icon {
+      font-size: 22px;
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+
+    .advantage-heading {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .advantage-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ELIGIBILITY & HELPLINE INFO CARDS */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    .info-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      padding: 16px 18px;
+      backdrop-filter: blur(12px);
+    }
+
+    .info-panel.green {
+      border-left: 4px solid var(--accent-green);
+    }
+
+    .info-panel.purple {
+      border-left: 4px solid var(--secondary);
+    }
+
+    .panel-tag {
+      font-size: 10.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 6px;
+    }
+
+    .green .panel-tag {
+      color: var(--accent-green);
+    }
+
+    .purple .panel-tag {
+      color: var(--secondary);
+    }
+
+    .panel-text {
+      font-size: 12.5px;
+      color: var(--text-sub);
+      line-height: 1.6;
+    }
+
+    /* FORM STEP TRACKER & PROGRESS BAR */
+    .form-tracker-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(16px);
+    }
+
+    .progress-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .progress-title {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--text-sub);
+    }
+
+    .progress-percentage {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--primary-glow);
+    }
+
+    .progress-track {
+      height: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 25%;
+      background: linear-gradient(90deg, #6366f1, #8b5cf6, #06b6d4);
+      border-radius: 10px;
+      transition: width 0.4s ease;
+    }
+
+    .step-steps {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .step-node {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      opacity: 0.45;
+      transition: opacity 0.3s;
+    }
+
+    .step-node.active {
+      opacity: 1;
+    }
+
+    .node-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .step-node.active .node-num {
+      background: var(--primary);
+      box-shadow: 0 0 10px var(--primary-glow);
+    }
+
+    .node-label {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #fff;
+      display: none;
+    }
+
+    @media(min-width: 580px) {
+      .node-label {
+        display: inline;
+      }
+    }
+
+    /* GLASS FORM CARDS */
+    .form-glass-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-lg);
+      padding: 24px 20px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+      transition: all 0.3s ease;
+    }
+
+    .card-title-bar {
+      font-size: 11.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--primary-glow);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-title-bar::after {
       content: '';
       flex: 1;
       height: 1px;
-      background: #eef2ff
+      background: linear-gradient(90deg, rgba(99, 102, 241, 0.35), transparent);
     }
 
-    /* FORM */
-    .fg {
+    .form-layout-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px
+      gap: 14px;
     }
 
-    .fl {
+    .span-2 {
+      grid-column: 1 / -1;
+    }
+
+    .field-group {
       display: flex;
       flex-direction: column;
-      gap: 5px
+      gap: 6px;
     }
 
-    .fl label {
-      font-size: 11px;
+    .field-group label {
+      font-size: 12px;
       font-weight: 700;
-      color: #374151
-    }
-
-    .req {
-      color: #ef4444;
-      margin-left: 2px
-    }
-
-    .fl input,
-    .fl select {
-      background: #f8fafc;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 9px;
-      padding: 10px 12px;
-      font-size: 13px;
-      color: #1e293b;
-      font-family: inherit;
-      outline: none;
-      transition: border-color .15s, box-shadow .15s;
-      width: 100%
-    }
-
-    .fl input:focus,
-    .fl select:focus {
-      border-color: #6366f1;
-      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-      background: #fff
-    }
-
-    .fl input::placeholder {
-      color: #94a3b8
-    }
-
-    .other-box {
-      display: none;
-      margin-top: 8px
-    }
-
-    .other-box.show {
-      display: block
-    }
-
-    /* TILES */
-    .dtiles {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 7px;
-      margin-top: 8px
-    }
-
-    .tile {
+      color: var(--text-sub);
       display: flex;
       align-items: center;
-      gap: 9px;
-      padding: 9px 11px;
-      background: #f8fafc;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 9px;
+      gap: 4px;
+    }
+
+    .required {
+      color: #ef4444;
+    }
+
+    .form-input,
+    .form-select {
+      background: rgba(10, 14, 26, 0.75);
+      border: 1.5px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      font-size: 15px;
+      /* Prevent iOS safari auto-zoom on input focus */
+      color: #ffffff;
+      outline: none;
+      transition: all 0.25s ease;
+      width: 100%;
+      min-height: 46px;
+    }
+
+    .form-select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2594a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-size: 16px;
+      padding-right: 42px;
+    }
+
+    .form-select option {
+      background: #0f172a;
+      color: #ffffff;
+    }
+
+    .form-input:focus,
+    .form-select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+      background: rgba(15, 23, 42, 0.95);
+    }
+
+    .form-input::placeholder {
+      color: #64748b;
+    }
+
+    .country-other-box {
+      display: none;
+      margin-top: 8px;
+    }
+
+    .country-other-box.show {
+      display: block;
+    }
+
+    /* DOMAINS & LANGUAGES TILES */
+    .domain-tags {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .tag-btn {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .tag-btn:hover,
+    .tag-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .scrollable-tiles {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      max-height: 380px;
+      overflow-y: auto;
+      padding-right: 2px;
+    }
+
+    .scrollable-tiles::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .scrollable-tiles::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .scrollable-tiles::-webkit-scrollbar-thumb {
+      background: rgba(99, 102, 241, 0.35);
+      border-radius: 4px;
+    }
+
+    .tile-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      background: rgba(15, 23, 42, 0.55);
+      border: 1.5px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-sm);
       cursor: pointer;
       font-size: 12px;
-      color: #374151;
-      font-weight: 500;
-      transition: all .15s;
-      user-select: none
+      font-weight: 600;
+      color: var(--text-sub);
+      transition: all 0.2s ease;
+      user-select: none;
+      min-height: 44px;
     }
 
-    .tile:hover {
-      border-color: #6366f1;
-      background: #eef2ff;
-      color: #4338ca
+    .tile-option:hover {
+      border-color: rgba(99, 102, 241, 0.4);
+      background: rgba(99, 102, 241, 0.1);
+      color: #ffffff;
     }
 
-    .tile:has(input:checked) {
-      border-color: #6366f1;
-      background: #eef2ff;
-      color: #4338ca
+    .tile-option:has(input:checked) {
+      border-color: var(--primary);
+      background: rgba(99, 102, 241, 0.22);
+      color: #ffffff;
+      box-shadow: 0 0 14px rgba(99, 102, 241, 0.18);
     }
 
-    .tile input {
-      accent-color: #6366f1;
-      width: 15px;
-      height: 15px;
-      flex-shrink: 0
+    .tile-option input {
+      accent-color: var(--primary);
+      width: 17px;
+      height: 17px;
+      flex-shrink: 0;
+      cursor: pointer;
     }
 
-    /* SUBMIT */
-    .ack {
+    /* ACKNOWLEDGEMENT & SUBMIT */
+    .declaration-box {
       display: flex;
       align-items: flex-start;
-      gap: 10px;
-      padding: 13px 15px;
-      background: #f8fafc;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 10px;
+      gap: 12px;
+      padding: 14px 16px;
+      background: rgba(99, 102, 241, 0.08);
+      border: 1.5px solid rgba(99, 102, 241, 0.25);
+      border-radius: var(--radius-md);
       cursor: pointer;
-      margin-bottom: 14px;
-      transition: border-color .15s
+      margin-bottom: 20px;
+      transition: border-color 0.2s;
     }
 
-    .ack:hover {
-      border-color: #6366f1
-    }
-
-    .ack input {
-      accent-color: #6366f1;
-      width: 16px;
-      height: 16px;
+    .declaration-box input {
+      accent-color: var(--primary);
+      width: 18px;
+      height: 18px;
       flex-shrink: 0;
-      margin-top: 2px
-    }
-
-    .ack span {
-      font-size: 12px;
-      color: #374151;
-      line-height: 1.6
-    }
-
-    .sub-btn {
-      width: 100%;
-      padding: 15px;
-      background: linear-gradient(135deg, #6366f1, #4f46e5);
-      color: #fff;
-      border: none;
-      border-radius: 11px;
-      font-size: 15px;
-      font-weight: 700;
+      margin-top: 2px;
       cursor: pointer;
-      font-family: inherit;
-      transition: all .2s;
-      letter-spacing: 0.3px
     }
 
-    .sub-btn:hover:not(:disabled) {
-      opacity: .92;
-      transform: translateY(-1px)
+    .declaration-box span {
+      font-size: 12.5px;
+      color: var(--text-sub);
+      line-height: 1.6;
     }
 
-    .sub-btn:disabled {
-      opacity: .6;
-      cursor: not-allowed;
-      transform: none
-    }
-
-    .disc {
-      font-size: 10px;
-      color: #94a3b8;
-      text-align: center;
-      margin-top: 10px;
-      line-height: 1.7
-    }
-
-    .err {
-      display: none;
-      background: #fef2f2;
-      border: 1.5px solid #fca5a5;
-      border-radius: 9px;
-      padding: 10px 14px;
-      font-size: 12px;
-      color: #b91c1c;
-      margin-top: 10px;
-      line-height: 1.5
-    }
-
-    .err.show {
-      display: block
-    }
-
-    /* SUCCESS */
-    .success {
-      display: none;
-      background: #fff;
-      border-radius: 14px;
-      border: 1px solid #e2e8f0;
-      padding: 44px 24px;
-      text-align: center;
-      margin-bottom: 14px;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04)
-    }
-
-    .success.show {
-      display: block
-    }
-
-    .s-ic {
-      font-size: 56px;
-      margin-bottom: 14px
-    }
-
-    .s-t {
-      font-size: 21px;
+    .submit-action-btn {
+      width: 100%;
+      padding: 16px 24px;
+      background: linear-gradient(135deg, #6366f1 0%, #4f46e5 50%, #8b5cf6 100%);
+      background-size: 200% 200%;
+      color: #ffffff;
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 15.5px;
       font-weight: 800;
-      color: #15803d;
-      margin-bottom: 8px
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 50px;
     }
 
-    .s-s {
-      font-size: 13px;
-      color: #475569;
-      line-height: 1.9;
-      margin-bottom: 18px
+    .submit-action-btn:hover:not(:disabled),
+    .submit-action-btn:active:not(:disabled) {
+      background-position: right center;
+      transform: translateY(-2px);
+      box-shadow: 0 14px 32px rgba(99, 102, 241, 0.6);
     }
 
-    .s-box {
-      background: #f0fdf4;
-      border: 1px solid #86efac;
-      border-radius: 10px;
-      padding: 14px 18px;
-      font-size: 12px;
-      color: #166534;
-      line-height: 1.9;
-      text-align: left
+    .submit-action-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
     }
 
-    /* WhatsApp button styling */
-    .whatsapp-link {
+    .error-notification {
+      display: none;
+      background: rgba(239, 68, 68, 0.15);
+      border: 1.5px solid rgba(239, 68, 68, 0.4);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      font-size: 12.5px;
+      color: #fca5a5;
+      margin-top: 16px;
+      line-height: 1.5;
+    }
+
+    .error-notification.show {
+      display: block;
+      animation: errShake 0.4s ease-in-out;
+    }
+
+    @keyframes errShake {
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      20%,
+      60% {
+        transform: translateX(-6px);
+      }
+
+      40%,
+      80% {
+        transform: translateX(6px);
+      }
+    }
+
+    .security-notice {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 14px;
+      line-height: 1.5;
+    }
+
+    /* SUCCESS STATE DISPLAY */
+    .success-card {
+      display: none;
+      background: var(--bg-card);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      border-radius: var(--radius-lg);
+      padding: 40px 20px;
+      text-align: center;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      animation: popIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes popIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.94);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .success-card.show {
+      display: block;
+    }
+
+    .success-icon-wrapper {
+      width: 72px;
+      height: 72px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 2px solid var(--accent-green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 18px;
+      font-size: 34px;
+      box-shadow: 0 0 30px rgba(16, 185, 129, 0.35);
+    }
+
+    .success-main-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 10px;
+    }
+
+    .success-sub-text {
+      font-size: 14px;
+      color: var(--text-sub);
+      line-height: 1.75;
+      margin-bottom: 22px;
+    }
+
+    .ref-pill {
       display: inline-block;
-      margin-top: 12px;
-      padding: 10px 20px;
-      background: #25D366;
-      color: #fff;
-      border-radius: 8px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: transform .2s;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px dashed rgba(255, 255, 255, 0.2);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-family: monospace;
+      font-size: 12.5px;
+      color: var(--accent-cyan);
+      margin-bottom: 22px;
     }
 
-    .whatsapp-link:hover {
-      transform: scale(1.05);
+    .next-steps-panel {
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.22);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      font-size: 13px;
+      color: #a7f3d0;
+      line-height: 2;
+      text-align: left;
+      margin-bottom: 24px;
+    }
+
+    .whatsapp-join-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 24px;
+      background: #25D366;
+      color: #ffffff;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      box-shadow: 0 10px 25px rgba(37, 211, 102, 0.35);
+      transition: all 0.3s ease;
+      width: 100%;
+      max-width: 380px;
+    }
+
+    /* FLOATING HELPLINE BADGE */
+    .floating-helpline {
+      position: fixed;
+      bottom: 20px;
+      right: 16px;
+      z-index: 90;
+      background: rgba(15, 23, 42, 0.92);
+      border: 1px solid rgba(99, 102, 241, 0.4);
+      border-radius: 30px;
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      text-decoration: none;
+      color: #ffffff;
+      font-size: 11.5px;
+      font-weight: 700;
+      transition: all 0.3s ease;
     }
 
     /* FOOTER */
     .footer {
-      background: #0f172a;
-      padding: 22px 16px;
-      text-align: center
+      padding: 36px 16px;
+      text-align: center;
+      border-top: 1px solid var(--border-glass);
+      margin-top: 48px;
+      background: rgba(7, 9, 20, 0.85);
+      backdrop-filter: blur(12px);
     }
 
     .footer p {
-      font-size: 11px;
-      color: #475569;
-      line-height: 1.9
+      font-size: 11.5px;
+      color: var(--text-muted);
+      line-height: 1.8;
     }
 
     .footer a {
-      color: #6366f1;
-      text-decoration: none
+      color: var(--primary-glow);
+      text-decoration: none;
+      font-weight: 600;
     }
 
-    @media(max-width:520px) {
-      .hero-title {
-        font-size: 21px
+    /* Canvas Confetti */
+    #confettiCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* MOBILE-FIRST OPTIMIZATIONS (Smartphones & Small Screens) */
+    @media (max-width: 600px) {
+      .navbar {
+        padding: 10px 14px;
       }
 
-      .stats {
-        grid-template-columns: repeat(2, 1fr)
+      .brand-text {
+        font-size: 15px;
       }
 
-      .val-grid {
-        grid-template-columns: repeat(2, 1fr)
+      .nav-cta {
+        padding: 6px 12px;
+        font-size: 11px;
       }
 
-      .fg {
-        grid-template-columns: 1fr
+      .header {
+        padding: 24px 0 20px;
       }
 
-      .dtiles {
-        grid-template-columns: 1fr
+      .status-badge {
+        padding: 5px 12px;
+        margin-bottom: 14px;
       }
 
-      .info-row {
-        grid-template-columns: 1fr
+      .badge-caption {
+        font-size: 10px;
+      }
+
+      .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+
+      .metric-card {
+        padding: 12px 6px;
+      }
+
+      .roadmap-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .advantages-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .form-glass-card {
+        padding: 18px 14px;
+      }
+
+      .form-layout-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .scrollable-tiles {
+        grid-template-columns: 1fr;
+        max-height: 320px;
+      }
+
+      .floating-helpline {
+        bottom: 12px;
+        right: 12px;
+        font-size: 11px;
+        padding: 7px 12px;
       }
     }
   </style>
@@ -722,383 +1136,648 @@
 
 <body>
 
-  <!-- HERO -->
-  <div class="hero">
-    <div class="hero-inner">
-      <div class="badges">
-        <span class="badge b1">Co-Certified</span>
-        <span class="badge b2">Placement Assured</span>
-        <span class="badge b3">2026 Cohort — Limited Seats</span>
+  <div class="ambient-grid"></div>
+  <div class="ambient-orb orb-1"></div>
+  <div class="ambient-orb orb-2"></div>
+  <canvas id="confettiCanvas"></canvas>
+
+  <!-- STICKY ENTERPRISE NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="#apply" class="brand-logo">
+        <div class="brand-icon">🎓</div>
+        <span class="brand-text">SETIP 2026</span>
+      </a>
+      <a href="#apply" class="nav-cta">
+        <span>Apply Now ↓</span>
+      </a>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <!-- HEADER & HERO SECTION -->
+    <header class="header">
+      <div class="status-badge">
+        <span class="pulse-indicator"></span>
+        <span class="badge-caption">2026 Cohort • Industry Co-Certified</span>
       </div>
-      <div class="hero-by">Skill Enhancement Training presents</div>
+
       <h1 class="hero-title">
-        Skill Enhancement Training &amp; <span class="hl">Internship Program (SETIP)</span>
+        Skill Enhancement Training &amp;<br>
+        <span class="gradient-text">Internship Program (SETIP)</span>
       </h1>
-      <p class="hero-sub">A 3-month structured program to bridge academics and the workplace — live projects, industry
-        mentors, certified credentials, and placement support at top MNCs.</p>
-      <div class="stats">
-        <div class="stat">
-          <div class="stat-n">3</div>
-          <div class="stat-l">Month Program</div>
+
+      <p class="hero-description">
+        A 3-month structured program bridging academia with live enterprise workflows. Gain hands-on mastery in
+        high-demand technical and management domains, learn directly from MNC mentors, and earn placement
+        co-certification.
+      </p>
+
+      <!-- METRIC CARDS -->
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-val">3</div>
+          <div class="metric-lbl">Months</div>
         </div>
-        <div class="stat">
-          <div class="stat-n">50+</div>
-          <div class="stat-l">MNC Partners</div>
+        <div class="metric-card">
+          <div class="metric-val">50+</div>
+          <div class="metric-lbl">MNC Partners</div>
         </div>
-        <div class="stat">
-          <div class="stat-n">3</div>
-          <div class="stat-l">Certificates</div>
+        <div class="metric-card">
+          <div class="metric-val">3</div>
+          <div class="metric-lbl">Certificates</div>
         </div>
-        <div class="stat">
-          <div class="stat-n">20+</div>
-          <div class="stat-l">Domains</div>
+        <div class="metric-card">
+          <div class="metric-val">20+</div>
+          <div class="metric-lbl">Domains</div>
         </div>
       </div>
-      <div class="cta-row">
-        <button class="cta-btn" onclick="document.getElementById('apply').scrollIntoView({behavior:'smooth'})">Apply Now
-          — Secure Your Seat ↓</button>
-        <span class="cta-note">Free to apply &nbsp;·&nbsp; Takes 2 minutes</span>
+
+      <!-- URGENCY ALERT -->
+      <div class="urgency-alert">
+        <div class="alert-dot"></div>
+        <div class="alert-text">
+          🔥 <strong>Applications Open for 2026 Cohort:</strong> Limited seats available. Evaluated on a rolling basis.
+        </div>
+      </div>
+    </header>
+
+    <!-- ROADMAP SECTION -->
+    <section class="roadmap-card">
+      <div class="section-header">
+        <span>⚡ Program Roadmap</span>
+      </div>
+      <div class="roadmap-grid">
+        <div class="roadmap-step">
+          <span class="step-tag">Phase 01</span>
+          <h3 class="step-heading">Skill Training</h3>
+          <p class="step-detail">Intensive live training on industry-standard tools, frameworks, and modern tools.</p>
+        </div>
+        <div class="roadmap-step">
+          <span class="step-tag">Phase 02</span>
+          <h3 class="step-heading">Live Internship</h3>
+          <p class="step-detail">Work on production-grade client projects guided by senior MNC mentors.</p>
+        </div>
+        <div class="roadmap-step">
+          <span class="step-tag">Phase 03</span>
+          <h3 class="step-heading">Placement Support</h3>
+          <p class="step-detail">Resume engineering, 1-on-1 mock interviews, and direct hiring partner referrals.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT YOU GET SHOWCASE -->
+    <div class="section-header" style="margin-left: 4px;">
+      <span>💎 Deliverables &amp; Benefits</span>
+    </div>
+    <div class="advantages-grid">
+      <div class="advantage-card">
+        <span class="advantage-icon">🎓</span>
+        <h4 class="advantage-heading">Co-Logo Certificate</h4>
+        <p class="advantage-desc">Global branding credentials issued alongside industry leaders.</p>
+      </div>
+      <div class="advantage-card">
+        <span class="advantage-icon">📋</span>
+        <h4 class="advantage-heading">Completion Certificate</h4>
+        <p class="advantage-desc">Verified credentials recognized by 50+ hiring partner networks.</p>
+      </div>
+      <div class="advantage-card">
+        <span class="advantage-icon">✉️</span>
+        <h4 class="advantage-heading">Recommendation Letter</h4>
+        <p class="advantage-desc">Performance-based official LoR written by domain mentors.</p>
+      </div>
+      <div class="advantage-card">
+        <span class="advantage-icon">🧑‍💼</span>
+        <h4 class="advantage-heading">1-on-1 Mentorship</h4>
+        <p class="advantage-desc">Dedicated guidance from senior engineers and domain experts.</p>
+      </div>
+      <div class="advantage-card">
+        <span class="advantage-icon">💼</span>
+        <h4 class="advantage-heading">MNC Placement Drive</h4>
+        <p class="advantage-desc">Resume building, portfolio polish, and direct interview opportunities.</p>
+      </div>
+      <div class="advantage-card">
+        <span class="advantage-icon">🛠️</span>
+        <h4 class="advantage-heading">Enterprise Tools</h4>
+        <p class="advantage-desc">Practical experience with real workplace tools and environments.</p>
       </div>
     </div>
-  </div>
 
-  <!-- TIMELINE -->
-  <div class="tl">
-    <div class="tl-inner">
-      <div class="tl-item">
-        <div class="tl-n">Month 1</div>
-        <div class="tl-t">Skill Training</div>
-        <div class="tl-d">Technical &amp; industry tools</div>
+    <!-- ELIGIBILITY & HELPLINE PANEL -->
+    <div class="contact-grid">
+      <div class="info-panel green">
+        <div class="panel-tag">Eligibility Criteria</div>
+        <div class="panel-text">
+          Open to students from Technology, Business, Design, Legal, Psychology &amp; Science streams (All academic
+          years &amp; recent graduates welcome).
+        </div>
       </div>
-      <div class="tl-item">
-        <div class="tl-n">Month 2</div>
-        <div class="tl-t">Live Internship</div>
-        <div class="tl-d">Real projects with MNC teams</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-n">Month 3</div>
-        <div class="tl-t">Placement Support</div>
-        <div class="tl-d">Resume, interviews &amp; jobs</div>
+      <div class="info-panel purple">
+        <div class="panel-tag">Placements Helpline</div>
+        <div class="panel-text">
+          <strong>Dr. Mandeep Singh</strong> — Placements Controller<br>
+          📞 Phone: <a href="tel:+919886232004" style="color:#a855f7;">+91 9886232004</a>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- PAGE BODY -->
-  <div class="page">
-    <div class="inner">
-
-      <div class="urgency">
-        <div class="udot"></div>
-        <div class="utxt">Seats filling fast — limited spots available for 2026. Apply below to reserve yours.</div>
+    <!-- SUCCESS SCREEN -->
+    <div class="success-card" id="successScreen">
+      <div class="success-icon-wrapper">🎉</div>
+      <h2 class="success-main-title">Application Submitted!</h2>
+      <p class="success-sub-text">
+        Thank you, <strong id="sName" style="color: #6366f1;">Applicant</strong>!<br>
+        Your application has been logged into the SETIP 2026 admissions database.
+      </p>
+      <div class="ref-pill">Ref ID: <span id="applicationRef">SETIP-2026-PENDING</span></div>
+      <div class="next-steps-panel">
+        ✓ Onboarding counsellor assigned to your profile<br>
+        ✓ WhatsApp notification &amp; schedule confirmation within 24 hours<br>
+        ✓ Full curriculum syllabus sent to your email<br>
+        ✓ Industry mentor assigned prior to Month 1 orientation
       </div>
-
-      <!-- WHAT YOU GET -->
-      <div class="val-box">
-        <div class="val-title">🎯 Everything included in your program</div>
-        <div class="val-grid">
-          <div class="vitem">
-            <div class="v-ic">🎓</div>
-            <div class="v-t">Co-Logo Certificate</div>
-            <div class="v-s">Global branding on your credential</div>
-          </div>
-          <div class="vitem">
-            <div class="v-ic">📋</div>
-            <div class="v-t">Completion Certificate</div>
-            <div class="v-s">Recognised by 50+ MNC hiring partners</div>
-          </div>
-          <div class="vitem">
-            <div class="v-ic">✉️</div>
-            <div class="v-t">Letter of Recommendation</div>
-            <div class="v-s">Performance-based LoR from industry experts</div>
-          </div>
-          <div class="vitem">
-            <div class="v-ic">🧑‍💼</div>
-            <div class="v-t">Dedicated Industry Mentor</div>
-            <div class="v-s">1-on-1 guidance throughout the program</div>
-          </div>
-          <div class="vitem">
-            <div class="v-ic">💼</div>
-            <div class="v-t">MNC Placement Assistance</div>
-            <div class="v-s">Resume reviews, mock interviews &amp; referrals</div>
-          </div>
-          <div class="vitem">
-            <div class="v-ic">🛠️</div>
-            <div class="v-t">Industry Tools Access</div>
-            <div class="v-s">Hands-on training with real workplace tools</div>
-          </div>
-        </div>
-        <div class="val-note">A small program fee covers your full 3-month access — <strong>invest once, benefit for
-            life.</strong></div>
-      </div>
-
-      <!-- ELIGIBILITY + CONTACT -->
-      <div class="info-row">
-        <div class="icard ic-green">
-          <div class="ic-t">Eligibility</div>
-          <div class="ic-body">Open to students from Business, Technology, Design, or Marketing. All years welcome
-            including graduates.</div>
-        </div>
-        <div class="icard ic-blue">
-          <div class="ic-t">Contact &amp; Info</div>
-          <div class="ic-body">
-
-            <strong>Dr. Mandeep Singh</strong> — Placements Controller<br>
-            📞 +91 9886232004
-          </div>
-        </div>
-      </div>
-
-      <!-- SUCCESS SCREEN -->
-      <div class="success" id="successScreen">
-        <div class="s-ic">🎉</div>
-        <div class="s-t">Application Submitted!</div>
-        <div class="s-s">Thank you, <strong id="sName"></strong>!<br>Our counsellor will contact you on <strong>WhatsApp
-            within 24 hours</strong>.<br>Check your email for a confirmation.</div>
-        <div class="s-box">
-          ✓ WhatsApp call from our counsellor within 24 hrs<br>
-          ✓ Confirmation email sent to your personal email<br>
-          ✓ Orientation details shared within 2–3 days<br>
-          ✓ Mentor assigned before Month 1 begins
-        </div>
-        <a class="whatsapp-link" href="https://chat.whatsapp.com/Kp5WpklBT5n1EGL37wn97X"
-          target="_blank" rel="noopener">📲 Students, join our WhatsApp group for more info</a>
-      </div>
-
-      <div id="mainForm">
-
-        <!-- STEP 1 -->
-        <div class="card" id="apply">
-          <div class="clabel">Step 1 — Personal Details</div>
-          <div class="fg">
-            <div class="fl"><label>Full Name <span class="req">*</span></label><input type="text" id="fullName"
-                placeholder="As per college records"></div>
-            <div class="fl"><label>Phone Number <span class="req">*</span></label><input type="tel" id="phone"
-                placeholder="+91 00000 00000"></div>
-            <div class="fl"><label>WhatsApp Number <span class="req">*</span></label><input type="tel" id="whatsapp"
-                placeholder="If same, re-enter"></div>
-            <div class="fl"><label>College Email <span class="req">*</span></label><input type="email" id="collegeEmail"
-                placeholder="yourname@college.edu"></div>
-            <div class="fl"><label>Personal Email <span class="req">*</span></label><input type="email"
-                id="personalEmail" placeholder="yourname@gmail.com"></div>
-            <div class="fl" style="grid-column:1/-1">
-              <label>State / Region <span class="req">*</span></label>
-              <select id="state" onchange="document.getElementById('oc').classList.toggle('show',this.value==='Other')">
-                <option value="">— Select your state —</option>
-                <optgroup label="India">
-                  <option>Andhra Pradesh</option>
-                  <option>Arunachal Pradesh</option>
-                  <option>Assam</option>
-                  <option>Bihar</option>
-                  <option>Chhattisgarh</option>
-                  <option>Goa</option>
-                  <option>Gujarat</option>
-                  <option>Haryana</option>
-                  <option>Himachal Pradesh</option>
-                  <option>Jharkhand</option>
-                  <option>Karnataka</option>
-                  <option>Kerala</option>
-                  <option>Madhya Pradesh</option>
-                  <option>Maharashtra</option>
-                  <option>Manipur</option>
-                  <option>Meghalaya</option>
-                  <option>Mizoram</option>
-                  <option>Nagaland</option>
-                  <option>Odisha</option>
-                  <option>Punjab</option>
-                  <option>Rajasthan</option>
-                  <option>Sikkim</option>
-                  <option>Tamil Nadu</option>
-                  <option>Telangana</option>
-                  <option>Tripura</option>
-                  <option>Uttar Pradesh</option>
-                  <option>Uttarakhand</option>
-                  <option>West Bengal</option>
-                  <option>Andaman &amp; Nicobar Islands</option>
-                  <option>Chandigarh</option>
-                  <option>Delhi (NCT)</option>
-                  <option>Jammu &amp; Kashmir</option>
-                  <option>Ladakh</option>
-                  <option>Puducherry</option>
-                </optgroup>
-                <optgroup label="Outside India">
-                  <option value="Other">Other country</option>
-                </optgroup>
-              </select>
-              <div id="oc" class="other-box"><input type="text" id="otherCountry" placeholder="Enter your country name">
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- STEP 2 -->
-        <div class="card">
-          <div class="clabel">Step 2 — Academic Background</div>
-          <div class="fg">
-            <div class="fl"><label>College Name <span class="req">*</span></label><input type="text" id="collegeName"
-                placeholder="Full official college name"></div>
-            <div class="fl"><label>Branch / Stream <span class="req">*</span></label><input type="text" id="branch"
-                placeholder="e.g. Computer Science, MBA"></div>
-            <div class="fl"><label>Year of Study <span class="req">*</span></label>
-              <select id="year">
-                <option value="">— Select year —</option>
-                <option>1st Year</option>
-                <option>2nd Year</option>
-                <option>3rd Year</option>
-                <option>4th Year</option>
-                <option>Final Semester</option>
-                <option>Graduated</option>
-              </select>
-            </div>
-            <div class="fl"><label>Class Representative Contact</label><input type="tel" id="crContact"
-                placeholder="CR phone (optional)"></div>
-            <div class="fl"><label>Referral Code</label><input type="text" id="referralCode"
-                placeholder="Enter code (optional)"></div>
-          </div>
-        </div>
-
-        <!-- STEP 3 -->
-        <div class="card">
-          <div class="clabel">Step 3 — Your Interests</div>
-          <div class="fl" style="margin-bottom:18px">
-            <label>Domain to upskill in <span class="req">*</span></label>
-            <p style="font-size:11px;color:#94a3b8;margin:4px 0 0">Select all that apply</p>
-            <div class="dtiles" id="domainsGroup">
-              <label class="tile"><input type="radio" name="domain" value="Android App Development"><span>Android App
-                  Development</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Full Stack Web Development"><span>Full Stack
-                  Web Development</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Data Science"><span>Data
-                  Science</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Data Analytics"><span>Data
-                  Analytics</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Machine Learning"><span>Machine
-                  Learning</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Artificial Intelligence"><span>Artificial
-                  Intelligence</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Cyber Security"><span>Cyber
-                  Security</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Internet of Things / Robotics"><span>IoT /
-                  Robotics</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Cloud Computing"><span>Cloud
-                  Computing</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Graphic Design"><span>Graphic
-                  Design</span></label>
-              <label class="tile"><input type="radio" name="domain" value="AutoCAD"><span>AutoCAD</span></label>
-              <label class="tile"><input type="radio" name="domain" value="UI/UX Design"><span>UI/UX
-                  Design</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Embedded Systems"><span>Embedded
-                  Systems</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Digital Marketing"><span>Digital
-                  Marketing</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Finance"><span>Finance</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Stock Market"><span>Stock
-                  Market</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Human Resource"><span>Human
-                  Resource</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Business Analytics"><span>Business
-                  Analytics</span></label>
-              <label class="tile"><input type="radio" name="domain" value="DevOps"><span>DevOps</span></label>
-              <label class="tile"><input type="radio" name="domain" value="VLSI"><span>VLSI</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Forensic Psychology"><span>Forensic
-                  Psychology</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Clinical Psychology"><span>Clinical
-                  Psychology</span></label>
-              <label class="tile"><input type="radio" name="domain" value="Corporate Law"><span>Corporate
-                  Law</span></label>
-            </div>
-          </div>
-          <div class="fl">
-            <label>Preferred language(s) <span class="req">*</span></label>
-            <p style="font-size:11px;color:#94a3b8;margin:4px 0 0">Select at least one</p>
-            <div class="dtiles" id="langsGroup">
-              <label class="tile"><input type="checkbox" value="English"><span>English</span></label>
-              <label class="tile"><input type="checkbox" value="Hindi"><span>Hindi</span></label>
-              <label class="tile"><input type="checkbox" value="Kannada"><span>Kannada</span></label>
-              <label class="tile"><input type="checkbox" value="Tamil"><span>Tamil</span></label>
-              <label class="tile"><input type="checkbox" value="Telugu"><span>Telugu</span></label>
-              <label class="tile"><input type="checkbox" value="Marathi"><span>Marathi</span></label>
-            </div>
-            <!-- Honeypot field for bot detection -->
-            <input type="text" name="botcheck" style="display:none;" autocomplete="off" />
-          </div>
-
-          <!-- STEP 4 SUBMIT -->
-          <div class="card">
-            <div class="clabel">Step 4 — Submit</div>
-            <label class="ack">
-              <input type="checkbox" id="feeAck">
-              <span><strong>I confirm all details are accurate and understand that a nominal program fee applies for
-                  SETIP 2026.</strong></span>
-            </label>
-            <button class="sub-btn" id="submitBtn" onclick="submitForm()">🚀 Submit Application — Secure My
-              Seat</button>
-            <div class="err" id="errorMsg"></div>
-            <div class="disc">By submitting you agree to be contacted via WhatsApp &amp; email.</div>
-          </div>
-
-        </div><!-- /mainForm -->
-      </div>
+      <a class="whatsapp-join-btn" href="https://chat.whatsapp.com/Kp5WpklBT5n1EGL37wn97X" target="_blank"
+        rel="noopener">
+        <span>💬 Join Official Student WhatsApp Group</span>
+      </a>
     </div>
+
+    <!-- APPLICATION FORM CONTAINER -->
+    <div id="mainForm">
+
+      <!-- STEP TRACKER & PROGRESS BAR -->
+      <div class="form-tracker-card">
+        <div class="progress-header">
+          <span class="progress-title">Application Progress</span>
+          <span class="progress-percentage" id="progressPct">25% Completed</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-bar-fill" id="progressFill"></div>
+        </div>
+        <div class="step-steps">
+          <div class="step-node active" id="st1">
+            <span class="node-num">1</span>
+            <span class="node-label">Personal Profile</span>
+          </div>
+          <div class="step-node" id="st2">
+            <span class="node-num">2</span>
+            <span class="node-label">Education</span>
+          </div>
+          <div class="step-node" id="st3">
+            <span class="node-num">3</span>
+            <span class="node-label">Preferences</span>
+          </div>
+          <div class="step-node" id="st4">
+            <span class="node-num">4</span>
+            <span class="node-label">Submit</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 1: PERSONAL DETAILS -->
+      <div class="form-glass-card" id="apply">
+        <div class="card-title-bar">Step 1 — Personal Details</div>
+        <div class="form-layout-grid">
+          <div class="field-group">
+            <label for="fullName">Full Name <span class="required">*</span></label>
+            <input type="text" id="fullName" class="form-input" placeholder="As per college records">
+          </div>
+          <div class="field-group">
+            <label for="phone">Phone Number <span class="required">*</span></label>
+            <input type="tel" id="phone" class="form-input" placeholder="+91 00000 00000">
+          </div>
+          <div class="field-group">
+            <label for="whatsapp">WhatsApp Number <span class="required">*</span></label>
+            <input type="tel" id="whatsapp" class="form-input" placeholder="Active WhatsApp number">
+          </div>
+          <div class="field-group">
+            <label for="collegeEmail">College Email <span class="required">*</span></label>
+            <input type="email" id="collegeEmail" class="form-input" placeholder="yourname@college.edu">
+          </div>
+          <div class="field-group span-2">
+            <label for="personalEmail">Personal Email <span class="required">*</span></label>
+            <input type="email" id="personalEmail" class="form-input" placeholder="yourname@gmail.com">
+          </div>
+          <div class="field-group span-2">
+            <label for="state">State / Region <span class="required">*</span></label>
+            <select id="state" class="form-select"
+              onchange="document.getElementById('oc').classList.toggle('show', this.value === 'Other')">
+              <option value="">— Select your state / region —</option>
+              <optgroup label="India">
+                <option>Andhra Pradesh</option>
+                <option>Arunachal Pradesh</option>
+                <option>Assam</option>
+                <option>Bihar</option>
+                <option>Chhattisgarh</option>
+                <option>Goa</option>
+                <option>Gujarat</option>
+                <option>Haryana</option>
+                <option>Himachal Pradesh</option>
+                <option>Jharkhand</option>
+                <option>Karnataka</option>
+                <option>Kerala</option>
+                <option>Madhya Pradesh</option>
+                <option>Maharashtra</option>
+                <option>Manipur</option>
+                <option>Meghalaya</option>
+                <option>Mizoram</option>
+                <option>Nagaland</option>
+                <option>Odisha</option>
+                <option>Punjab</option>
+                <option>Rajasthan</option>
+                <option>Sikkim</option>
+                <option>Tamil Nadu</option>
+                <option>Telangana</option>
+                <option>Tripura</option>
+                <option>Uttar Pradesh</option>
+                <option>Uttarakhand</option>
+                <option>West Bengal</option>
+                <option>Andaman &amp; Nicobar Islands</option>
+                <option>Chandigarh</option>
+                <option>Delhi (NCT)</option>
+                <option>Jammu &amp; Kashmir</option>
+                <option>Ladakh</option>
+                <option>Puducherry</option>
+              </optgroup>
+              <optgroup label="International">
+                <option value="Other">Other Country</option>
+              </optgroup>
+            </select>
+            <div id="oc" class="country-other-box">
+              <input type="text" id="otherCountry" class="form-input" placeholder="Enter your country name">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2: ACADEMIC BACKGROUND -->
+      <div class="form-glass-card">
+        <div class="card-title-bar">Step 2 — Academic Background</div>
+        <div class="form-layout-grid">
+          <div class="field-group span-2">
+            <label for="collegeName">College / University Name <span class="required">*</span></label>
+            <input type="text" id="collegeName" class="form-input" placeholder="Full official name of your institution">
+          </div>
+          <div class="field-group">
+            <label for="branch">Branch / Stream <span class="required">*</span></label>
+            <input type="text" id="branch" class="form-input" placeholder="e.g. Computer Science, BBA, BCA, MBA">
+          </div>
+          <div class="field-group">
+            <label for="year">Year of Study <span class="required">*</span></label>
+            <select id="year" class="form-select">
+              <option value="">— Select current year —</option>
+              <option>1st Year</option>
+              <option>2nd Year</option>
+              <option>3rd Year</option>
+              <option>4th Year</option>
+              <option>Final Semester</option>
+              <option>Graduated / Alumni</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3: DOMAINS & LANGUAGES -->
+      <div class="form-glass-card">
+        <div class="card-title-bar">Step 3 — Upskill Domains &amp; Languages</div>
+
+        <!-- Domain Selection (Single Select Only) -->
+        <div class="field-group span-2" style="margin-bottom: 24px;">
+          <label>Domain to Upskill &amp; Intern in <span class="required">*</span></label>
+          <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 10px;">Select 1 primary domain for your
+            program cohort</p>
+
+          <!-- Domain Category Filter Quick Tags -->
+          <div class="domain-tags">
+            <button type="button" class="tag-btn active" onclick="filterDomainCategory('all', this)">All (23)</button>
+            <button type="button" class="tag-btn" onclick="filterDomainCategory('tech', this)">💻 Software &amp;
+              AI</button>
+            <button type="button" class="tag-btn" onclick="filterDomainCategory('design', this)">🎨 Design</button>
+            <button type="button" class="tag-btn" onclick="filterDomainCategory('mgmt', this)">📊 Business</button>
+            <button type="button" class="tag-btn" onclick="filterDomainCategory('core', this)">⚡ Core Eng</button>
+          </div>
+
+          <div class="scrollable-tiles" id="domainsGroup">
+            <label class="tile-option" data-cat="tech"><input type="radio" name="domain"
+                value="Android App Development"><span>Android App Development</span></label>
+            <label class="tile-option" data-cat="tech"><input type="radio" name="domain"
+                value="Full Stack Web Development"><span>Full Stack Web Development</span></label>
+            <label class="tile-option" data-cat="tech"><input type="radio" name="domain" value="Data Science"><span>Data
+                Science</span></label>
+            <label class="tile-option" data-cat="tech"><input type="radio" name="domain"
+                value="Data Analytics"><span>Data Analytics</span></label>
+            <label class="tile-option" data-cat="tech"><input type="radio" name="domain"
+                value="Machine Learning"><span>Machine Learning</span></label>
+            <label class="tile-option" data-cat="tech"><input type="radio" name="domain"
+                value="Artificial Intelligence"><span>Artificial Intelligence</span></label>
+            <label class="tile-option" data-cat="core"><input type="radio" name="domain"
+                value="Cyber Security"><span>Cyber Security</span></label>
+            <label class="tile-option" data-cat="core"><input type="radio" name="domain"
+                value="Internet of Things / Robotics"><span>IoT / Robotics</span></label>
+            <label class="tile-option" data-cat="tech"><input type="radio" name="domain"
+                value="Cloud Computing"><span>Cloud Computing</span></label>
+            <label class="tile-option" data-cat="design"><input type="radio" name="domain"
+                value="Graphic Design"><span>Graphic Design</span></label>
+            <label class="tile-option" data-cat="core"><input type="radio" name="domain"
+                value="AutoCAD"><span>AutoCAD</span></label>
+            <label class="tile-option" data-cat="design"><input type="radio" name="domain"
+                value="UI/UX Design"><span>UI/UX Design</span></label>
+            <label class="tile-option" data-cat="core"><input type="radio" name="domain"
+                value="Embedded Systems"><span>Embedded Systems</span></label>
+            <label class="tile-option" data-cat="mgmt"><input type="radio" name="domain"
+                value="Digital Marketing"><span>Digital Marketing</span></label>
+            <label class="tile-option" data-cat="mgmt"><input type="radio" name="domain"
+                value="Finance"><span>Finance</span></label>
+            <label class="tile-option" data-cat="mgmt"><input type="radio" name="domain"
+                value="Stock Market"><span>Stock Market</span></label>
+            <label class="tile-option" data-cat="mgmt"><input type="radio" name="domain"
+                value="Human Resource"><span>Human Resource</span></label>
+            <label class="tile-option" data-cat="mgmt"><input type="radio" name="domain"
+                value="Business Analytics"><span>Business Analytics</span></label>
+            <label class="tile-option" data-cat="tech"><input type="radio" name="domain"
+                value="DevOps"><span>DevOps</span></label>
+            <label class="tile-option" data-cat="core"><input type="radio" name="domain"
+                value="VLSI"><span>VLSI</span></label>
+            <label class="tile-option" data-cat="mgmt"><input type="radio" name="domain"
+                value="Forensic Psychology"><span>Forensic Psychology</span></label>
+            <label class="tile-option" data-cat="mgmt"><input type="radio" name="domain"
+                value="Clinical Psychology"><span>Clinical Psychology</span></label>
+            <label class="tile-option" data-cat="mgmt"><input type="radio" name="domain"
+                value="Corporate Law"><span>Corporate Law</span></label>
+          </div>
+        </div>
+
+        <!-- Language Selection -->
+        <div class="field-group span-2">
+          <label>Preferred Language(s) of Instruction <span class="required">*</span></label>
+          <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 10px;">Select at least one preferred
+            language</p>
+          <div class="scrollable-tiles" id="langsGroup" style="max-height: none;">
+            <label class="tile-option"><input type="checkbox" value="English"><span>English</span></label>
+            <label class="tile-option"><input type="checkbox" value="Hindi"><span>Hindi</span></label>
+            <label class="tile-option"><input type="checkbox" value="Malayalam"><span>Malayalam</span></label>
+            <label class="tile-option"><input type="checkbox" value="Kannada"><span>Kannada</span></label>
+            <label class="tile-option"><input type="checkbox" value="Tamil"><span>Tamil</span></label>
+            <label class="tile-option"><input type="checkbox" value="Telugu"><span>Telugu</span></label>
+            <label class="tile-option"><input type="checkbox" value="Marathi"><span>Marathi</span></label>
+            <label class="tile-option"><input type="checkbox" value="Bengali"><span>Bengali</span></label>
+            <label class="tile-option"><input type="checkbox" value="Gujarati"><span>Gujarati</span></label>
+            <label class="tile-option"><input type="checkbox" value="Odia"><span>Odia</span></label>
+            <label class="tile-option"><input type="checkbox" value="Punjabi"><span>Punjabi</span></label>
+          </div>
+          <!-- Honeypot bot protection field -->
+          <input type="text" name="botcheck" style="display:none;" autocomplete="off" />
+        </div>
+      </div>
+
+      <!-- STEP 4: SUBMIT & ACKNOWLEDGEMENT -->
+      <div class="form-glass-card">
+        <div class="card-title-bar">Step 4 — Final Confirmation</div>
+
+        <label class="declaration-box">
+          <input type="checkbox" id="feeAck">
+          <span>
+            <strong>Declaration &amp; Acknowledgement:</strong> I confirm all provided details are true and accurate. I
+            understand that SETIP 2026 includes a nominal program seat fee covering 3-month live mentorship, tools, and
+            MNC placement co-certification.
+          </span>
+        </label>
+
+        <button class="submit-action-btn" id="submitBtn" onclick="submitForm()">
+          <span>🚀 Submit Application &amp; Reserve Seat</span>
+        </button>
+
+        <div class="error-notification" id="errorMsg"></div>
+
+        <div class="security-notice">
+          🔒 SSL Encrypted Submission • Official Admissions Pipeline • Response sent via WhatsApp &amp; Email
+        </div>
+      </div>
+
+    </div><!-- /mainForm -->
 
     <!-- FOOTER -->
-    <div class="footer">
+    <footer class="footer">
       <p>
-        &copy; 2026 <strong style="color:#94a3b8">SETIP 2026</strong> &nbsp;&middot;&nbsp;
-        <a href="tel:+919886232004">+91 9886232004</a>
+        &copy; 2026 <strong style="color: var(--primary-glow)">Skill Enhancement Training &amp; Internship Program
+          (SETIP)</strong><br>
+        Official Student Helpline: <a href="tel:+919886232004">+91 9886232004</a> &bull; Admissions Office
       </p>
-    </div>
+    </footer>
 
-    <script>
-      var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw1rYOu8xeMqoVR5dbwXuycHM-ondvCeS-OIJbkEo9oUiNByqIQMEAPUxJkpvZMx79OvA/exec";
-      function getChecked(id) { return Array.from(document.querySelectorAll('#' + id + ' input:checked')).map(function (b) { return b.value }) }
-      function val(id) { var e = document.getElementById(id); return e ? e.value.trim() : '' }
-      function showErr(msg) { var d = document.getElementById('errorMsg'); d.textContent = msg; d.classList.add('show'); d.scrollIntoView({ behavior: 'smooth', block: 'center' }) }
-      function hideErr() { document.getElementById('errorMsg').classList.remove('show') }
-      function validate() {
-        if (!val('fullName')) return '⚠ Full Name is required.';
-        if (!val('phone')) return '⚠ Phone Number is required.';
-        if (!val('whatsapp')) return '⚠ WhatsApp Number is required.';
-        if (!val('collegeEmail')) return '⚠ College Email is required.';
-        if (!val('personalEmail')) return '⚠ Personal Email is required.';
-        if (!val('state')) return '⚠ Please select your State.';
-        if (!val('collegeName')) return '⚠ College Name is required.';
-        if (!val('branch')) return '⚠ Branch / Stream is required.';
-        if (!val('year')) return '⚠ Please select Year of Study.';
-        if (getChecked('domainsGroup').length === 0) return '⚠ Please select at least one domain.';
-        if (getChecked('langsGroup').length === 0) return '⚠ Please select at least one language.';
-        // Bot honeypot check: should be empty
-        if (document.querySelector('input[name="botcheck"]').value) return '⚠ Bot detection triggered.';
-        if (!document.getElementById('feeAck').checked) return '⚠ Please confirm the acknowledgement.';
-        return null;
+  </div>
+
+  <!-- FLOATING HELPLINE BADGE -->
+  <a href="https://chat.whatsapp.com/Kp5WpklBT5n1EGL37wn97X" target="_blank" rel="noopener" class="floating-helpline">
+    <span style="font-size: 15px;">💬</span>
+    <span>Helpline</span>
+  </a>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw1rYOu8xeMqoVR5dbwXuycHM-ondvCeS-OIJbkEo9oUiNByqIQMEAPUxJkpvZMx79OvA/exec";
+    var isSubmitted = false;
+
+    function getChecked(id) {
+      return Array.from(document.querySelectorAll('#' + id + ' input:checked')).map(function (b) { return b.value; });
+    }
+
+    function val(id) {
+      var e = document.getElementById(id);
+      return e ? e.value.trim() : '';
+    }
+
+    function showErr(msg) {
+      var d = document.getElementById('errorMsg');
+      d.textContent = msg;
+      d.classList.add('show');
+      d.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function hideErr() {
+      document.getElementById('errorMsg').classList.remove('show');
+    }
+
+    function filterDomainCategory(cat, btn) {
+      var buttons = document.querySelectorAll('.tag-btn');
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      var tiles = document.querySelectorAll('#domainsGroup .tile-option');
+      tiles.forEach(tile => {
+        if (cat === 'all' || tile.getAttribute('data-cat') === cat) {
+          tile.style.display = 'flex';
+        } else {
+          tile.style.display = 'none';
+        }
+      });
+    }
+
+    function validate() {
+      if (!val('fullName')) return '⚠ Full Name is required.';
+      if (!val('phone')) return '⚠ Phone Number is required.';
+      if (!val('whatsapp')) return '⚠ WhatsApp Number is required.';
+      if (!val('collegeEmail')) return '⚠ College Email is required.';
+      if (!val('personalEmail')) return '⚠ Personal Email is required.';
+      if (!val('state')) return '⚠ Please select your State / Region.';
+      if (val('state') === 'Other' && !val('otherCountry')) return '⚠ Please enter your country name.';
+      if (!val('collegeName')) return '⚠ College / Institution Name is required.';
+      if (!val('branch')) return '⚠ Branch / Stream is required.';
+      if (!val('year')) return '⚠ Please select your Year of Study.';
+      if (getChecked('domainsGroup').length === 0) return '⚠ Please select your primary Domain of interest.';
+      if (getChecked('langsGroup').length === 0) return '⚠ Please select at least one language preference.';
+      if (document.querySelector('input[name="botcheck"]').value) return '⚠ Bot detection security triggered.';
+      if (!document.getElementById('feeAck').checked) return '⚠ Please confirm the declaration acknowledgement.';
+      return null;
+    }
+
+    function triggerConfetti() {
+      var canvas = document.getElementById('confettiCanvas');
+      var ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      var pieces = [];
+      var numberOfPieces = 100;
+      var colors = ['#6366f1', '#8b5cf6', '#06b6d4', '#10b981', '#f59e0b', '#ec4899'];
+
+      for (var i = 0; i < numberOfPieces; i++) {
+        pieces.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * (canvas.height * 0.4) - (canvas.height * 0.4),
+          rotation: Math.random() * 360,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          size: Math.random() * 8 + 4,
+          speed: Math.random() * 4 + 3,
+          rotSpeed: Math.random() * 4 + 2
+        });
       }
-      function showSuccess() {
-        document.getElementById('mainForm').style.display = 'none';
-        var s = document.getElementById('successScreen');
-        s.classList.add('show');
-        document.getElementById('sName').textContent = val('fullName');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      var animId;
+      var startTime = Date.now();
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        var activePieces = 0;
+
+        pieces.forEach(function (p) {
+          if (p.y <= canvas.height + 20) {
+            activePieces++;
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate(p.rotation * Math.PI / 180);
+            ctx.fillStyle = p.color;
+            ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+            ctx.restore();
+
+            p.y += p.speed;
+            p.rotation += p.rotSpeed;
+          }
+        });
+
+        if (activePieces > 0 && (Date.now() - startTime) < 3500) {
+          animId = requestAnimationFrame(draw);
+        } else {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          if (animId) cancelAnimationFrame(animId);
+        }
       }
-      function submitForm() {
-        hideErr();
-        var err = validate();
-        if (err) { showErr(err); return; }
-        var btn = document.getElementById('submitBtn');
-        btn.disabled = true; btn.textContent = 'Submitting...';
-        var data = {
-          fullName: val('fullName'), phone: val('phone'), whatsapp: val('whatsapp'),
-          collegeEmail: val('collegeEmail'), personalEmail: val('personalEmail'),
-          state: val('state'), otherCountry: val('otherCountry'),
-          collegeName: val('collegeName'), branch: val('branch'), year: val('year'),
-          crContact: val('crContact'),
-          referralCode: val('referralCode'),
-          domains: getChecked('domainsGroup'), languages: getChecked('langsGroup'),
-          feeAcknowledged: true
-        };
-        fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
-          .then(function () { showSuccess() }).catch(function () { showSuccess() });
-        setTimeout(showSuccess, 6000);
+      draw();
+    }
+
+    function generateRandomRef() {
+      var rand = Math.floor(100000 + Math.random() * 900000);
+      return 'SETIP-2026-' + rand;
+    }
+
+    function showSuccess() {
+      if (isSubmitted) return;
+      isSubmitted = true;
+
+      document.getElementById('mainForm').style.display = 'none';
+      var s = document.getElementById('successScreen');
+      s.classList.add('show');
+      document.getElementById('sName').textContent = val('fullName');
+      document.getElementById('applicationRef').textContent = generateRandomRef();
+      triggerConfetti();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function submitForm() {
+      hideErr();
+      var err = validate();
+      if (err) {
+        showErr(err);
+        return;
       }
-    </script>
+
+      var btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<span>⏳ Logging Application...</span>';
+
+      var data = {
+        fullName: val('fullName'),
+        phone: val('phone'),
+        whatsapp: val('whatsapp'),
+        collegeEmail: val('collegeEmail'),
+        personalEmail: val('personalEmail'),
+        state: val('state'),
+        otherCountry: val('otherCountry'),
+        collegeName: val('collegeName'),
+        branch: val('branch'),
+        year: val('year'),
+        crContact: "",
+        referralCode: "",
+        domains: getChecked('domainsGroup'),
+        languages: getChecked('langsGroup'),
+        feeAcknowledged: true
+      };
+
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+        .then(function () { showSuccess(); })
+        .catch(function () { showSuccess(); });
+
+      setTimeout(showSuccess, 4000);
+    }
+
+    // Live input tracking to update the top step tracker & progress percentage bar
+    document.addEventListener('input', function () {
+      var st1Done = val('fullName') && val('phone') && val('whatsapp') && val('collegeEmail') && val('personalEmail') && val('state');
+      var st2Done = val('collegeName') && val('branch') && val('year');
+      var st3Done = getChecked('domainsGroup').length > 0 && getChecked('langsGroup').length > 0;
+
+      var pct = 25;
+      if (st1Done) {
+        pct = 50;
+        document.getElementById('st2').classList.add('active');
+      } else {
+        document.getElementById('st2').classList.remove('active');
+      }
+
+      if (st1Done && st2Done) {
+        pct = 75;
+        document.getElementById('st3').classList.add('active');
+      } else {
+        document.getElementById('st3').classList.remove('active');
+      }
+
+      if (st1Done && st2Done && st3Done) {
+        pct = 100;
+        document.getElementById('st4').classList.add('active');
+      } else {
+        document.getElementById('st4').classList.remove('active');
+      }
+
+      document.getElementById('progressFill').style.width = pct + '%';
+      document.getElementById('progressPct').textContent = pct + '% Completed';
+    });
+  </script>
 </body>
 
 </html>
