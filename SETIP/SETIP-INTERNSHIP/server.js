@@ -27,8 +27,10 @@ async function upsertPage(name, content) {
   const now = new Date();
   await db.collection('pages').updateOne(
     { name },
-    { $set: { content, updatedAt: now },
-      $setOnInsert: { createdAt: now } },
+    {
+      $set: { content, updatedAt: now },
+      $setOnInsert: { createdAt: now }
+    },
     { upsert: true }
   );
 }
@@ -47,90 +49,90 @@ async function importInitialPages() {
 }
 
 async function connectDB() {
-    const mongoOptions = {
-        connectTimeoutMS: 15000,
-        socketTimeoutMS: 45000,
-        tls: true,
-        tlsAllowInvalidCertificates: true,
-        tlsAllowInvalidHostnames: true,
-    };
+  const mongoOptions = {
+    connectTimeoutMS: 15000,
+    socketTimeoutMS: 45000,
+    tls: true,
+    tlsAllowInvalidCertificates: true,
+    tlsAllowInvalidHostnames: true,
+  };
 
+  try {
+    const client = new MongoClient(MONGO_URI, mongoOptions);
+    await client.connect();
+
+    db = client.db(DB_NAME);
+    console.log(`✅ Connected to MongoDB Atlas — database: ${DB_NAME}`);
+    await importInitialPages();
+
+    // Create indexes for fast queries
+    await db.collection(COLLECTION_NAME).createIndex({ submittedAt: -1 });
+    await db.collection(COLLECTION_NAME).createIndex({ personalEmail: 1 });
+    await db.collection(COLLECTION_NAME).createIndex({ applicationId: 1 }, { unique: true });
+
+    console.log('✅ Indexes created');
+  } catch (err) {
+    console.error('❌ Primary MongoDB connection failed:', err.message);
+    console.warn('Attempting fallback to local MongoDB (mongodb://localhost:27017)...');
     try {
-        const client = new MongoClient(MONGO_URI, mongoOptions);
-        await client.connect();
-
-        db = client.db(DB_NAME);
-        console.log(`✅ Connected to MongoDB Atlas — database: ${DB_NAME}`);
-        await importInitialPages();
-
-        // Create indexes for fast queries
-        await db.collection(COLLECTION_NAME).createIndex({ submittedAt: -1 });
-        await db.collection(COLLECTION_NAME).createIndex({ personalEmail: 1 });
-        await db.collection(COLLECTION_NAME).createIndex({ applicationId: 1 }, { unique: true });
-
-        console.log('✅ Indexes created');
-    } catch (err) {
-        console.error('❌ Primary MongoDB connection failed:', err.message);
-        console.warn('Attempting fallback to local MongoDB (mongodb://localhost:27017)...');
-        try {
-            const fallbackClient = new MongoClient('mongodb://localhost:27017', {
-                connectTimeoutMS: 10000,
-                socketTimeoutMS: 45000,
-            });
-            await fallbackClient.connect();
-            db = fallbackClient.db(DB_NAME);
-            console.log(`✅ Connected to fallback MongoDB — database: ${DB_NAME}`);
-            // Create indexes for fast queries
-            await db.collection(COLLECTION_NAME).createIndex({ submittedAt: -1 });
-            await db.collection(COLLECTION_NAME).createIndex({ personalEmail: 1 });
-            await db.collection(COLLECTION_NAME).createIndex({ applicationId: 1 }, { unique: true });
-            console.log('✅ Indexes created (fallback)');
-        } catch (fallbackErr) {
-            console.error('❌ Fallback MongoDB connection failed:', fallbackErr.message);
-            console.error('👉 Ensure MongoDB is running or correct MONGO_URI in .env');
-            process.exit(1);
-        }
+      const fallbackClient = new MongoClient('mongodb://localhost:27017', {
+        connectTimeoutMS: 10000,
+        socketTimeoutMS: 45000,
+      });
+      await fallbackClient.connect();
+      db = fallbackClient.db(DB_NAME);
+      console.log(`✅ Connected to fallback MongoDB — database: ${DB_NAME}`);
+      // Create indexes for fast queries
+      await db.collection(COLLECTION_NAME).createIndex({ submittedAt: -1 });
+      await db.collection(COLLECTION_NAME).createIndex({ personalEmail: 1 });
+      await db.collection(COLLECTION_NAME).createIndex({ applicationId: 1 }, { unique: true });
+      console.log('✅ Indexes created (fallback)');
+    } catch (fallbackErr) {
+      console.error('❌ Fallback MongoDB connection failed:', fallbackErr.message);
+      console.error('👉 Ensure MongoDB is running or correct MONGO_URI in .env');
+      process.exit(1);
     }
+  }
 }
 
- // ─── Helper: Send Confirmation Email ────────────────────────────────────────
- async function sendConfirmationEmail(applicant) {
-   try {
+// ─── Helper: Send Confirmation Email ────────────────────────────────────────
+async function sendConfirmationEmail(applicant) {
+  try {
     const { toEmail, applicantName, applicationId, phoneNumber, whatsappNumber, collegeName, branchStream, yearStudy, stateRegion, domains, languages } = applicant;
     const domainList = Array.isArray(domains) ? domains.join(', ') : domains;
     const languageList = Array.isArray(languages) ? languages.join(', ') : languages;
     const primaryDomain = Array.isArray(domains) ? domains[0] : domains;
 
     const transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 587,
-        secure: false,
-        auth: {
-          user: process.env.MAIL_USER,
-          pass: process.env.MAIL_PASS,
-        },
-        tls: {
-          rejectUnauthorized: false,
-        },
-      });
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure: false,
+      auth: {
+        user: process.env.MAIL_USER,
+        pass: process.env.MAIL_PASS,
+      },
+      tls: {
+        rejectUnauthorized: false,
+      },
+    });
 
     const mailOptions = {
-  from: process.env.MAIL_FROM,
-  to: toEmail,
-  subject: `Your ${primaryDomain} Program Registration is Confirmed — ${applicationId}`,
-  html: buildConfirmationHTML({ applicantName, applicationId, phoneNumber, whatsappNumber, collegeName, branchStream, yearStudy, stateRegion, domainList, languageList })
-};
+      from: process.env.MAIL_FROM,
+      to: toEmail,
+      subject: `Your ${primaryDomain} Program Registration is Confirmed — ${applicationId}`,
+      html: buildConfirmationHTML({ applicantName, applicationId, phoneNumber, whatsappNumber, collegeName, branchStream, yearStudy, stateRegion, domainList, languageList })
+    };
 
-     await transporter.sendMail(mailOptions);
-     console.log(`📧 Confirmation email sent to ${toEmail}`);
-   } catch (emailErr) {
-     console.error('❌ Failed to send confirmation email:', emailErr);
-   }
- }
+    await transporter.sendMail(mailOptions);
+    console.log(`📧 Confirmation email sent to ${toEmail}`);
+  } catch (emailErr) {
+    console.error('❌ Failed to send confirmation email:', emailErr);
+  }
+}
 
- // ─── Helper: Build Confirmation Email HTML ──────────────────────────────────
- function buildConfirmationHTML({ applicantName, applicationId, phoneNumber, whatsappNumber, collegeName, branchStream, yearStudy, stateRegion, domainList, languageList }) {
-   return `<!DOCTYPE html>
+// ─── Helper: Build Confirmation Email HTML ──────────────────────────────────
+function buildConfirmationHTML({ applicantName, applicationId, phoneNumber, whatsappNumber, collegeName, branchStream, yearStudy, stateRegion, domainList, languageList }) {
+  return `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -294,7 +296,7 @@ async function connectDB() {
   <!-- WhatsApp Group CTA -->
   <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:16px;">
     <tr><td align="center">
-      <a href="https://chat.whatsapp.com/KjGldDWVgdjBsfpliyjbhw" style="display:inline-block;background:#25D366;color:#ffffff;font-size:15px;font-weight:700;padding:14px 32px;border-radius:8px;text-decoration:none;">💬 Join WhatsApp Group</a>
+      <a href="https://chat.whatsapp.com/LbVBfDQZkGq6gKQpu9iCLZ" style="display:inline-block;background:#25D366;color:#ffffff;font-size:15px;font-weight:700;padding:14px 32px;border-radius:8px;text-decoration:none;">💬 Join WhatsApp Group</a>
       <p style="font-size:12px;color:#94a3b8;margin:8px 0 0;">Connect with your batch & get instant program updates</p>
     </td></tr>
   </table>
@@ -355,246 +357,246 @@ async function connectDB() {
 
 </body>
 </html>`;
- }
+}
 
 // ─── Helper: Generate Application ID ─────────────────────────────────────────
 function generateAppId() {
-    const digits = Math.floor(10000 + Math.random() * 90000);
-    return `ST-2026-${digits}`;
+  const digits = Math.floor(10000 + Math.random() * 90000);
+  return `ST-2026-${digits}`;
 }
 
 // ─── Routes ──────────────────────────────────────────────────────────────────
 
 // Health check
 app.get('/api/health', (req, res) => {
-    res.json({ status: 'ok', timestamp: new Date().toISOString() });
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
 // POST /api/apply — Submit application form
 app.post('/api/apply', async (req, res) => {
-    try {
-        const {
-            fullName,
-            phoneNumber,
-            whatsappNumber,
-            collegeEmail,
-            personalEmail,
-            stateRegion,
-            collegeName,
-            branchStream,
-            yearStudy,
-            crContact,
-            referralCode,
-            domains,
-            languages,
-        } = req.body;
+  try {
+    const {
+      fullName,
+      phoneNumber,
+      whatsappNumber,
+      collegeEmail,
+      personalEmail,
+      stateRegion,
+      collegeName,
+      branchStream,
+      yearStudy,
+      crContact,
+      referralCode,
+      domains,
+      languages,
+    } = req.body;
 
-        // Validate required fields
-        const required = { fullName, phoneNumber, whatsappNumber, collegeEmail, personalEmail, stateRegion, collegeName, branchStream, yearStudy };
-        const missing = Object.entries(required)
-            .filter(([_, v]) => !v || String(v).trim() === '')
-            .map(([k]) => k);
+    // Validate required fields
+    const required = { fullName, phoneNumber, whatsappNumber, collegeEmail, personalEmail, stateRegion, collegeName, branchStream, yearStudy };
+    const missing = Object.entries(required)
+      .filter(([_, v]) => !v || String(v).trim() === '')
+      .map(([k]) => k);
 
-        if (missing.length > 0) {
-            return res.status(400).json({
-                success: false,
-                message: `Missing required fields: ${missing.join(', ')}`
-            });
-        }
-
-        if (!domains || domains.length === 0) {
-            return res.status(400).json({
-                success: false,
-                message: 'Please select at least one domain.'
-            });
-        }
-
-        if (!languages || languages.length === 0) {
-            return res.status(400).json({
-                success: false,
-                message: 'Please select at least one preferred language.'
-            });
-        }
-
-        // Generate unique application ID (retry if collision)
-        let applicationId;
-        let attempts = 0;
-        while (attempts < 10) {
-            applicationId = generateAppId();
-            const existing = await db.collection(COLLECTION_NAME).findOne({ applicationId });
-            if (!existing) break;
-            attempts++;
-        }
-
-        const doc = {
-            applicationId,
-            fullName: fullName.trim(),
-            phoneNumber: phoneNumber.trim(),
-            whatsappNumber: whatsappNumber.trim(),
-            collegeEmail: collegeEmail.trim().toLowerCase(),
-            personalEmail: personalEmail.trim().toLowerCase(),
-            stateRegion,
-            collegeName: collegeName.trim(),
-            branchStream: branchStream.trim(),
-            yearStudy,
-            crContact: crContact ? crContact.trim() : '',
-            referralCode: referralCode ? referralCode.trim().toUpperCase() : '',
-            domains: Array.isArray(domains) ? domains : [domains],
-            languages: Array.isArray(languages) ? languages : [languages],
-            submittedAt: new Date(),
-            ipAddress: req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'unknown',
-        };
-
-        const result = await db.collection(COLLECTION_NAME).insertOne(doc);
-
-        console.log(`✅ New application: ${applicationId} — ${fullName}`);
-
-        // Send confirmation email with full applicant data
-        const applicantData = {
-          toEmail: personalEmail,
-          applicantName: fullName,
-          applicationId,
-          phoneNumber,
-          whatsappNumber,
-          collegeName,
-          branchStream,
-          yearStudy,
-          stateRegion,
-          domains,
-          languages,
-        };
-        sendConfirmationEmail(applicantData);
-
-        res.status(201).json({
-            success: true,
-            applicationId,
-            message: 'Application submitted successfully!'
-        });
-
-    } catch (err) {
-        console.error('❌ Error saving application:', err);
-        res.status(500).json({
-            success: false,
-            message: 'Server error. Please try again.'
-        });
+    if (missing.length > 0) {
+      return res.status(400).json({
+        success: false,
+        message: `Missing required fields: ${missing.join(', ')}`
+      });
     }
+
+    if (!domains || domains.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: 'Please select at least one domain.'
+      });
+    }
+
+    if (!languages || languages.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: 'Please select at least one preferred language.'
+      });
+    }
+
+    // Generate unique application ID (retry if collision)
+    let applicationId;
+    let attempts = 0;
+    while (attempts < 10) {
+      applicationId = generateAppId();
+      const existing = await db.collection(COLLECTION_NAME).findOne({ applicationId });
+      if (!existing) break;
+      attempts++;
+    }
+
+    const doc = {
+      applicationId,
+      fullName: fullName.trim(),
+      phoneNumber: phoneNumber.trim(),
+      whatsappNumber: whatsappNumber.trim(),
+      collegeEmail: collegeEmail.trim().toLowerCase(),
+      personalEmail: personalEmail.trim().toLowerCase(),
+      stateRegion,
+      collegeName: collegeName.trim(),
+      branchStream: branchStream.trim(),
+      yearStudy,
+      crContact: crContact ? crContact.trim() : '',
+      referralCode: referralCode ? referralCode.trim().toUpperCase() : '',
+      domains: Array.isArray(domains) ? domains : [domains],
+      languages: Array.isArray(languages) ? languages : [languages],
+      submittedAt: new Date(),
+      ipAddress: req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'unknown',
+    };
+
+    const result = await db.collection(COLLECTION_NAME).insertOne(doc);
+
+    console.log(`✅ New application: ${applicationId} — ${fullName}`);
+
+    // Send confirmation email with full applicant data
+    const applicantData = {
+      toEmail: personalEmail,
+      applicantName: fullName,
+      applicationId,
+      phoneNumber,
+      whatsappNumber,
+      collegeName,
+      branchStream,
+      yearStudy,
+      stateRegion,
+      domains,
+      languages,
+    };
+    sendConfirmationEmail(applicantData);
+
+    res.status(201).json({
+      success: true,
+      applicationId,
+      message: 'Application submitted successfully!'
+    });
+
+  } catch (err) {
+    console.error('❌ Error saving application:', err);
+    res.status(500).json({
+      success: false,
+      message: 'Server error. Please try again.'
+    });
+  }
 });
 
 // GET /api/applications — Admin: get all applications
 app.get('/api/applications', async (req, res) => {
-    const { key, search, state, year, domain, date, limit = 200, skip = 0 } = req.query;
+  const { key, search, state, year, domain, date, limit = 200, skip = 0 } = req.query;
 
-    // Auth check
-    if (key !== ADMIN_KEY) {
-        return res.status(401).json({ success: false, message: 'Unauthorized. Invalid admin key.' });
+  // Auth check
+  if (key !== ADMIN_KEY) {
+    return res.status(401).json({ success: false, message: 'Unauthorized. Invalid admin key.' });
+  }
+
+  try {
+    const filter = {};
+
+    if (search) {
+      const regex = new RegExp(search, 'i');
+      filter.$or = [
+        { fullName: regex },
+        { collegeName: regex },
+        { personalEmail: regex },
+        { collegeEmail: regex },
+        { applicationId: regex },
+        { referralCode: regex },
+      ];
     }
 
-    try {
-        const filter = {};
+    if (state && state !== 'all') filter.stateRegion = state;
+    if (year && year !== 'all') filter.yearStudy = year;
+    if (domain && domain !== 'all') filter.domains = { $in: [domain] };
 
-        if (search) {
-            const regex = new RegExp(search, 'i');
-            filter.$or = [
-                { fullName: regex },
-                { collegeName: regex },
-                { personalEmail: regex },
-                { collegeEmail: regex },
-                { applicationId: regex },
-                { referralCode: regex },
-            ];
-        }
-
-        if (state && state !== 'all') filter.stateRegion = state;
-        if (year && year !== 'all') filter.yearStudy = year;
-        if (domain && domain !== 'all') filter.domains = { $in: [domain] };
-
-        if (date && date !== 'all') {
-            const start = new Date(date);
-            start.setHours(0, 0, 0, 0);
-            const end = new Date(date);
-            end.setHours(23, 59, 59, 999);
-            filter.submittedAt = { $gte: start, $lte: end };
-        }
-
-        const total = await db.collection(COLLECTION_NAME).countDocuments(filter);
-        const applications = await db.collection(COLLECTION_NAME)
-            .find(filter)
-            .sort({ submittedAt: -1 })
-            .skip(parseInt(skip))
-            .limit(parseInt(limit))
-            .toArray();
-
-        // Stats
-        const todayStart = new Date();
-        todayStart.setHours(0, 0, 0, 0);
-        const todayCount = await db.collection(COLLECTION_NAME).countDocuments({
-            submittedAt: { $gte: todayStart }
-        });
-
-        // Top domain aggregation
-        const domainAgg = await db.collection(COLLECTION_NAME).aggregate([
-            { $unwind: '$domains' },
-            { $group: { _id: '$domains', count: { $sum: 1 } } },
-            { $sort: { count: -1 } },
-            { $limit: 1 }
-        ]).toArray();
-
-        res.json({
-            success: true,
-            total,
-            todayCount,
-            topDomain: domainAgg[0] ? domainAgg[0]._id : 'N/A',
-            applications,
-        });
-
-    } catch (err) {
-        console.error('❌ Error fetching applications:', err);
-        res.status(500).json({ success: false, message: 'Server error.' });
+    if (date && date !== 'all') {
+      const start = new Date(date);
+      start.setHours(0, 0, 0, 0);
+      const end = new Date(date);
+      end.setHours(23, 59, 59, 999);
+      filter.submittedAt = { $gte: start, $lte: end };
     }
+
+    const total = await db.collection(COLLECTION_NAME).countDocuments(filter);
+    const applications = await db.collection(COLLECTION_NAME)
+      .find(filter)
+      .sort({ submittedAt: -1 })
+      .skip(parseInt(skip))
+      .limit(parseInt(limit))
+      .toArray();
+
+    // Stats
+    const todayStart = new Date();
+    todayStart.setHours(0, 0, 0, 0);
+    const todayCount = await db.collection(COLLECTION_NAME).countDocuments({
+      submittedAt: { $gte: todayStart }
+    });
+
+    // Top domain aggregation
+    const domainAgg = await db.collection(COLLECTION_NAME).aggregate([
+      { $unwind: '$domains' },
+      { $group: { _id: '$domains', count: { $sum: 1 } } },
+      { $sort: { count: -1 } },
+      { $limit: 1 }
+    ]).toArray();
+
+    res.json({
+      success: true,
+      total,
+      todayCount,
+      topDomain: domainAgg[0] ? domainAgg[0]._id : 'N/A',
+      applications,
+    });
+
+  } catch (err) {
+    console.error('❌ Error fetching applications:', err);
+    res.status(500).json({ success: false, message: 'Server error.' });
+  }
 });
 
 // GET /api/stats — Admin: summary stats
 app.get('/api/stats', async (req, res) => {
-    if (req.query.key !== ADMIN_KEY) {
-        return res.status(401).json({ success: false, message: 'Unauthorized.' });
-    }
-    try {
-        const total = await db.collection(COLLECTION_NAME).countDocuments();
+  if (req.query.key !== ADMIN_KEY) {
+    return res.status(401).json({ success: false, message: 'Unauthorized.' });
+  }
+  try {
+    const total = await db.collection(COLLECTION_NAME).countDocuments();
 
-        const todayStart = new Date();
-        todayStart.setHours(0, 0, 0, 0);
-        const todayCount = await db.collection(COLLECTION_NAME).countDocuments({
-            submittedAt: { $gte: todayStart }
-        });
+    const todayStart = new Date();
+    todayStart.setHours(0, 0, 0, 0);
+    const todayCount = await db.collection(COLLECTION_NAME).countDocuments({
+      submittedAt: { $gte: todayStart }
+    });
 
-        const domainAgg = await db.collection(COLLECTION_NAME).aggregate([
-            { $unwind: '$domains' },
-            { $group: { _id: '$domains', count: { $sum: 1 } } },
-            { $sort: { count: -1 } }
-        ]).toArray();
+    const domainAgg = await db.collection(COLLECTION_NAME).aggregate([
+      { $unwind: '$domains' },
+      { $group: { _id: '$domains', count: { $sum: 1 } } },
+      { $sort: { count: -1 } }
+    ]).toArray();
 
-        const stateAgg = await db.collection(COLLECTION_NAME).aggregate([
-            { $group: { _id: '$stateRegion', count: { $sum: 1 } } },
-            { $sort: { count: -1 } }
-        ]).toArray();
+    const stateAgg = await db.collection(COLLECTION_NAME).aggregate([
+      { $group: { _id: '$stateRegion', count: { $sum: 1 } } },
+      { $sort: { count: -1 } }
+    ]).toArray();
 
-        res.json({ success: true, total, todayCount, domainAgg, stateAgg });
-    } catch (err) {
-        res.status(500).json({ success: false, message: 'Server error.' });
-    }
+    res.json({ success: true, total, todayCount, domainAgg, stateAgg });
+  } catch (err) {
+    res.status(500).json({ success: false, message: 'Server error.' });
+  }
 });
 
 // DELETE /api/applications/:id — Admin: delete one
 app.delete('/api/applications/:id', async (req, res) => {
-    if (req.query.key !== ADMIN_KEY) {
-        return res.status(401).json({ success: false, message: 'Unauthorized.' });
-    }
-    try {
-        await db.collection(COLLECTION_NAME).deleteOne({ _id: new ObjectId(req.params.id) });
-        res.json({ success: true, message: 'Deleted.' });
-    } catch (err) {
-        res.status(500).json({ success: false, message: 'Server error.' });
-    }
+  if (req.query.key !== ADMIN_KEY) {
+    return res.status(401).json({ success: false, message: 'Unauthorized.' });
+  }
+  try {
+    await db.collection(COLLECTION_NAME).deleteOne({ _id: new ObjectId(req.params.id) });
+    res.json({ success: true, message: 'Deleted.' });
+  } catch (err) {
+    res.status(500).json({ success: false, message: 'Server error.' });
+  }
 });
 
 // Test route: preview email HTML
@@ -779,14 +781,14 @@ app.get('/', async (req, res) => {
 
 // Fallback: serve index.html for any other route
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // ─── Start Server ─────────────────────────────────────────────────────────────
 connectDB().then(() => {
-    app.listen(PORT, () => {
-        console.log(`\n🚀 SETIP 2026 Server running at http://localhost:${PORT}`);
-        console.log(`📋 Admin Dashboard: http://localhost:${PORT}/admin.html`);
-        console.log(`🔑 Admin Key: ${ADMIN_KEY}\n`);
-    });
+  app.listen(PORT, () => {
+    console.log(`\n🚀 SETIP 2026 Server running at http://localhost:${PORT}`);
+    console.log(`📋 Admin Dashboard: http://localhost:${PORT}/admin.html`);
+    console.log(`🔑 Admin Key: ${ADMIN_KEY}\n`);
+  });
 });

@@ -1,5 +1,5 @@
 # PowerShell script to test Google Apps Script form submission
-$scriptUrl = "https://script.google.com/macros/s/AKfycbxiyRC76AtkpOO1cxza8rIY1yQfvLZCBdXDrfiPVM_vEWI6QggcHSOLsvxMuuI0_vA2/exec"
+$scriptUrl = "https://script.google.com/macros/s/AKfycbz-PZ4XcCWlmtOnnHRqrlJQ5pFzBC6XTakw1a9a92_4MhwPFhnD1iMNnAtEn1U1KOYW1Q/exec"
 
 # Build JSON payload matching the form fields expected by the Apps Script
 $payload = @{
