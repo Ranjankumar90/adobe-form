@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>SETIP 2026 — Official Skill &amp; Internship Program</title>
+  <title>SETIP — Official Skill &amp; Internship Program</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,26 +15,29 @@
 
   <style>
     :root {
-      --bg-dark: #070914;
-      --bg-card: rgba(15, 23, 42, 0.78);
-      --bg-card-hover: rgba(30, 41, 59, 0.88);
-      --border-glass: rgba(255, 255, 255, 0.08);
-      --border-glow: rgba(99, 102, 241, 0.45);
+      --bg-white: #ffffff;
+      --bg-section1: #ffffff;
+      --bg-section2: #f4f4f7;
+      --bg-card: #ffffff;
+      --bg-input: #ffffff;
+      --border-color: #e4e4e7;
+      --border-dark: #d4d4d8;
 
-      --primary: #6366f1;
-      --primary-glow: #818cf8;
-      --secondary: #8b5cf6;
-      --accent-cyan: #06b6d4;
+      /* Adobe Spectrum Brand Palette */
+      --primary: #fa0f00;            /* Iconic Adobe Red */
+      --primary-hover: #d60d00;
+      --primary-subtle: rgba(250, 15, 0, 0.08);
+
       --accent-green: #10b981;
-      --accent-amber: #f59e0b;
+      --accent-amber: #d97706;
 
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --text-sub: #cbd5e1;
+      --text-main: #18181b;
+      --text-sub: #3f3f46;
+      --text-muted: #71717a;
 
       --radius-lg: 20px;
       --radius-md: 14px;
-      --radius-sm: 10px;
+      --radius-sm: 8px;
     }
 
     * {
@@ -47,433 +50,350 @@
 
     html {
       scroll-behavior: smooth;
-      background-color: var(--bg-dark);
+      background-color: var(--bg-white);
       color: var(--text-main);
     }
 
     body {
       min-height: 100vh;
       overflow-x: hidden;
-      background:
-        radial-gradient(circle at 15% 12%, rgba(99, 102, 241, 0.16) 0%, transparent 40%),
-        radial-gradient(circle at 85% 35%, rgba(139, 92, 246, 0.14) 0%, transparent 45%),
-        radial-gradient(circle at 50% 75%, rgba(6, 182, 212, 0.10) 0%, transparent 50%),
-        #070914;
-      background-attachment: fixed;
+      background: #ffffff;
       position: relative;
     }
 
-    /* Ambient Dynamic Grid Background */
-    .ambient-grid {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-      background-size: 40px 40px;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .ambient-orb {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(120px);
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.45;
-      animation: orbFloat 20s ease-in-out infinite alternate;
-    }
-
-    .orb-1 {
-      top: -120px;
-      left: -120px;
-      width: 550px;
-      height: 550px;
-      background: radial-gradient(circle, #4f46e5 0%, transparent 70%);
-    }
-
-    .orb-2 {
-      bottom: -160px;
-      right: -120px;
-      width: 650px;
-      height: 650px;
-      background: radial-gradient(circle, #7c3aed 0%, transparent 70%);
-      animation-delay: -10s;
-    }
-
-    @keyframes orbFloat {
-      0% {
-        transform: translate(0, 0) scale(1);
-      }
-
-      100% {
-        transform: translate(50px, 70px) scale(1.08);
-      }
-    }
-
-    /* NAVIGATION BAR */
-    .navbar {
+    /* Sticky Adobe Brand Header Bar */
+    .top-navbar {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(7, 9, 20, 0.88);
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border-glass);
-      padding: 12px 20px;
+      border-bottom: 1px solid var(--border-color);
+      padding: 14px 24px;
     }
 
-    .nav-inner {
-      max-width: 860px;
+    .top-nav-inner {
+      max-width: 960px;
       margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
-    .brand-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-    }
-
-    .brand-icon {
-      width: 34px;
-      height: 34px;
-      border-radius: 9px;
-      background: linear-gradient(135deg, #6366f1, #8b5cf6);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
-    }
-
-    .brand-text {
+    .brand-logo-text {
       font-family: 'Space Grotesk', sans-serif;
       font-size: 17px;
       font-weight: 700;
-      color: #ffffff;
-      letter-spacing: -0.3px;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
     }
 
-    .nav-cta {
+    .adobe-badge-icon {
+      width: 30px;
+      height: 30px;
+      background: var(--primary);
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      color: #ffffff;
+      font-size: 15px;
+      box-shadow: 0 3px 12px rgba(250, 15, 0, 0.35);
+    }
+
+    .nav-apply-btn {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font-size: 12px;
-      font-weight: 700;
+      background: var(--primary);
       color: #ffffff;
-      background: rgba(99, 102, 241, 0.15);
-      border: 1px solid rgba(99, 102, 241, 0.35);
-      padding: 8px 16px;
+      padding: 9px 22px;
       border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
       text-decoration: none;
+      box-shadow: 0 4px 16px rgba(250, 15, 0, 0.35);
       transition: all 0.25s ease;
     }
 
-    .nav-cta:hover,
-    .nav-cta:active {
-      background: var(--primary);
-      border-color: var(--primary);
-      box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+    .nav-apply-btn:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(250, 15, 0, 0.45);
     }
 
-    /* CONTAINER */
+    /* Container */
     .container {
-      max-width: 820px;
+      max-width: 920px;
       margin: 0 auto;
-      padding: 0 16px;
-      position: relative;
-      z-index: 2;
+      padding: 0 20px;
     }
 
-    /* HEADER & HERO */
-    .header {
-      padding: 36px 0 28px;
+    /* ========================================================= */
+    /* SECTION 1: HERO & PROGRAM DETAILS SECTION (PURE WHITE)   */
+    /* ========================================================= */
+    .section-hero {
+      background: #ffffff;
+      padding: 48px 0 60px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .pill-badges-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .pill-badge {
+      font-size: 13px;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill-badge.red {
+      background: var(--primary-subtle);
+      border: 1px solid rgba(250, 15, 0, 0.25);
+      color: var(--primary);
+    }
+
+    .pill-badge.green {
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      color: #059669;
+    }
+
+    .pill-badge.amber {
+      background: rgba(245, 158, 11, 0.08);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      color: #d97706;
+    }
+
+    .hero-subtitle {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      color: var(--primary);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .hero-main-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(28px, 4.5vw, 42px);
+      font-weight: 800;
+      line-height: 1.25;
+      color: var(--text-main);
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+    }
+
+    .hero-main-title .gradient-span {
+      color: var(--primary);
+    }
+
+    .hero-body-text {
+      font-size: 15.5px;
+      color: var(--text-sub);
+      line-height: 1.7;
+      max-width: 780px;
+      margin-bottom: 30px;
+    }
+
+    /* METRIC CARDS ROW */
+    .hero-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    .metric-box {
+      background: #fafafa;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 20px 12px;
       text-align: center;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
     }
 
-    .status-badge {
+    .metric-box:hover {
+      transform: translateY(-3px);
+      border-color: rgba(250, 15, 0, 0.4);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+    }
+
+    .metric-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .metric-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    /* CTA ROW */
+    .hero-cta-row {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+
+    .apply-hero-btn {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 6px 16px;
-      background: rgba(99, 102, 241, 0.12);
-      border: 1px solid rgba(99, 102, 241, 0.35);
+      background: var(--primary);
+      color: #ffffff;
+      padding: 14px 28px;
       border-radius: 30px;
-      backdrop-filter: blur(12px);
-      margin-bottom: 20px;
-    }
-
-    .pulse-indicator {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--accent-green);
-      box-shadow: 0 0 10px var(--accent-green);
-      animation: pulseSoft 2s infinite;
-    }
-
-    @keyframes pulseSoft {
-
-      0%,
-      100% {
-        transform: scale(1);
-        opacity: 1;
-      }
-
-      50% {
-        transform: scale(1.2);
-        opacity: 0.6;
-      }
-    }
-
-    .badge-caption {
-      font-size: 11px;
+      font-size: 15px;
       font-weight: 700;
-      letter-spacing: 0.6px;
-      color: #c7d2fe;
-      text-transform: uppercase;
-    }
-
-    .hero-title {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(24px, 5.5vw, 40px);
-      font-weight: 700;
-      line-height: 1.2;
-      letter-spacing: -0.5px;
-      margin-bottom: 16px;
-      color: #ffffff;
-    }
-
-    .gradient-text {
-      background: linear-gradient(135deg, #818cf8 0%, #c084fc 50%, #38bdf8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero-description {
-      font-size: clamp(13px, 3.5vw, 15px);
-      line-height: 1.7;
-      color: var(--text-muted);
-      max-width: 660px;
-      margin: 0 auto 30px;
-    }
-
-    /* METRIC CARDS GRID */
-    .metrics-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin-bottom: 28px;
-    }
-
-    .metric-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-glass);
-      backdrop-filter: blur(16px);
-      border-radius: var(--radius-md);
-      padding: 14px 8px;
-      text-align: center;
+      text-decoration: none;
+      box-shadow: 0 8px 24px rgba(250, 15, 0, 0.35);
       transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
     }
 
-    .metric-card:hover {
-      transform: translateY(-3px);
-      border-color: var(--border-glow);
-      background: var(--bg-card-hover);
+    .apply-hero-btn:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(250, 15, 0, 0.48);
     }
 
-    .metric-val {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(20px, 4vw, 26px);
-      font-weight: 700;
-      color: #ffffff;
-      line-height: 1.1;
-    }
-
-    .metric-lbl {
-      font-size: 10px;
-      font-weight: 600;
+    .cta-subtext {
+      font-size: 13.5px;
       color: var(--text-muted);
-      margin-top: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.4px;
     }
 
-    /* URGENCY ALERT */
-    .urgency-alert {
-      background: linear-gradient(90deg, rgba(245, 158, 11, 0.12) 0%, rgba(239, 68, 68, 0.12) 100%);
-      border: 1px solid rgba(245, 158, 11, 0.35);
-      border-radius: var(--radius-md);
-      padding: 12px 18px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 28px;
-      backdrop-filter: blur(12px);
+    /* 3-MONTH ROADMAP FOOTER STRIP BANNER */
+    .roadmap-strip-banner {
+      background: #fafafa;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 22px;
+      margin-bottom: 40px;
     }
 
-    .alert-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--accent-amber);
-      box-shadow: 0 0 10px var(--accent-amber);
-      flex-shrink: 0;
-      animation: alertBlink 1.4s infinite;
+    .roadmap-strip-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
     }
 
-    @keyframes alertBlink {
-
-      0%,
-      100% {
-        transform: scale(1);
-        opacity: 1;
-      }
-
-      50% {
-        transform: scale(1.25);
-        opacity: 0.5;
-      }
+    .strip-col {
+      padding: 0 12px;
+      border-right: 1px solid var(--border-color);
     }
 
-    .alert-text {
-      font-size: 12.5px;
-      font-weight: 600;
-      color: #fef08a;
-      line-height: 1.5;
+    .strip-col:last-child {
+      border-right: none;
     }
 
-    /* PROGRAM ROADMAP SECTION */
-    .section-header {
-      font-size: 11.5px;
+    .strip-tag {
+      font-size: 11px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 1px;
-      color: var(--primary-glow);
-      margin-bottom: 14px;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+
+    .strip-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+
+    .strip-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* DELIVERABLES ADVANTAGES GRID */
+    .section-header-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--primary);
+      margin-bottom: 16px;
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
-    .roadmap-card {
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid var(--border-glass);
-      backdrop-filter: blur(16px);
-      border-radius: var(--radius-lg);
-      padding: 20px;
-      margin-bottom: 28px;
-    }
-
-    .roadmap-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-
-    .roadmap-step {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: var(--radius-md);
-      padding: 16px 14px;
-      transition: all 0.3s ease;
-    }
-
-    .roadmap-step:hover {
-      border-color: rgba(99, 102, 241, 0.4);
-      background: rgba(99, 102, 241, 0.08);
-    }
-
-    .step-tag {
-      display: inline-block;
-      font-size: 10px;
-      font-weight: 800;
-      color: var(--accent-cyan);
-      background: rgba(6, 182, 212, 0.15);
-      border: 1px solid rgba(6, 182, 212, 0.3);
-      padding: 3px 8px;
-      border-radius: 12px;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-    }
-
-    .step-heading {
-      font-size: 14px;
-      font-weight: 700;
-      color: #ffffff;
-      margin-bottom: 4px;
-    }
-
-    .step-detail {
-      font-size: 11.5px;
-      color: var(--text-muted);
-      line-height: 1.55;
-    }
-
-    /* ADVANTAGES SHOWCASE GRID */
     .advantages-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 28px;
+      gap: 14px;
+      margin-bottom: 32px;
     }
 
     .advantage-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-glass);
+      background: #fafafa;
+      border: 1px solid var(--border-color);
       border-radius: var(--radius-md);
-      padding: 16px;
-      backdrop-filter: blur(12px);
-      transition: all 0.3s ease;
+      padding: 20px 16px;
+      transition: all 0.25s ease;
     }
 
     .advantage-card:hover {
-      border-color: rgba(139, 92, 246, 0.4);
-      background: var(--bg-card-hover);
+      border-color: rgba(250, 15, 0, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
     }
 
     .advantage-icon {
-      font-size: 22px;
-      margin-bottom: 8px;
-      display: inline-block;
+      font-size: 24px;
+      display: block;
+      margin-bottom: 10px;
     }
 
     .advantage-heading {
-      font-size: 13.5px;
+      font-size: 14px;
       font-weight: 700;
-      color: #ffffff;
+      color: var(--text-main);
       margin-bottom: 4px;
     }
 
     .advantage-desc {
-      font-size: 11px;
+      font-size: 12px;
       color: var(--text-muted);
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
-    /* ELIGIBILITY & HELPLINE INFO CARDS */
+    /* ELIGIBILITY & HELPLINE PANEL */
     .contact-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 30px;
+      gap: 14px;
     }
 
     .info-panel {
-      background: var(--bg-card);
-      border: 1px solid var(--border-glass);
+      background: #fafafa;
+      border: 1px solid var(--border-color);
       border-radius: var(--radius-md);
-      padding: 16px 18px;
-      backdrop-filter: blur(12px);
+      padding: 20px 16px;
     }
 
     .info-panel.green {
@@ -481,11 +401,11 @@
     }
 
     .info-panel.purple {
-      border-left: 4px solid var(--secondary);
+      border-left: 4px solid var(--primary);
     }
 
     .panel-tag {
-      font-size: 10.5px;
+      font-size: 11px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.8px;
@@ -497,7 +417,7 @@
     }
 
     .purple .panel-tag {
-      color: var(--secondary);
+      color: var(--primary);
     }
 
     .panel-text {
@@ -506,14 +426,144 @@
       line-height: 1.6;
     }
 
+    /* ========================================================= */
+    /* SECTION 2: ADMISSION APPLICATION FORM SECTION (LIGHT CANVAS)*/
+    /* ========================================================= */
+    .section-form {
+      background: var(--bg-section2);
+      padding: 60px 0 80px;
+    }
+
+    .form-section-header {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .form-main-heading {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+
+    .form-sub-heading {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    /* SUCCESS SCREEN */
+    .success-card {
+      display: none;
+      background: var(--bg-card);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: var(--radius-lg);
+      padding: 40px 24px;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+      margin-bottom: 30px;
+    }
+
+    .success-card.show {
+      display: block;
+      animation: fadeInScale 0.4s ease;
+    }
+
+    @keyframes fadeInScale {
+      from {
+        opacity: 0;
+        transform: scale(0.96);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .success-icon-wrapper {
+      width: 72px;
+      height: 72px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 2px solid var(--accent-green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      margin: 0 auto 20px;
+    }
+
+    .success-main-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 10px;
+    }
+
+    .success-sub-text {
+      font-size: 14px;
+      color: var(--text-sub);
+      line-height: 1.75;
+      margin-bottom: 22px;
+    }
+
+    .ref-pill {
+      display: inline-block;
+      background: #f4f4f7;
+      border: 1px dashed var(--border-color);
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-family: monospace;
+      font-size: 13px;
+      color: var(--primary);
+      margin-bottom: 22px;
+    }
+
+    .next-steps-panel {
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.22);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      font-size: 13px;
+      color: #065f46;
+      line-height: 2;
+      text-align: left;
+      margin-bottom: 24px;
+    }
+
+    .whatsapp-join-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 24px;
+      background: #25D366;
+      color: #ffffff;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+      transition: all 0.3s ease;
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .whatsapp-join-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px rgba(37, 211, 102, 0.4);
+    }
+
     /* FORM STEP TRACKER & PROGRESS BAR */
     .form-tracker-card {
       background: var(--bg-card);
-      border: 1px solid var(--border-glass);
+      border: 1px solid var(--border-color);
       border-radius: var(--radius-md);
-      padding: 14px 18px;
-      margin-bottom: 20px;
-      backdrop-filter: blur(16px);
+      padding: 18px 20px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
     }
 
     .progress-header {
@@ -527,27 +577,29 @@
       font-size: 11.5px;
       font-weight: 700;
       color: var(--text-sub);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     .progress-percentage {
       font-family: 'Space Grotesk', sans-serif;
       font-size: 12.5px;
       font-weight: 700;
-      color: var(--primary-glow);
+      color: var(--primary);
     }
 
     .progress-track {
       height: 6px;
-      background: rgba(255, 255, 255, 0.08);
+      background: #e4e4e7;
       border-radius: 10px;
       overflow: hidden;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
 
     .progress-bar-fill {
       height: 100%;
       width: 25%;
-      background: linear-gradient(90deg, #6366f1, #8b5cf6, #06b6d4);
+      background: linear-gradient(90deg, #fa0f00, #ff5252);
       border-radius: 10px;
       transition: width 0.4s ease;
     }
@@ -561,8 +613,8 @@
     .step-node {
       display: flex;
       align-items: center;
-      gap: 6px;
-      opacity: 0.45;
+      gap: 8px;
+      opacity: 0.5;
       transition: opacity 0.3s;
     }
 
@@ -571,55 +623,49 @@
     }
 
     .node-num {
-      width: 24px;
-      height: 24px;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
+      background: #e4e4e7;
+      color: var(--text-main);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 700;
+      transition: all 0.3s;
     }
 
     .step-node.active .node-num {
       background: var(--primary);
-      box-shadow: 0 0 10px var(--primary-glow);
+      color: #ffffff;
+      box-shadow: 0 0 10px rgba(250, 15, 0, 0.4);
     }
 
     .node-label {
-      font-size: 11.5px;
-      font-weight: 700;
-      color: #fff;
-      display: none;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-main);
     }
 
-    @media(min-width: 580px) {
-      .node-label {
-        display: inline;
-      }
-    }
-
-    /* GLASS FORM CARDS */
+    /* PURE WHITE ADOBE FORM CARDS */
     .form-glass-card {
       background: var(--bg-card);
-      border: 1px solid var(--border-glass);
+      border: 1px solid var(--border-color);
       border-radius: var(--radius-lg);
-      padding: 24px 20px;
-      margin-bottom: 20px;
-      backdrop-filter: blur(16px);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+      padding: 28px 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
       transition: all 0.3s ease;
     }
 
     .card-title-bar {
-      font-size: 11.5px;
+      font-size: 12px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 1px;
-      color: var(--primary-glow);
-      margin-bottom: 18px;
+      color: var(--primary);
+      margin-bottom: 22px;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -629,13 +675,13 @@
       content: '';
       flex: 1;
       height: 1px;
-      background: linear-gradient(90deg, rgba(99, 102, 241, 0.35), transparent);
+      background: linear-gradient(90deg, rgba(250, 15, 0, 0.35), transparent);
     }
 
     .form-layout-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 14px;
+      gap: 16px;
     }
 
     .span-2 {
@@ -663,13 +709,12 @@
 
     .form-input,
     .form-select {
-      background: rgba(10, 14, 26, 0.75);
-      border: 1.5px solid rgba(255, 255, 255, 0.1);
+      background: var(--bg-input);
+      border: 1.5px solid var(--border-dark);
       border-radius: var(--radius-sm);
       padding: 12px 14px;
-      font-size: 15px;
-      /* Prevent iOS safari auto-zoom on input focus */
-      color: #ffffff;
+      font-size: 14.5px;
+      color: var(--text-main);
       outline: none;
       transition: all 0.25s ease;
       width: 100%;
@@ -678,7 +723,7 @@
 
     .form-select {
       appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2594a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23fa0f00' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
       background-repeat: no-repeat;
       background-position: right 14px center;
       background-size: 16px;
@@ -686,19 +731,18 @@
     }
 
     .form-select option {
-      background: #0f172a;
-      color: #ffffff;
+      background: #ffffff;
+      color: #18181b;
     }
 
     .form-input:focus,
     .form-select:focus {
       border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
-      background: rgba(15, 23, 42, 0.95);
+      box-shadow: 0 0 0 3.5px rgba(250, 15, 0, 0.15);
     }
 
     .form-input::placeholder {
-      color: #64748b;
+      color: #a1a1aa;
     }
 
     .country-other-box {
@@ -713,18 +757,18 @@
     /* DOMAINS & LANGUAGES TILES */
     .domain-tags {
       display: flex;
-      gap: 6px;
-      margin-bottom: 12px;
+      gap: 8px;
+      margin-bottom: 14px;
       flex-wrap: wrap;
     }
 
     .tag-btn {
-      font-size: 11px;
+      font-size: 11.5px;
       font-weight: 600;
-      padding: 6px 12px;
+      padding: 6px 14px;
       border-radius: 20px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #f4f4f7;
+      border: 1px solid var(--border-color);
       color: var(--text-muted);
       cursor: pointer;
       transition: all 0.2s;
@@ -736,93 +780,94 @@
       background: var(--primary);
       color: #fff;
       border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(250, 15, 0, 0.3);
     }
 
     .scrollable-tiles {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
+      gap: 10px;
       max-height: 380px;
       overflow-y: auto;
-      padding-right: 2px;
+      padding-right: 4px;
     }
 
     .scrollable-tiles::-webkit-scrollbar {
-      width: 4px;
-    }
-
-    .scrollable-tiles::-webkit-scrollbar-track {
-      background: rgba(255, 255, 255, 0.02);
+      width: 5px;
     }
 
     .scrollable-tiles::-webkit-scrollbar-thumb {
-      background: rgba(99, 102, 241, 0.35);
-      border-radius: 4px;
+      background: #d4d4d8;
+      border-radius: 10px;
     }
 
     .tile-option {
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 10px 12px;
-      background: rgba(15, 23, 42, 0.55);
-      border: 1.5px solid rgba(255, 255, 255, 0.08);
+      background: #fdfdfd;
+      border: 1.5px solid var(--border-color);
+      padding: 12px 14px;
       border-radius: var(--radius-sm);
       cursor: pointer;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-sub);
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
       user-select: none;
-      min-height: 44px;
     }
 
     .tile-option:hover {
-      border-color: rgba(99, 102, 241, 0.4);
-      background: rgba(99, 102, 241, 0.1);
-      color: #ffffff;
+      border-color: rgba(250, 15, 0, 0.4);
+      background: var(--primary-subtle);
+    }
+
+    .tile-option input[type="radio"],
+    .tile-option input[type="checkbox"] {
+      accent-color: var(--primary);
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+
+    .tile-option span {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-sub);
     }
 
     .tile-option:has(input:checked) {
       border-color: var(--primary);
-      background: rgba(99, 102, 241, 0.22);
-      color: #ffffff;
-      box-shadow: 0 0 14px rgba(99, 102, 241, 0.18);
+      background: var(--primary-subtle);
+      box-shadow: 0 0 12px rgba(250, 15, 0, 0.12);
     }
 
-    .tile-option input {
-      accent-color: var(--primary);
-      width: 17px;
-      height: 17px;
-      flex-shrink: 0;
-      cursor: pointer;
+    .tile-option:has(input:checked) span {
+      color: var(--primary);
+      font-weight: 700;
     }
 
-    /* ACKNOWLEDGEMENT & SUBMIT */
+    /* STEP 4: SUBMIT & ACKNOWLEDGEMENT */
     .declaration-box {
       display: flex;
       align-items: flex-start;
       gap: 12px;
-      padding: 14px 16px;
-      background: rgba(99, 102, 241, 0.08);
-      border: 1.5px solid rgba(99, 102, 241, 0.25);
-      border-radius: var(--radius-md);
-      cursor: pointer;
+      background: #fcfcfd;
+      border: 1px solid var(--border-color);
+      padding: 16px;
+      border-radius: var(--radius-sm);
       margin-bottom: 20px;
-      transition: border-color 0.2s;
+      cursor: pointer;
     }
 
-    .declaration-box input {
+    .declaration-box input[type="checkbox"] {
       accent-color: var(--primary);
       width: 18px;
       height: 18px;
-      flex-shrink: 0;
       margin-top: 2px;
       cursor: pointer;
+      flex-shrink: 0;
     }
 
     .declaration-box span {
-      font-size: 12.5px;
+      font-size: 13px;
       color: var(--text-sub);
       line-height: 1.6;
     }
@@ -830,219 +875,93 @@
     .submit-action-btn {
       width: 100%;
       padding: 16px 24px;
-      background: linear-gradient(135deg, #6366f1 0%, #4f46e5 50%, #8b5cf6 100%);
-      background-size: 200% 200%;
+      background: var(--primary);
       color: #ffffff;
       border: none;
-      border-radius: var(--radius-md);
-      font-size: 15.5px;
-      font-weight: 800;
+      border-radius: 30px;
+      font-size: 15px;
+      font-weight: 700;
       cursor: pointer;
+      box-shadow: 0 10px 28px rgba(250, 15, 0, 0.35);
       transition: all 0.3s ease;
-      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      min-height: 50px;
     }
 
-    .submit-action-btn:hover:not(:disabled),
-    .submit-action-btn:active:not(:disabled) {
-      background-position: right center;
+    .submit-action-btn:hover {
+      background: var(--primary-hover);
       transform: translateY(-2px);
-      box-shadow: 0 14px 32px rgba(99, 102, 241, 0.6);
+      box-shadow: 0 14px 32px rgba(250, 15, 0, 0.5);
+    }
+
+    .submit-action-btn:active {
+      transform: translateY(0);
     }
 
     .submit-action-btn:disabled {
       opacity: 0.6;
       cursor: not-allowed;
-      transform: none;
     }
 
     .error-notification {
       display: none;
-      background: rgba(239, 68, 68, 0.15);
-      border: 1.5px solid rgba(239, 68, 68, 0.4);
-      border-radius: var(--radius-sm);
+      background: #fef2f2;
+      border: 1px solid #fca5a5;
+      color: #991b1b;
       padding: 12px 16px;
-      font-size: 12.5px;
-      color: #fca5a5;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
       margin-top: 16px;
-      line-height: 1.5;
     }
 
     .error-notification.show {
       display: block;
-      animation: errShake 0.4s ease-in-out;
+      animation: shake 0.3s ease;
     }
 
-    @keyframes errShake {
+    @keyframes shake {
 
       0%,
       100% {
         transform: translateX(0);
       }
 
-      20%,
-      60% {
-        transform: translateX(-6px);
+      25% {
+        transform: translateX(-5px);
       }
 
-      40%,
-      80% {
-        transform: translateX(6px);
+      75% {
+        transform: translateX(5px);
       }
     }
 
     .security-notice {
-      font-size: 11px;
-      color: var(--text-muted);
+      margin-top: 18px;
       text-align: center;
-      margin-top: 14px;
-      line-height: 1.5;
-    }
-
-    /* SUCCESS STATE DISPLAY */
-    .success-card {
-      display: none;
-      background: var(--bg-card);
-      border: 1px solid rgba(16, 185, 129, 0.35);
-      border-radius: var(--radius-lg);
-      padding: 40px 20px;
-      text-align: center;
-      backdrop-filter: blur(20px);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-      animation: popIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    @keyframes popIn {
-      0% {
-        opacity: 0;
-        transform: scale(0.94);
-      }
-
-      100% {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    .success-card.show {
-      display: block;
-    }
-
-    .success-icon-wrapper {
-      width: 72px;
-      height: 72px;
-      background: rgba(16, 185, 129, 0.15);
-      border: 2px solid var(--accent-green);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 18px;
-      font-size: 34px;
-      box-shadow: 0 0 30px rgba(16, 185, 129, 0.35);
-    }
-
-    .success-main-title {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 26px;
-      font-weight: 700;
-      color: #ffffff;
-      margin-bottom: 10px;
-    }
-
-    .success-sub-text {
-      font-size: 14px;
-      color: var(--text-sub);
-      line-height: 1.75;
-      margin-bottom: 22px;
-    }
-
-    .ref-pill {
-      display: inline-block;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px dashed rgba(255, 255, 255, 0.2);
-      padding: 8px 16px;
-      border-radius: 20px;
-      font-family: monospace;
-      font-size: 12.5px;
-      color: var(--accent-cyan);
-      margin-bottom: 22px;
-    }
-
-    .next-steps-panel {
-      background: rgba(16, 185, 129, 0.08);
-      border: 1px solid rgba(16, 185, 129, 0.22);
-      border-radius: var(--radius-md);
-      padding: 18px;
-      font-size: 13px;
-      color: #a7f3d0;
-      line-height: 2;
-      text-align: left;
-      margin-bottom: 24px;
-    }
-
-    .whatsapp-join-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 14px 24px;
-      background: #25D366;
-      color: #ffffff;
-      border-radius: var(--radius-md);
-      font-weight: 700;
-      font-size: 14px;
-      text-decoration: none;
-      box-shadow: 0 10px 25px rgba(37, 211, 102, 0.35);
-      transition: all 0.3s ease;
-      width: 100%;
-      max-width: 380px;
-    }
-
-    /* FLOATING HELPLINE BADGE */
-    .floating-helpline {
-      position: fixed;
-      bottom: 20px;
-      right: 16px;
-      z-index: 90;
-      background: rgba(15, 23, 42, 0.92);
-      border: 1px solid rgba(99, 102, 241, 0.4);
-      border-radius: 30px;
-      padding: 8px 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      backdrop-filter: blur(16px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-      text-decoration: none;
-      color: #ffffff;
       font-size: 11.5px;
-      font-weight: 700;
-      transition: all 0.3s ease;
+      color: var(--text-muted);
     }
+
+
 
     /* FOOTER */
     .footer {
-      padding: 36px 16px;
+      padding: 36px 16px 20px;
       text-align: center;
-      border-top: 1px solid var(--border-glass);
+      border-top: 1px solid var(--border-color);
       margin-top: 48px;
-      background: rgba(7, 9, 20, 0.85);
-      backdrop-filter: blur(12px);
     }
 
     .footer p {
-      font-size: 11.5px;
+      font-size: 12px;
       color: var(--text-muted);
       line-height: 1.8;
     }
 
     .footer a {
-      color: var(--primary-glow);
+      color: var(--primary);
       text-decoration: none;
       font-weight: 600;
     }
@@ -1058,521 +977,492 @@
       z-index: 999;
     }
 
-    /* MOBILE-FIRST OPTIMIZATIONS (Smartphones & Small Screens) */
-    @media (max-width: 600px) {
-      .navbar {
-        padding: 10px 14px;
-      }
-
-      .brand-text {
-        font-size: 15px;
-      }
-
-      .nav-cta {
-        padding: 6px 12px;
-        font-size: 11px;
-      }
-
-      .header {
-        padding: 24px 0 20px;
-      }
-
-      .status-badge {
-        padding: 5px 12px;
-        margin-bottom: 14px;
-      }
-
-      .badge-caption {
-        font-size: 10px;
-      }
-
-      .metrics-grid {
+    /* MOBILE-FIRST RESPONSIVE DESIGN */
+    @media (max-width: 680px) {
+      .hero-metrics-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
       }
 
-      .metric-card {
-        padding: 12px 6px;
-      }
-
-      .roadmap-grid {
-        grid-template-columns: 1fr;
-        gap: 10px;
-      }
-
-      .advantages-grid {
-        grid-template-columns: 1fr;
-        gap: 10px;
-      }
-
+      .roadmap-strip-grid,
+      .advantages-grid,
       .contact-grid {
         grid-template-columns: 1fr;
-        gap: 10px;
       }
 
-      .form-glass-card {
-        padding: 18px 14px;
+      .strip-col {
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 12px;
+        margin-bottom: 12px;
+      }
+
+      .strip-col:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 0;
       }
 
       .form-layout-grid {
         grid-template-columns: 1fr;
-        gap: 12px;
+      }
+
+      .span-2 {
+        grid-column: auto;
       }
 
       .scrollable-tiles {
         grid-template-columns: 1fr;
-        max-height: 320px;
       }
 
-      .floating-helpline {
-        bottom: 12px;
-        right: 12px;
-        font-size: 11px;
-        padding: 7px 12px;
+      .node-label {
+        display: none;
+      }
+
+      .step-node {
+        gap: 0;
       }
     }
   </style>
 </head>
 
 <body>
-
-  <div class="ambient-grid"></div>
-  <div class="ambient-orb orb-1"></div>
-  <div class="ambient-orb orb-2"></div>
-  <canvas id="confettiCanvas"></canvas>
-
-  <!-- STICKY ENTERPRISE NAVBAR -->
-  <nav class="navbar">
-    <div class="nav-inner">
-      <a href="#apply" class="brand-logo">
-        <div class="brand-icon">🎓</div>
-        <span class="brand-text">SETIP 2026</span>
+  <!-- STICKY ADOBE BRAND TOP NAVBAR -->
+  <header class="top-navbar">
+    <div class="top-nav-inner">
+      <a href="#apply-form" class="brand-logo-text">
+        <div class="adobe-badge-icon">A</div>
+        <span>SETIP</span>
       </a>
-      <a href="#apply" class="nav-cta">
+      <a href="#apply-form" class="nav-apply-btn">
         <span>Apply Now ↓</span>
       </a>
     </div>
-  </nav>
+  </header>
 
-  <div class="container">
+  <canvas id="confettiCanvas"></canvas>
 
-    <!-- HEADER & HERO SECTION -->
-    <header class="header">
-      <div class="status-badge">
-        <span class="pulse-indicator"></span>
-        <span class="badge-caption">2026 Cohort • Industry Co-Certified</span>
-      </div>
+  <!-- ========================================================= -->
+  <!-- SECTION 1: HERO & PROGRAM OVERVIEW SECTION (WHITE CANVAS) -->
+  <!-- ========================================================= -->
+  <section class="section-hero">
+    <div class="container">
+      <header class="hero-header">
+        <!-- TOP PILL BADGES ROW -->
+        <div class="pill-badges-row">
+          <span class="pill-badge red">Co-Certified</span>
+          <span class="pill-badge green">Placement Assured</span>
+          <span class="pill-badge amber">2026 Cohort — Limited Seats</span>
+        </div>
 
-      <h1 class="hero-title">
-        Skill Enhancement Training &amp;<br>
-        <span class="gradient-text">Internship Program (SETIP)</span>
-      </h1>
+        <div class="hero-subtitle">SKILL ENHANCEMENT TRAINING PRESENTS</div>
 
-      <p class="hero-description">
-        A 3-month structured program bridging academia with live enterprise workflows. Gain hands-on mastery in
-        high-demand technical and management domains, learn directly from MNC mentors, and earn placement
-        co-certification.
-      </p>
+        <h1 class="hero-main-title">
+          Skill Enhancement Training &amp; <span class="gradient-span">Internship Program (SETIP)</span>
+        </h1>
 
-      <!-- METRIC CARDS -->
-      <div class="metrics-grid">
-        <div class="metric-card">
-          <div class="metric-val">3</div>
-          <div class="metric-lbl">Months</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-val">50+</div>
-          <div class="metric-lbl">MNC Partners</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-val">3</div>
-          <div class="metric-lbl">Certificates</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-val">20+</div>
-          <div class="metric-lbl">Domains</div>
-        </div>
-      </div>
+        <p class="hero-body-text">
+          A 3-month structured program to bridge academics and the workplace — live projects, industry mentors, certified credentials, and placement support at top MNCs.
+        </p>
 
-      <!-- URGENCY ALERT -->
-      <div class="urgency-alert">
-        <div class="alert-dot"></div>
-        <div class="alert-text">
-          🔥 <strong>Applications Open for 2026 Cohort:</strong> Limited seats available. Evaluated on a rolling basis.
-        </div>
-      </div>
-    </header>
-
-    <!-- ROADMAP SECTION -->
-    <section class="roadmap-card">
-      <div class="section-header">
-        <span>⚡ Program Roadmap</span>
-      </div>
-      <div class="roadmap-grid">
-        <div class="roadmap-step">
-          <span class="step-tag">Phase 01</span>
-          <h3 class="step-heading">Skill Training</h3>
-          <p class="step-detail">Intensive live training on industry-standard tools, frameworks, and modern tools.</p>
-        </div>
-        <div class="roadmap-step">
-          <span class="step-tag">Phase 02</span>
-          <h3 class="step-heading">Live Internship</h3>
-          <p class="step-detail">Work on production-grade client projects guided by senior MNC mentors.</p>
-        </div>
-        <div class="roadmap-step">
-          <span class="step-tag">Phase 03</span>
-          <h3 class="step-heading">Placement Support</h3>
-          <p class="step-detail">Resume engineering, 1-on-1 mock interviews, and direct hiring partner referrals.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- WHAT YOU GET SHOWCASE -->
-    <div class="section-header" style="margin-left: 4px;">
-      <span>💎 Deliverables &amp; Benefits</span>
-    </div>
-    <div class="advantages-grid">
-      <div class="advantage-card">
-        <span class="advantage-icon">🎓</span>
-        <h4 class="advantage-heading">Co-Logo Certificate</h4>
-        <p class="advantage-desc">Global branding credentials issued alongside industry leaders.</p>
-      </div>
-      <div class="advantage-card">
-        <span class="advantage-icon">📋</span>
-        <h4 class="advantage-heading">Completion Certificate</h4>
-        <p class="advantage-desc">Verified credentials recognized by 50+ hiring partner networks.</p>
-      </div>
-      <div class="advantage-card">
-        <span class="advantage-icon">✉️</span>
-        <h4 class="advantage-heading">Recommendation Letter</h4>
-        <p class="advantage-desc">Performance-based official LoR written by domain mentors.</p>
-      </div>
-      <div class="advantage-card">
-        <span class="advantage-icon">🧑‍💼</span>
-        <h4 class="advantage-heading">1-on-1 Mentorship</h4>
-        <p class="advantage-desc">Dedicated guidance from senior engineers and domain experts.</p>
-      </div>
-      <div class="advantage-card">
-        <span class="advantage-icon">💼</span>
-        <h4 class="advantage-heading">MNC Placement Drive</h4>
-        <p class="advantage-desc">Resume building, portfolio polish, and direct interview opportunities.</p>
-      </div>
-      <div class="advantage-card">
-        <span class="advantage-icon">🛠️</span>
-        <h4 class="advantage-heading">Enterprise Tools</h4>
-        <p class="advantage-desc">Practical experience with real workplace tools and environments.</p>
-      </div>
-    </div>
-
-    <!-- ELIGIBILITY & HELPLINE PANEL -->
-    <div class="contact-grid">
-      <div class="info-panel green">
-        <div class="panel-tag">Eligibility Criteria</div>
-        <div class="panel-text">
-          Open to students from Technology, Business, Design, Legal, Psychology &amp; Science streams (All academic
-          years &amp; recent graduates welcome).
-        </div>
-      </div>
-      <div class="info-panel purple">
-        <div class="panel-tag">Placements Helpline</div>
-        <div class="panel-text">
-          <strong>Dr. Mandeep Singh</strong> — Placements Controller<br>
-          📞 Phone: <a href="tel:+919886232004" style="color:#a855f7;">+91 9886232004</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- SUCCESS SCREEN -->
-    <div class="success-card" id="successScreen">
-      <div class="success-icon-wrapper">🎉</div>
-      <h2 class="success-main-title">Application Submitted!</h2>
-      <p class="success-sub-text">
-        Thank you, <strong id="sName" style="color: #6366f1;">Applicant</strong>!<br>
-        Your application has been logged into the SETIP 2026 admissions database.
-      </p>
-      <div class="ref-pill">Ref ID: <span id="applicationRef">SETIP-2026-PENDING</span></div>
-      <div class="next-steps-panel">
-        ✓ Onboarding counsellor assigned to your profile<br>
-        ✓ WhatsApp notification &amp; schedule confirmation within 24 hours<br>
-        ✓ Full curriculum syllabus sent to your email<br>
-        ✓ Industry mentor assigned prior to Month 1 orientation
-      </div>
-      <a class="whatsapp-join-btn" href="https://chat.whatsapp.com/LbVBfDQZkGq6gKQpu9iCLZ" target="_blank"
-        rel="noopener">
-        <span>💬 Join Official Student WhatsApp Group</span>
-      </a>
-    </div>
-
-    <!-- APPLICATION FORM CONTAINER -->
-    <div id="mainForm">
-
-      <!-- STEP TRACKER & PROGRESS BAR -->
-      <div class="form-tracker-card">
-        <div class="progress-header">
-          <span class="progress-title">Application Progress</span>
-          <span class="progress-percentage" id="progressPct">25% Completed</span>
-        </div>
-        <div class="progress-track">
-          <div class="progress-bar-fill" id="progressFill"></div>
-        </div>
-        <div class="step-steps">
-          <div class="step-node active" id="st1">
-            <span class="node-num">1</span>
-            <span class="node-label">Personal Profile</span>
+        <!-- METRIC CARDS ROW -->
+        <div class="hero-metrics-grid">
+          <div class="metric-box">
+            <div class="metric-number">3</div>
+            <div class="metric-label">Month Program</div>
           </div>
-          <div class="step-node" id="st2">
-            <span class="node-num">2</span>
-            <span class="node-label">Education</span>
+          <div class="metric-box">
+            <div class="metric-number">50+</div>
+            <div class="metric-label">MNC Partners</div>
           </div>
-          <div class="step-node" id="st3">
-            <span class="node-num">3</span>
-            <span class="node-label">Preferences</span>
+          <div class="metric-box">
+            <div class="metric-number">3</div>
+            <div class="metric-label">Certificates</div>
           </div>
-          <div class="step-node" id="st4">
-            <span class="node-num">4</span>
-            <span class="node-label">Submit</span>
+          <div class="metric-box">
+            <div class="metric-number">20+</div>
+            <div class="metric-label">Domains</div>
           </div>
         </div>
-      </div>
 
-      <!-- STEP 1: PERSONAL DETAILS -->
-      <div class="form-glass-card" id="apply">
-        <div class="card-title-bar">Step 1 — Personal Details</div>
-        <div class="form-layout-grid">
-          <div class="field-group">
-            <label for="fullName">Full Name <span class="required">*</span></label>
-            <input type="text" id="fullName" class="form-input" placeholder="As per college records">
-          </div>
-          <div class="field-group">
-            <label for="phone">Phone Number <span class="required">*</span></label>
-            <input type="tel" id="phone" class="form-input" placeholder="+91 00000 00000">
-          </div>
-          <div class="field-group">
-            <label for="whatsapp">WhatsApp Number <span class="required">*</span></label>
-            <input type="tel" id="whatsapp" class="form-input" placeholder="Active WhatsApp number">
-          </div>
-          <div class="field-group">
-            <label for="collegeEmail">College Email <span class="required">*</span></label>
-            <input type="email" id="collegeEmail" class="form-input" placeholder="yourname@college.edu">
-          </div>
-          <div class="field-group span-2">
-            <label for="personalEmail">Personal Email <span class="required">*</span></label>
-            <input type="email" id="personalEmail" class="form-input" placeholder="yourname@gmail.com">
-          </div>
-          <div class="field-group span-2">
-            <label for="state">State / Region <span class="required">*</span></label>
-            <select id="state" class="form-select"
-              onchange="document.getElementById('oc').classList.toggle('show', this.value === 'Other')">
-              <option value="">— Select your state / region —</option>
-              <optgroup label="India">
-                <option>Andhra Pradesh</option>
-                <option>Arunachal Pradesh</option>
-                <option>Assam</option>
-                <option>Bihar</option>
-                <option>Chhattisgarh</option>
-                <option>Goa</option>
-                <option>Gujarat</option>
-                <option>Haryana</option>
-                <option>Himachal Pradesh</option>
-                <option>Jharkhand</option>
-                <option>Karnataka</option>
-                <option>Kerala</option>
-                <option>Madhya Pradesh</option>
-                <option>Maharashtra</option>
-                <option>Manipur</option>
-                <option>Meghalaya</option>
-                <option>Mizoram</option>
-                <option>Nagaland</option>
-                <option>Odisha</option>
-                <option>Punjab</option>
-                <option>Rajasthan</option>
-                <option>Sikkim</option>
-                <option>Tamil Nadu</option>
-                <option>Telangana</option>
-                <option>Tripura</option>
-                <option>Uttar Pradesh</option>
-                <option>Uttarakhand</option>
-                <option>West Bengal</option>
-                <option>Andaman &amp; Nicobar Islands</option>
-                <option>Chandigarh</option>
-                <option>Delhi (NCT)</option>
-                <option>Jammu &amp; Kashmir</option>
-                <option>Ladakh</option>
-                <option>Puducherry</option>
-              </optgroup>
-              <optgroup label="International">
-                <option value="Other">Other Country</option>
-              </optgroup>
-            </select>
-            <div id="oc" class="country-other-box">
-              <input type="text" id="otherCountry" class="form-input" placeholder="Enter your country name">
+        <!-- CTA ROW WITH BUTTON -->
+        <div class="hero-cta-row">
+          <a href="#apply-form" class="apply-hero-btn">
+            <span>Apply Now — Secure Your Seat ↓</span>
+          </a>
+        </div>
+
+        <!-- 3-MONTH ROADMAP FOOTER BANNER STRIP -->
+        <div class="roadmap-strip-banner">
+          <div class="roadmap-strip-grid">
+            <div class="strip-col">
+              <div class="strip-tag">MONTH 1</div>
+              <div class="strip-title">Skill Training</div>
+              <div class="strip-desc">Technical &amp; industry tools</div>
+            </div>
+            <div class="strip-col">
+              <div class="strip-tag">MONTH 2</div>
+              <div class="strip-title">Live Internship</div>
+              <div class="strip-desc">Real projects with MNC teams</div>
+            </div>
+            <div class="strip-col">
+              <div class="strip-tag">MONTH 3</div>
+              <div class="strip-title">Placement Support</div>
+              <div class="strip-desc">Resume, interviews &amp; jobs</div>
             </div>
           </div>
         </div>
+      </header>
+
+      <!-- WHAT YOU GET SHOWCASE -->
+      <div class="section-header-title">
+        <span>💎 Deliverables &amp; Benefits</span>
+      </div>
+      <div class="advantages-grid">
+        <div class="advantage-card">
+          <span class="advantage-icon">🎓</span>
+          <h4 class="advantage-heading">Co-Logo Certificate</h4>
+          <p class="advantage-desc">Global branding credentials issued alongside industry leaders.</p>
+        </div>
+        <div class="advantage-card">
+          <span class="advantage-icon">📋</span>
+          <h4 class="advantage-heading">Completion Certificate</h4>
+          <p class="advantage-desc">Verified credentials recognized by 50+ hiring partner networks.</p>
+        </div>
+        <div class="advantage-card">
+          <span class="advantage-icon">✉️</span>
+          <h4 class="advantage-heading">Recommendation Letter</h4>
+          <p class="advantage-desc">Performance-based official LoR written by domain mentors.</p>
+        </div>
+        <div class="advantage-card">
+          <span class="advantage-icon">🧑‍💼</span>
+          <h4 class="advantage-heading">1-on-1 Mentorship</h4>
+          <p class="advantage-desc">Dedicated guidance from senior engineers and domain experts.</p>
+        </div>
+        <div class="advantage-card">
+          <span class="advantage-icon">💼</span>
+          <h4 class="advantage-heading">MNC Placement Drive</h4>
+          <p class="advantage-desc">Resume building, portfolio polish, and direct interview opportunities.</p>
+        </div>
+        <div class="advantage-card">
+          <span class="advantage-icon">🛠️</span>
+          <h4 class="advantage-heading">Enterprise Tools</h4>
+          <p class="advantage-desc">Practical experience with real workplace tools and environments.</p>
+        </div>
       </div>
 
-      <!-- STEP 2: ACADEMIC BACKGROUND -->
-      <div class="form-glass-card">
-        <div class="card-title-bar">Step 2 — Academic Background</div>
-        <div class="form-layout-grid">
+      <!-- ELIGIBILITY & HELPLINE PANEL -->
+      <div class="contact-grid">
+        <div class="info-panel green">
+          <div class="panel-tag">Eligibility Criteria</div>
+          <div class="panel-text">
+            Open to students from Technology, Business, Design, Legal, Psychology &amp; Science streams (All academic
+            years &amp; recent graduates welcome).
+          </div>
+        </div>
+        <div class="info-panel purple">
+          <div class="panel-tag">Placements Helpline</div>
+          <div class="panel-text">
+            <strong>Dr. Mandeep Singh</strong> — Placements Controller<br>
+            📞 Phone: <a href="tel:+919886232004" style="color:var(--primary);">+91 9886232004</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================= -->
+  <!-- SECTION 2: ADMISSION APPLICATION FORM SECTION (LIGHT CANVAS)-->
+  <!-- ========================================================= -->
+  <section class="section-form" id="apply-form">
+    <div class="container">
+
+
+      <!-- SUCCESS SCREEN -->
+      <div class="success-card" id="successScreen">
+        <div class="success-icon-wrapper">🎉</div>
+        <h2 class="success-main-title">Application Submitted!</h2>
+        <p class="success-sub-text">
+          Thank you, <strong id="sName" style="color: var(--primary);">Applicant</strong>!<br>
+          Your application has been logged into the SETIP admissions database.
+        </p>
+        <div class="ref-pill">Ref ID: <span id="applicationRef">SETIP-2026-PENDING</span></div>
+        <div class="next-steps-panel">
+          ✓ Onboarding counsellor assigned to your profile<br>
+          ✓ WhatsApp notification &amp; schedule confirmation within 24 hours<br>
+          ✓ Full curriculum syllabus sent to your email<br>
+          ✓ Industry mentor assigned prior to Month 1 orientation
+        </div>
+        <a class="whatsapp-join-btn" href="https://chat.whatsapp.com/LbVBfDQZkGq6gKQpu9iCLZ" target="_blank"
+          rel="noopener">
+          <span>💬 Join Official Student WhatsApp Group</span>
+        </a>
+      </div>
+
+      <!-- APPLICATION FORM CONTAINER -->
+      <div id="mainForm">
+
+        <!-- STEP TRACKER & PROGRESS BAR -->
+        <div class="form-tracker-card">
+          <div class="progress-header">
+            <span class="progress-title">Application Progress</span>
+            <span class="progress-percentage" id="progressPct">25% Completed</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-bar-fill" id="progressFill"></div>
+          </div>
+          <div class="step-steps">
+            <div class="step-node active" id="st1">
+              <span class="node-num">1</span>
+              <span class="node-label">Personal Profile</span>
+            </div>
+            <div class="step-node" id="st2">
+              <span class="node-num">2</span>
+              <span class="node-label">Education</span>
+            </div>
+            <div class="step-node" id="st3">
+              <span class="node-num">3</span>
+              <span class="node-label">Preferences</span>
+            </div>
+            <div class="step-node" id="st4">
+              <span class="node-num">4</span>
+              <span class="node-label">Submit</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 1: PERSONAL DETAILS -->
+        <div class="form-glass-card" id="apply">
+          <div class="card-title-bar">Step 1 — Personal Details</div>
+          <div class="form-layout-grid">
+            <div class="field-group">
+              <label for="fullName">Full Name <span class="required">*</span></label>
+              <input type="text" id="fullName" class="form-input" placeholder="As per college records">
+            </div>
+            <div class="field-group">
+              <label for="phone">Phone Number <span class="required">*</span></label>
+              <input type="tel" id="phone" class="form-input" placeholder="+91 00000 00000">
+            </div>
+            <div class="field-group">
+              <label for="whatsapp">WhatsApp Number <span class="required">*</span></label>
+              <input type="tel" id="whatsapp" class="form-input" placeholder="Active WhatsApp number">
+            </div>
+            <div class="field-group">
+              <label for="collegeEmail">College Email <span class="required">*</span></label>
+              <input type="email" id="collegeEmail" class="form-input" placeholder="yourname@college.edu">
+            </div>
+            <div class="field-group span-2">
+              <label for="personalEmail">Personal Email <span class="required">*</span></label>
+              <input type="email" id="personalEmail" class="form-input" placeholder="yourname@gmail.com">
+            </div>
+            <div class="field-group span-2">
+              <label for="state">State / Region <span class="required">*</span></label>
+              <select id="state" class="form-select"
+                onchange="document.getElementById('oc').classList.toggle('show', this.value === 'Other')">
+                <option value="">— Select your state / region —</option>
+                <optgroup label="India">
+                  <option>Andhra Pradesh</option>
+                  <option>Arunachal Pradesh</option>
+                  <option>Assam</option>
+                  <option>Bihar</option>
+                  <option>Chhattisgarh</option>
+                  <option>Goa</option>
+                  <option>Gujarat</option>
+                  <option>Haryana</option>
+                  <option>Himachal Pradesh</option>
+                  <option>Jharkhand</option>
+                  <option>Karnataka</option>
+                  <option>Kerala</option>
+                  <option>Madhya Pradesh</option>
+                  <option>Maharashtra</option>
+                  <option>Manipur</option>
+                  <option>Meghalaya</option>
+                  <option>Mizoram</option>
+                  <option>Nagaland</option>
+                  <option>Odisha</option>
+                  <option>Punjab</option>
+                  <option>Rajasthan</option>
+                  <option>Sikkim</option>
+                  <option>Tamil Nadu</option>
+                  <option>Telangana</option>
+                  <option>Tripura</option>
+                  <option>Uttar Pradesh</option>
+                  <option>Uttarakhand</option>
+                  <option>West Bengal</option>
+                  <option>Andaman &amp; Nicobar Islands</option>
+                  <option>Chandigarh</option>
+                  <option>Delhi (NCT)</option>
+                  <option>Jammu &amp; Kashmir</option>
+                  <option>Ladakh</option>
+                  <option>Puducherry</option>
+                </optgroup>
+                <optgroup label="International">
+                  <option value="Other">Other Country</option>
+                </optgroup>
+              </select>
+              <div id="oc" class="country-other-box">
+                <input type="text" id="otherCountry" class="form-input" placeholder="Enter your country name">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2: ACADEMIC BACKGROUND -->
+        <div class="form-glass-card">
+          <div class="card-title-bar">Step 2 — Academic Background</div>
+          <div class="form-layout-grid">
+            <div class="field-group span-2">
+              <label for="collegeName">College / University Name <span class="required">*</span></label>
+              <input type="text" id="collegeName" class="form-input" placeholder="Full official name of your institution">
+            </div>
+            <div class="field-group">
+              <label for="branch">Branch / Stream <span class="required">*</span></label>
+              <input type="text" id="branch" class="form-input" placeholder="e.g. Computer Science, BBA, BCA, MBA">
+            </div>
+            <div class="field-group">
+              <label for="year">Year of Study <span class="required">*</span></label>
+              <select id="year" class="form-select">
+                <option value="">— Select current year —</option>
+                <option>1st Year</option>
+                <option>2nd Year</option>
+                <option>3rd Year</option>
+                <option>4th Year</option>
+                <option>Final Semester</option>
+                <option>Graduated / Alumni</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 3: DOMAINS & LANGUAGES -->
+        <div class="form-glass-card">
+          <div class="card-title-bar">Step 3 — Upskill Domains &amp; Languages</div>
+
+          <!-- Domain Selection (Single Select Only) -->
+          <div class="field-group span-2" style="margin-bottom: 24px;">
+            <label>Domain to Upskill &amp; Intern in <span class="required">*</span></label>
+            <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 10px;">Select 1 primary domain for your
+              program cohort</p>
+
+            <!-- Domain Category Filter Quick Tags -->
+            <div class="domain-tags">
+              <button type="button" class="tag-btn active" onclick="filterDomainCategory('all', this)">All (23)</button>
+              <button type="button" class="tag-btn" onclick="filterDomainCategory('tech', this)">💻 Software &amp;
+                AI</button>
+              <button type="button" class="tag-btn" onclick="filterDomainCategory('design', this)">🎨 Design</button>
+              <button type="button" class="tag-btn" onclick="filterDomainCategory('mgmt', this)">📊 Business</button>
+              <button type="button" class="tag-btn" onclick="filterDomainCategory('core', this)">⚡ Core Eng</button>
+            </div>
+
+            <div class="scrollable-tiles" id="domainsGroup">
+              <label class="tile-option" data-cat="tech"><input type="radio" name="domain"
+                  value="Android App Development"><span>Android App Development</span></label>
+              <label class="tile-option" data-cat="tech"><input type="radio" name="domain"
+                  value="Full Stack Web Development"><span>Full Stack Web Development</span></label>
+              <label class="tile-option" data-cat="tech"><input type="radio" name="domain" value="Data Science"><span>Data
+                  Science</span></label>
+              <label class="tile-option" data-cat="tech"><input type="radio" name="domain"
+                  value="Data Analytics"><span>Data Analytics</span></label>
+              <label class="tile-option" data-cat="tech"><input type="radio" name="domain"
+                  value="Machine Learning"><span>Machine Learning</span></label>
+              <label class="tile-option" data-cat="tech"><input type="radio" name="domain"
+                  value="Artificial Intelligence"><span>Artificial Intelligence</span></label>
+              <label class="tile-option" data-cat="core"><input type="radio" name="domain"
+                  value="Cyber Security"><span>Cyber Security</span></label>
+              <label class="tile-option" data-cat="core"><input type="radio" name="domain"
+                  value="Internet of Things / Robotics"><span>IoT / Robotics</span></label>
+              <label class="tile-option" data-cat="tech"><input type="radio" name="domain"
+                  value="Cloud Computing"><span>Cloud Computing</span></label>
+              <label class="tile-option" data-cat="design"><input type="radio" name="domain"
+                  value="Graphic Design"><span>Graphic Design</span></label>
+              <label class="tile-option" data-cat="core"><input type="radio" name="domain"
+                  value="AutoCAD"><span>AutoCAD</span></label>
+              <label class="tile-option" data-cat="design"><input type="radio" name="domain"
+                  value="UI/UX Design"><span>UI/UX Design</span></label>
+              <label class="tile-option" data-cat="core"><input type="radio" name="domain"
+                  value="Embedded Systems"><span>Embedded Systems</span></label>
+              <label class="tile-option" data-cat="mgmt"><input type="radio" name="domain"
+                  value="Digital Marketing"><span>Digital Marketing</span></label>
+              <label class="tile-option" data-cat="mgmt"><input type="radio" name="domain"
+                  value="Finance"><span>Finance</span></label>
+              <label class="tile-option" data-cat="mgmt"><input type="radio" name="domain"
+                  value="Stock Market"><span>Stock Market</span></label>
+              <label class="tile-option" data-cat="mgmt"><input type="radio" name="domain"
+                  value="Human Resource"><span>Human Resource</span></label>
+              <label class="tile-option" data-cat="mgmt"><input type="radio" name="domain"
+                  value="Business Analytics"><span>Business Analytics</span></label>
+              <label class="tile-option" data-cat="tech"><input type="radio" name="domain"
+                  value="DevOps"><span>DevOps</span></label>
+              <label class="tile-option" data-cat="core"><input type="radio" name="domain"
+                  value="VLSI"><span>VLSI</span></label>
+              <label class="tile-option" data-cat="mgmt"><input type="radio" name="domain"
+                  value="Forensic Psychology"><span>Forensic Psychology</span></label>
+              <label class="tile-option" data-cat="mgmt"><input type="radio" name="domain"
+                  value="Clinical Psychology"><span>Clinical Psychology</span></label>
+              <label class="tile-option" data-cat="mgmt"><input type="radio" name="domain"
+                  value="Corporate Law"><span>Corporate Law</span></label>
+            </div>
+          </div>
+
+          <!-- Language Selection -->
           <div class="field-group span-2">
-            <label for="collegeName">College / University Name <span class="required">*</span></label>
-            <input type="text" id="collegeName" class="form-input" placeholder="Full official name of your institution">
-          </div>
-          <div class="field-group">
-            <label for="branch">Branch / Stream <span class="required">*</span></label>
-            <input type="text" id="branch" class="form-input" placeholder="e.g. Computer Science, BBA, BCA, MBA">
-          </div>
-          <div class="field-group">
-            <label for="year">Year of Study <span class="required">*</span></label>
-            <select id="year" class="form-select">
-              <option value="">— Select current year —</option>
-              <option>1st Year</option>
-              <option>2nd Year</option>
-              <option>3rd Year</option>
-              <option>4th Year</option>
-              <option>Final Semester</option>
-              <option>Graduated / Alumni</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <!-- STEP 3: DOMAINS & LANGUAGES -->
-      <div class="form-glass-card">
-        <div class="card-title-bar">Step 3 — Upskill Domains &amp; Languages</div>
-
-        <!-- Domain Selection (Single Select Only) -->
-        <div class="field-group span-2" style="margin-bottom: 24px;">
-          <label>Domain to Upskill &amp; Intern in <span class="required">*</span></label>
-          <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 10px;">Select 1 primary domain for your
-            program cohort</p>
-
-          <!-- Domain Category Filter Quick Tags -->
-          <div class="domain-tags">
-            <button type="button" class="tag-btn active" onclick="filterDomainCategory('all', this)">All (23)</button>
-            <button type="button" class="tag-btn" onclick="filterDomainCategory('tech', this)">💻 Software &amp;
-              AI</button>
-            <button type="button" class="tag-btn" onclick="filterDomainCategory('design', this)">🎨 Design</button>
-            <button type="button" class="tag-btn" onclick="filterDomainCategory('mgmt', this)">📊 Business</button>
-            <button type="button" class="tag-btn" onclick="filterDomainCategory('core', this)">⚡ Core Eng</button>
-          </div>
-
-          <div class="scrollable-tiles" id="domainsGroup">
-            <label class="tile-option" data-cat="tech"><input type="radio" name="domain"
-                value="Android App Development"><span>Android App Development</span></label>
-            <label class="tile-option" data-cat="tech"><input type="radio" name="domain"
-                value="Full Stack Web Development"><span>Full Stack Web Development</span></label>
-            <label class="tile-option" data-cat="tech"><input type="radio" name="domain" value="Data Science"><span>Data
-                Science</span></label>
-            <label class="tile-option" data-cat="tech"><input type="radio" name="domain"
-                value="Data Analytics"><span>Data Analytics</span></label>
-            <label class="tile-option" data-cat="tech"><input type="radio" name="domain"
-                value="Machine Learning"><span>Machine Learning</span></label>
-            <label class="tile-option" data-cat="tech"><input type="radio" name="domain"
-                value="Artificial Intelligence"><span>Artificial Intelligence</span></label>
-            <label class="tile-option" data-cat="core"><input type="radio" name="domain"
-                value="Cyber Security"><span>Cyber Security</span></label>
-            <label class="tile-option" data-cat="core"><input type="radio" name="domain"
-                value="Internet of Things / Robotics"><span>IoT / Robotics</span></label>
-            <label class="tile-option" data-cat="tech"><input type="radio" name="domain"
-                value="Cloud Computing"><span>Cloud Computing</span></label>
-            <label class="tile-option" data-cat="design"><input type="radio" name="domain"
-                value="Graphic Design"><span>Graphic Design</span></label>
-            <label class="tile-option" data-cat="core"><input type="radio" name="domain"
-                value="AutoCAD"><span>AutoCAD</span></label>
-            <label class="tile-option" data-cat="design"><input type="radio" name="domain"
-                value="UI/UX Design"><span>UI/UX Design</span></label>
-            <label class="tile-option" data-cat="core"><input type="radio" name="domain"
-                value="Embedded Systems"><span>Embedded Systems</span></label>
-            <label class="tile-option" data-cat="mgmt"><input type="radio" name="domain"
-                value="Digital Marketing"><span>Digital Marketing</span></label>
-            <label class="tile-option" data-cat="mgmt"><input type="radio" name="domain"
-                value="Finance"><span>Finance</span></label>
-            <label class="tile-option" data-cat="mgmt"><input type="radio" name="domain"
-                value="Stock Market"><span>Stock Market</span></label>
-            <label class="tile-option" data-cat="mgmt"><input type="radio" name="domain"
-                value="Human Resource"><span>Human Resource</span></label>
-            <label class="tile-option" data-cat="mgmt"><input type="radio" name="domain"
-                value="Business Analytics"><span>Business Analytics</span></label>
-            <label class="tile-option" data-cat="tech"><input type="radio" name="domain"
-                value="DevOps"><span>DevOps</span></label>
-            <label class="tile-option" data-cat="core"><input type="radio" name="domain"
-                value="VLSI"><span>VLSI</span></label>
-            <label class="tile-option" data-cat="mgmt"><input type="radio" name="domain"
-                value="Forensic Psychology"><span>Forensic Psychology</span></label>
-            <label class="tile-option" data-cat="mgmt"><input type="radio" name="domain"
-                value="Clinical Psychology"><span>Clinical Psychology</span></label>
-            <label class="tile-option" data-cat="mgmt"><input type="radio" name="domain"
-                value="Corporate Law"><span>Corporate Law</span></label>
+            <label>Preferred Language(s) of Instruction <span class="required">*</span></label>
+            <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 10px;">Select at least one preferred
+              language</p>
+            <div class="scrollable-tiles" id="langsGroup" style="max-height: none;">
+              <label class="tile-option"><input type="checkbox" value="English"><span>English</span></label>
+              <label class="tile-option"><input type="checkbox" value="Hindi"><span>Hindi</span></label>
+              <label class="tile-option"><input type="checkbox" value="Malayalam"><span>Malayalam</span></label>
+              <label class="tile-option"><input type="checkbox" value="Kannada"><span>Kannada</span></label>
+              <label class="tile-option"><input type="checkbox" value="Tamil"><span>Tamil</span></label>
+              <label class="tile-option"><input type="checkbox" value="Telugu"><span>Telugu</span></label>
+              <label class="tile-option"><input type="checkbox" value="Marathi"><span>Marathi</span></label>
+              <label class="tile-option"><input type="checkbox" value="Bengali"><span>Bengali</span></label>
+              <label class="tile-option"><input type="checkbox" value="Gujarati"><span>Gujarati</span></label>
+              <label class="tile-option"><input type="checkbox" value="Odia"><span>Odia</span></label>
+              <label class="tile-option"><input type="checkbox" value="Punjabi"><span>Punjabi</span></label>
+            </div>
+            <!-- Honeypot bot protection field -->
+            <input type="text" name="botcheck" style="display:none;" autocomplete="off" />
           </div>
         </div>
 
-        <!-- Language Selection -->
-        <div class="field-group span-2">
-          <label>Preferred Language(s) of Instruction <span class="required">*</span></label>
-          <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 10px;">Select at least one preferred
-            language</p>
-          <div class="scrollable-tiles" id="langsGroup" style="max-height: none;">
-            <label class="tile-option"><input type="checkbox" value="English"><span>English</span></label>
-            <label class="tile-option"><input type="checkbox" value="Hindi"><span>Hindi</span></label>
-            <label class="tile-option"><input type="checkbox" value="Malayalam"><span>Malayalam</span></label>
-            <label class="tile-option"><input type="checkbox" value="Kannada"><span>Kannada</span></label>
-            <label class="tile-option"><input type="checkbox" value="Tamil"><span>Tamil</span></label>
-            <label class="tile-option"><input type="checkbox" value="Telugu"><span>Telugu</span></label>
-            <label class="tile-option"><input type="checkbox" value="Marathi"><span>Marathi</span></label>
-            <label class="tile-option"><input type="checkbox" value="Bengali"><span>Bengali</span></label>
-            <label class="tile-option"><input type="checkbox" value="Gujarati"><span>Gujarati</span></label>
-            <label class="tile-option"><input type="checkbox" value="Odia"><span>Odia</span></label>
-            <label class="tile-option"><input type="checkbox" value="Punjabi"><span>Punjabi</span></label>
+        <!-- STEP 4: SUBMIT & ACKNOWLEDGEMENT -->
+        <div class="form-glass-card">
+          <div class="card-title-bar">Step 4 — Final Confirmation</div>
+
+          <label class="declaration-box">
+            <input type="checkbox" id="feeAck">
+            <span>
+              <strong>Declaration &amp; Acknowledgement:</strong> I confirm all details are accurate and understand that a nominal program fee applies for SETIP 2026.
+            </span>
+          </label>
+
+          <button class="submit-action-btn" id="submitBtn" onclick="submitForm()">
+            <span>🚀 Submit Application &amp; Reserve Seat</span>
+          </button>
+
+          <div class="error-notification" id="errorMsg"></div>
+
+          <div class="security-notice">
+            🔒 SSL Encrypted Submission • Official Admissions Pipeline • Response sent via WhatsApp &amp; Email
           </div>
-          <!-- Honeypot bot protection field -->
-          <input type="text" name="botcheck" style="display:none;" autocomplete="off" />
         </div>
-      </div>
 
-      <!-- STEP 4: SUBMIT & ACKNOWLEDGEMENT -->
-      <div class="form-glass-card">
-        <div class="card-title-bar">Step 4 — Final Confirmation</div>
+      </div><!-- /mainForm -->
 
-        <label class="declaration-box">
-          <input type="checkbox" id="feeAck">
-          <span>
-            <strong>Declaration &amp; Acknowledgement:</strong> I confirm all provided details are true and accurate. I
-            understand that SETIP 2026 includes a nominal program seat fee covering 3-month live mentorship, tools, and
-            MNC placement co-certification.
-          </span>
-        </label>
+      <!-- FOOTER -->
+      <footer class="footer">
+        <p>
+          &copy; 2026 <strong style="color: var(--primary)">Skill Enhancement Training &amp; Internship Program
+            (SETIP)</strong><br>
+          Official Student Helpline: <a href="tel:+919886232004">+91 9886232004</a>
+        </p>
+      </footer>
 
-        <button class="submit-action-btn" id="submitBtn" onclick="submitForm()">
-          <span>🚀 Submit Application &amp; Reserve Seat</span>
-        </button>
+    </div>
+  </section>
 
-        <div class="error-notification" id="errorMsg"></div>
 
-        <div class="security-notice">
-          🔒 SSL Encrypted Submission • Official Admissions Pipeline • Response sent via WhatsApp &amp; Email
-        </div>
-      </div>
-
-    </div><!-- /mainForm -->
-
-    <!-- FOOTER -->
-    <footer class="footer">
-      <p>
-        &copy; 2026 <strong style="color: var(--primary-glow)">Skill Enhancement Training &amp; Internship Program
-          (SETIP)</strong><br>
-        Official Student Helpline: <a href="tel:+919886232004">+91 9886232004</a> &bull; Admissions Office
-      </p>
-    </footer>
-
-  </div>
-
-  <!-- FLOATING HELPLINE BADGE -->
-  <a href="https://chat.whatsapp.com/LbVBfDQZkGq6gKQpu9iCLZ" target="_blank" rel="noopener" class="floating-helpline">
-    <span style="font-size: 15px;">💬</span>
-    <span>Helpline</span>
-  </a>
 
   <!-- JAVASCRIPT LOGIC -->
   <script>
@@ -1640,7 +1530,7 @@
 
       var pieces = [];
       var numberOfPieces = 100;
-      var colors = ['#6366f1', '#8b5cf6', '#06b6d4', '#10b981', '#f59e0b', '#ec4899'];
+      var colors = ['#fa0f00', '#ff4d4d', '#ff8000', '#10b981', '#f59e0b', '#18181b'];
 
       for (var i = 0; i < numberOfPieces; i++) {
         pieces.push({
