@@ -296,7 +296,7 @@ function buildConfirmationHTML({ applicantName, applicationId, phoneNumber, what
   <!-- WhatsApp Group CTA -->
   <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:16px;">
     <tr><td align="center">
-      <a href="https://chat.whatsapp.com/LbVBfDQZkGq6gKQpu9iCLZ" style="display:inline-block;background:#25D366;color:#ffffff;font-size:15px;font-weight:700;padding:14px 32px;border-radius:8px;text-decoration:none;">💬 Join WhatsApp Group</a>
+      <a href="https://chat.whatsapp.com/H6vFDjO4RPa3HBYI3jZS81?s=cl&p=a&mlu=4&ilr=4" style="display:inline-block;background:#25D366;color:#ffffff;font-size:15px;font-weight:700;padding:14px 32px;border-radius:8px;text-decoration:none;">💬 Join WhatsApp Group</a>
       <p style="font-size:12px;color:#94a3b8;margin:8px 0 0;">Connect with your batch & get instant program updates</p>
     </td></tr>
   </table>
